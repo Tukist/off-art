@@ -394,6 +394,9 @@ def build_interviews():
         full = re.search(r"## 全文\s*\n(.*)$", raw, re.S)
         body = md_to_html(full.group(1)) if full else "<p>（全文缺失）</p>"
         point_html = "".join(f'<li title="{escape(p)}">{md_inline(escape(p))}</li>' for p in points) or "<li>（无摘要）</li>"
+        # Lore 模式：中文要点合并为单段摘要（灰色小字 + 截断 + 悬停全文）
+        summary = "。".join(p for p in points).strip() + ("。" if points else "（无摘要）")
+        year = date_s[:4] if date_s else ""
         slug = slugify(path[:-3])
         # 独立详情页
         hero = {"title": f"OFF 访谈 · {title}",
@@ -406,12 +409,11 @@ def build_interviews():
         detail = page(hero, f'<div class="article">{body}</div>',
                       brand_link="../index.html", prefix="../")
         open(os.path.join(DOCS, "interviews", slug + ".html"), "w", encoding="utf-8").write(detail)
-        # 索引卡片（跳详情页）
+        # 索引卡片（Lore 模式：tag + 标题 + 单段摘要）
         cards.append(f'<a class="lcard" href="interviews/{slug}.html"><span class="arrow">→</span>'
+                     f'<span class="tag">{escape(year) if year else "访谈"}</span>'
                      f'<h3>{escape(title)}</h3>'
-                     f'<div class="meta">{escape(date_s)} · '
-                     f'<a href="{escape(src_url)}" target="_blank" rel="noopener">来源</a></div>'
-                     f'<ul>{"".join(point_html)}</ul></a>')
+                     f'<div class="meta" title="{escape(summary)}">{escape(summary)}</div></a>')
     main = f'<section class="group" id="interviews"><div class="cardlist">{"".join(cards)}</div></section>'
     hero = {"title": "OFF 作者访谈 · Interviews",
             "html": f'<header class="sub"><h1>作者访谈 / Interviews</h1>'
