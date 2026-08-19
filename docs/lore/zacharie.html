@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OFF 设定 · Zacharie</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+:root { --ink:#e8e6e1; --bg:#0d0d0f; --dim:#9a978e; --line:#2a2a30; --card:#151519; --accent:#f2f2f2; }
+body { background:var(--bg); color:var(--ink); font-family:'Courier New',monospace; line-height:1.7; }
+a { color:var(--ink); }
+.topbar { position:sticky; top:0; z-index:50; background:rgba(13,13,15,.92); backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--line); }
+.topbar nav { max-width:1200px; margin:0 auto; display:flex; flex-wrap:wrap; gap:4px 22px;
+  padding:14px 20px; align-items:center; font-size:.82rem; letter-spacing:.1em; }
+.topbar nav a { color:var(--dim); text-decoration:none; white-space:nowrap; }
+.topbar nav a:hover { color:var(--ink); }
+.topbar .brand { color:var(--ink); font-weight:bold; letter-spacing:.25em; margin-right:8px; }
+header.hero { padding:72px 20px 48px; text-align:center; border-bottom:1px solid var(--line); }
+header.hero h1 { font-size:2.4rem; letter-spacing:.4em; text-transform:uppercase; }
+header.hero p.tagline { color:var(--dim); margin-top:16px; max-width:640px; margin-left:auto; margin-right:auto; font-size:.95rem; }
+header.sub { padding:48px 20px 28px; text-align:center; border-bottom:1px solid var(--line); }
+header.sub h1 { font-size:1.6rem; letter-spacing:.3em; text-transform:uppercase; }
+header.sub p { color:var(--dim); margin-top:10px; font-size:.9rem; }
+main { max-width:1200px; margin:0 auto; padding:16px 20px 40px; }
+section { scroll-margin-top:64px; }
+.group { margin:52px 0; }
+.group h2 { font-size:1.25rem; letter-spacing:.2em; border-left:4px solid var(--ink); padding-left:12px; }
+.group .count { color:var(--dim); font-size:.8rem; margin-left:10px; letter-spacing:.1em; }
+.group .intro { color:var(--dim); font-size:.9rem; margin:12px 0 20px 16px; max-width:780px; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(190px,1fr)); gap:10px; }
+.card-img { display:block; background:var(--line); overflow:hidden; aspect-ratio:1/1; }
+.card-img img { width:100%; height:100%; object-fit:cover; display:block; filter:grayscale(.18);
+  transition:transform .25s, filter .25s; }
+.card-img:hover img { transform:scale(1.05); filter:grayscale(0); }
+.cardlist { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px; }
+.tag { display:inline-block; border:1px solid var(--dim); color:var(--dim);
+  font-size:.68rem; padding:1px 8px; letter-spacing:.12em; margin-right:8px; }
+.lcard { display:block; background:var(--card); border:1px solid var(--line);
+  text-decoration:none; padding:18px 20px; transition:border-color .2s, transform .2s; }
+.lcard:hover { border-color:var(--ink); transform:translateY(-2px); }
+.lcard h3 { font-size:1rem; letter-spacing:.08em; color:var(--ink); }
+.lcard .meta { color:var(--dim); font-size:.78rem; margin-top:8px; }
+.lcard .arrow { float:right; color:var(--dim); font-size:1.1rem; }
+.lcard ul { margin:10px 0 0 18px; color:var(--dim); font-size:.82rem; }
+.lcard li { margin:3px 0; }
+header.sub p a { color:var(--dim); text-decoration:none; border-bottom:1px dotted var(--dim); }
+header.sub p a:hover { color:var(--ink); }
+.article { max-width:880px; margin:0 auto; padding:36px 20px 70px; }
+.article h1 { font-size:1.35rem; letter-spacing:.15em; margin:30px 0 8px; }
+.article h2 { font-size:1.25rem; letter-spacing:.12em; margin:30px 0 8px; border-left:4px solid var(--ink); padding-left:12px; }
+.article h3 { font-size:1.05rem; margin:20px 0 6px; }
+.article p { margin:12px 0; color:#d2d0c9; }
+.article ul, .article ol { margin:10px 0 10px 26px; color:#d2d0c9; }
+.article table { border-collapse:collapse; margin:14px 0; width:100%; font-size:.85rem; }
+.article th, .article td { border:1px solid var(--line); padding:6px 12px; text-align:left; }
+.article code { background:var(--line); padding:1px 6px; font-size:.85rem; }
+.article pre { background:#0a0a0c; border:1px solid var(--line); padding:14px; overflow-x:auto; font-size:.8rem; margin:12px 0; }
+.article a { color:var(--ink); text-decoration:underline; text-underline-offset:3px; }
+.entry { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:16px; margin-top:8px; }
+.entry a { display:block; border:1px solid var(--line); background:var(--card); padding:28px 24px;
+  text-decoration:none; transition:border-color .2s, transform .2s; }
+.entry a:hover { border-color:var(--ink); transform:translateY(-2px); }
+.entry h2 { font-size:1.15rem; letter-spacing:.2em; }
+.entry p { color:var(--dim); font-size:.85rem; margin-top:10px; }
+.entry .n { font-size:2.2rem; color:var(--dim); letter-spacing:.1em; margin-bottom:8px; }
+footer { border-top:1px solid var(--line); margin-top:80px; padding:36px 20px 60px;
+  text-align:center; color:var(--dim); font-size:.78rem; line-height:2.1; }
+footer code { background:var(--line); padding:1px 6px; }
+#lightbox { position:fixed; inset:0; background:rgba(0,0,0,.93); display:none; align-items:center;
+  justify-content:center; z-index:99; cursor:zoom-out; }
+#lightbox img { max-width:92vw; max-height:86vh; }
+#lightbox .cap { position:fixed; bottom:22px; left:0; right:0; text-align:center; color:var(--dim); font-size:.78rem; }
+@media (max-width:640px){ header.hero h1{ font-size:1.5rem; letter-spacing:.25em; } .grid{ grid-template-columns:repeat(auto-fill,minmax(130px,1fr)); } }
+</style>
+</head>
+<body>
+<div class="topbar"><nav><a class="brand" href="../../index.html">OFF</a><a href="../index.html#g0">官方宣传</a><a href="../index.html#g1">概念图</a><a href="../index.html#g2">角色</a><a href="../index.html#g3">区域</a><a href="../index.html#g4">封面标志</a><a href="../index.html#g5">粉丝档案</a><a href="../index.html#g6">周边收藏</a><a href="../lore.html">设定文本</a><a href="../interviews.html">访谈</a></nav></div>
+<header class="sub"><h1>Zacharie</h1><p><span class="tag">角色</span><a href="../lore.html">← 设定文本</a> · <a href="../index.html">画廊</a></p></header>
+<main>
+<div class="article"><p>Zacharie Mask 1</p>
+<p>Mask 2</p>
+<p>Character information</p>
+<p>Locations Everywhere</p>
+<p>Relationships The Batter (customer) The Player (customer) The Judge (friend) Valérie (unknown) Sugar (unclear) Zacharie is the game&#x27;s item vendor, buying and selling items to and from The Batter. His shop is the only one in the game, and he often shows up in new areas or shortly before difficult fights.</p>
+<p>Contents 1Profile 1.1Appearance 1.2Personality 2Plot 3Relationships 3.1Sugar 3.2The Judge 3.3The Batter 4Trivia 5Gallery 6References</p>
+<p>Profile</p>
+<p>Appearance Zacharie is initially seen wearing a toad mask, which interestingly parallels a book found in the Bismark library that talks about a Masked Man who slays a Toad King. His neck also appears to be somewhat bloated and deformed, also resembling a toad. He is later seen wearing a cat mask as a replacement for The Judge.</p>
+<p>Personality Zacharie is largely amicable and optimistic, as he laughs when you talk to him and seems to enjoy the company of The Batter and of those around him. He has a tendency to frequently break the fourth wall, even more so than The Judge, often directly referring to The Player upon speaking to them. He also refers to The Player in a sign found in Bismark&#x27;s shopping mall. He is fully aware that he resides in a video game and may even be bored of this situation, even remarking during his introduction that the characters are &quot;starting to pile up&quot; and that there should be &quot;less dialogue and more action.&quot; He also plays occasional games with The Batter, such as a race, even though he knows there was no way The Batter could have won.</p>
+<p>He uses a small amount of Spanish prior to Valerie&#x27;s death, referring to The Batter/The Player as &#x27;Amigo&#x27; and occasionally greeting them with &#x27;Buenos dias.&#x27;</p>
+<p>He enjoys his role as the game&#x27;s merchant and takes joy in obtaining The Player&#x27;s credits. This shown when he continues trading with The Player even in difficult events, and near the end of the game. However, he is still shown to be caring towards the other characters, referring to The Judge by name (Pablo) and when showing sorrow over the death of Sugar.</p>
+<p>Plot Zacharie is the official merchant of Off - the only one, in fact. However, his business is not one of the most flourishing ones: only heroes are willing to buy artifacts from mysterious strangers. No one really knows where all the items he offers are coming from, nor how he even got hold of them, but as a video game player, you probably couldn&#x27;t care less about it, could you?</p>
+<ul><li>Zacharie&#x27;s section in the &quot;others 02&quot; image (translated), located in the &quot;Sketches&quot; folder on the official OFF website.</li></ul>
+<p>Zacharie is an item vendor, claiming himself to be &quot;the traditional items merchant that&#x27;s necessary in every video game.&quot; While the game never specifies what his actual role is, he seems to at least know many important people that reside within the world of OFF. It is insinuated that he owns the Bismark theme park, as there is a statue of him on the roller coaster, and an Elsen guarding an office refers to him as &quot;boss&quot;.</p>
+<p>He wears a cat mask to emulate The Judge, who is put out of commission by the death of his brother Valerie. His talking sound also turns into a voiced &quot;Meow&quot; instead of his usual chuckle.</p>
+<p>Relationships</p>
+<p>Sugar Zacharie knows Sugar, who requests that The Batter tell him goodbye upon her defeat. He appears saddened by her death, and there is no chuckle when he is talked to. Interestingly enough, he states that &quot;It&#x27;s probably better that way.&quot; It could be said that he was trying to be optimistic about her death, or that he was trying to keep himself calm- as that is all he says about it. This behavior suggests that they were at least friends.</p>
+<p>The Judge Zacharie seems to know The Judge. He seemingly worries about The Judge&#x27;s well-being and safety. There is also a time where he interacts with The Batter saying that he (Zacharie) is The Judge&#x27;s friend. Zacharie also refers to The Judge by his name, Pablo, rather than The Judge&#x27;s usual title.</p>
+<p>Zacharie may know The Judge since he &quot;houses&quot; Sugar, his might-be friend, at the basement. This may also lead to why he knows everything about The Judge and The Batter/Player&#x27;s interaction.</p>
+<p>The Batter Zacharie and The Batter are often seen interacting since he sells items to The Batter, providing him what he needs, giving him clues and is an excellent friend. While Zacharie normally would speak to the Player, he may also speak to The Batter as The Batter is being controlled. In the park, he can also be seen riding a roller coaster with Zacharie with the exception of Zacharie being a statue.</p>
+<p>Trivia Some fans note that Zacharie&#x27;s name sounds similar to saccharine or zahar, which in many languages (eg. Romanian, Russian) means sugar, seemingly implying a connection between him and the character Sugar. However, Mortis Ghost has stated that the similarity is merely a coincidence. [1] Mortis Ghost has confirmed that Zacharie is a human.[2] It&#x27;s possible that Zacharie may be the Masked Man who slew the Toad King, or perhaps the story was based on or even written by him.</p>
+<p>The French version of the game does, in fact, confirm that Zacharie is the Masked Man who slaughtered the Toad King. The Index of the ripped-up book in the library of Zone 2 has a page named &quot;Le roi crapaud et le marchand&quot; which translates to &quot;The king toad and the merchant&quot;. The significance to this and the connections to the game&#x27;s actual story is not yet known. Zacharie may have connections with Japhet or The Queen, leading to his acquisition or creation of the Bismark theme park. The last line Zacharie says to the player is best understood when translated from Latin, where his final phrase, &quot;Bis vincit, que se vincet in Victoria&quot; translates to &quot;He conquers twice who in the hour of conquest conquers himself.&quot; During the OFF anniversary stream, Mortis Ghost stated that Zacharie would smoke weed, dab, and is either a Capricorn or a Cancer.</p>
+<p>He also mentioned that in an alternate universe, Zacharie and the Batter could be in a romantic relationship, meaning that Zacharie is likely not heterosexual.</p>
+<p>Gallery &quot;Once again, here is the cool Zacharie.&quot; Concept art of Zacharie with wings and a sword. Drawn by Mortis Ghost. From Mortis Ghost&#x27;s DeviantArt Concept art. Concept art. Zacharie revealing a silhouette of his face. Zacharie with wings and a sword. Zacharie sporting an ominous smile. Artwork by Mortis Ghost, depicting Zacharie and The Judge. It was sold as a print at his Tictail store. A painting of Zacharie by Mortis Ghost. From Mortis Ghost&#x27;s Tumblr Zacharie riding a motorcycle, as seen on Mortis Ghost&#x27;s Redbubble. Tattooed Zacharie, by Mortis Ghost.</p>
+<p>References ↑Zacharie, pronounced with a &quot;hh&quot; sound instead of a &quot;ch&quot;, means sugar in greek &gt; It&#x27;s absolutely a random coincidence. But if you ask me, I&#x27;ll say it was part of the plan since the begining. - https://comments.deviantart.com/4/3470838/3089305905#reply ↑semdemsem &gt; Elsens are human, and Sugar too. Enoch and Zacharie also are. Sugar isn&#x27;t based on Heather, but Silent Hill very influenced Off, in other ways. - Mortis Ghost, DeviantArt Characters Playable CharactersThe Batter ● Add-Ons ● The Player GuardiansThe Judge ● Dedan ● Japhet ● Enoch ● Hugo NPCsElsen ● Valérie ● Zacharie Special BossesThe Queen ● Sugar Other Characters Spectres ● Secretaries ● Space Apes</p></div>
+</main>
+
+<footer>
+<p>《OFF》© Mortis Ghost / Unproductive Fun Time · 音乐：Alias Conrad Coldwood · 实体版：Fangamer</p>
+<p>本站仅供个人研究收藏，图片与文字版权归原作者所有，禁止商用与二次发布。</p>
+<p>资料源：<a href="https://offtherpg.com">offtherpg.com</a> · <a href="https://www.fangamer.com/collections/off">Fangamer</a> ·
+<a href="https://mortisghost.tumblr.com">Mortis Ghost</a> · <a href="https://off.fandom.com">OFF Wiki</a></p>
+</footer>
+
+
+</body>
+</html>

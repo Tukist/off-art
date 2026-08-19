@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OFF 访谈 · Text For Interview of Mortis Ghost and Alias Conrad Coldwood</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+:root { --ink:#e8e6e1; --bg:#0d0d0f; --dim:#9a978e; --line:#2a2a30; --card:#151519; --accent:#f2f2f2; }
+body { background:var(--bg); color:var(--ink); font-family:'Courier New',monospace; line-height:1.7; }
+a { color:var(--ink); }
+.topbar { position:sticky; top:0; z-index:50; background:rgba(13,13,15,.92); backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--line); }
+.topbar nav { max-width:1200px; margin:0 auto; display:flex; flex-wrap:wrap; gap:4px 22px;
+  padding:14px 20px; align-items:center; font-size:.82rem; letter-spacing:.1em; }
+.topbar nav a { color:var(--dim); text-decoration:none; white-space:nowrap; }
+.topbar nav a:hover { color:var(--ink); }
+.topbar .brand { color:var(--ink); font-weight:bold; letter-spacing:.25em; margin-right:8px; }
+header.hero { padding:72px 20px 48px; text-align:center; border-bottom:1px solid var(--line); }
+header.hero h1 { font-size:2.4rem; letter-spacing:.4em; text-transform:uppercase; }
+header.hero p.tagline { color:var(--dim); margin-top:16px; max-width:640px; margin-left:auto; margin-right:auto; font-size:.95rem; }
+header.sub { padding:48px 20px 28px; text-align:center; border-bottom:1px solid var(--line); }
+header.sub h1 { font-size:1.6rem; letter-spacing:.3em; text-transform:uppercase; }
+header.sub p { color:var(--dim); margin-top:10px; font-size:.9rem; }
+main { max-width:1200px; margin:0 auto; padding:16px 20px 40px; }
+section { scroll-margin-top:64px; }
+.group { margin:52px 0; }
+.group h2 { font-size:1.25rem; letter-spacing:.2em; border-left:4px solid var(--ink); padding-left:12px; }
+.group .count { color:var(--dim); font-size:.8rem; margin-left:10px; letter-spacing:.1em; }
+.group .intro { color:var(--dim); font-size:.9rem; margin:12px 0 20px 16px; max-width:780px; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(190px,1fr)); gap:10px; }
+.card-img { display:block; background:var(--line); overflow:hidden; aspect-ratio:1/1; }
+.card-img img { width:100%; height:100%; object-fit:cover; display:block; filter:grayscale(.18);
+  transition:transform .25s, filter .25s; }
+.card-img:hover img { transform:scale(1.05); filter:grayscale(0); }
+.cardlist { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px; }
+.tag { display:inline-block; border:1px solid var(--dim); color:var(--dim);
+  font-size:.68rem; padding:1px 8px; letter-spacing:.12em; margin-right:8px; }
+.lcard { display:block; background:var(--card); border:1px solid var(--line);
+  text-decoration:none; padding:18px 20px; transition:border-color .2s, transform .2s; }
+.lcard:hover { border-color:var(--ink); transform:translateY(-2px); }
+.lcard h3 { font-size:1rem; letter-spacing:.08em; color:var(--ink); }
+.lcard .meta { color:var(--dim); font-size:.78rem; margin-top:8px; }
+.lcard .arrow { float:right; color:var(--dim); font-size:1.1rem; }
+.lcard ul { margin:10px 0 0 18px; color:var(--dim); font-size:.82rem; }
+.lcard li { margin:3px 0; }
+header.sub p a { color:var(--dim); text-decoration:none; border-bottom:1px dotted var(--dim); }
+header.sub p a:hover { color:var(--ink); }
+.article { max-width:880px; margin:0 auto; padding:36px 20px 70px; }
+.article h1 { font-size:1.35rem; letter-spacing:.15em; margin:30px 0 8px; }
+.article h2 { font-size:1.25rem; letter-spacing:.12em; margin:30px 0 8px; border-left:4px solid var(--ink); padding-left:12px; }
+.article h3 { font-size:1.05rem; margin:20px 0 6px; }
+.article p { margin:12px 0; color:#d2d0c9; }
+.article ul, .article ol { margin:10px 0 10px 26px; color:#d2d0c9; }
+.article table { border-collapse:collapse; margin:14px 0; width:100%; font-size:.85rem; }
+.article th, .article td { border:1px solid var(--line); padding:6px 12px; text-align:left; }
+.article code { background:var(--line); padding:1px 6px; font-size:.85rem; }
+.article pre { background:#0a0a0c; border:1px solid var(--line); padding:14px; overflow-x:auto; font-size:.8rem; margin:12px 0; }
+.article a { color:var(--ink); text-decoration:underline; text-underline-offset:3px; }
+.entry { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:16px; margin-top:8px; }
+.entry a { display:block; border:1px solid var(--line); background:var(--card); padding:28px 24px;
+  text-decoration:none; transition:border-color .2s, transform .2s; }
+.entry a:hover { border-color:var(--ink); transform:translateY(-2px); }
+.entry h2 { font-size:1.15rem; letter-spacing:.2em; }
+.entry p { color:var(--dim); font-size:.85rem; margin-top:10px; }
+.entry .n { font-size:2.2rem; color:var(--dim); letter-spacing:.1em; margin-bottom:8px; }
+footer { border-top:1px solid var(--line); margin-top:80px; padding:36px 20px 60px;
+  text-align:center; color:var(--dim); font-size:.78rem; line-height:2.1; }
+footer code { background:var(--line); padding:1px 6px; }
+#lightbox { position:fixed; inset:0; background:rgba(0,0,0,.93); display:none; align-items:center;
+  justify-content:center; z-index:99; cursor:zoom-out; }
+#lightbox img { max-width:92vw; max-height:86vh; }
+#lightbox .cap { position:fixed; bottom:22px; left:0; right:0; text-align:center; color:var(--dim); font-size:.78rem; }
+@media (max-width:640px){ header.hero h1{ font-size:1.5rem; letter-spacing:.25em; } .grid{ grid-template-columns:repeat(auto-fill,minmax(130px,1fr)); } }
+</style>
+</head>
+<body>
+<div class="topbar"><nav><a class="brand" href="../../index.html">OFF</a><a href="../index.html#g0">官方宣传</a><a href="../index.html#g1">概念图</a><a href="../index.html#g2">角色</a><a href="../index.html#g3">区域</a><a href="../index.html#g4">封面标志</a><a href="../index.html#g5">粉丝档案</a><a href="../index.html#g6">周边收藏</a><a href="../lore.html">设定文本</a><a href="../interviews.html">访谈</a></nav></div>
+<header class="sub"><h1>Text For Interview of Mortis Ghost and Alias Conrad Coldwood</h1><p>2016-09-10 · <a href="https://brainplaguerewind.tumblr.com/post/150232549905/text-for-interview-of-mortis-ghost-and-alias" target="_blank" rel="noopener">原始来源 ↗</a> · <a href="../interviews.html">← 访谈</a> · <a href="../index.html">画廊</a></p></header>
+<main>
+<div class="article"><h4>Text For Interview of Mortis Ghost and Alias Conrad Coldwood</h4>
+<p>When 2008 amateur RPG OFF was released on the french-speaking web, it met with surpsingly overwhelming reception for a game made with RPGMaker but obviously achieved little popularity due to the rather private nature of its circulation. Five years later, it is possible to catch sight of characters from that game at various cosplay conventions in the US, miles away from its Belgian homeland.</p>
+<p>At the occasion of my article covering the game, I - Iwant - took the initiative to conduct an interview with the guys behind the game: Mortis Ghost and Alias Conrad Coldwood, the artists from the Unproductive Fun Time collab responsible for *OFF*’s creation.</p>
+<p>Do not hesitate to take a look at my article: It contains everything you need to know where to find *OFF* if you still haven’t had the chance to touch it before. Let us not wait any longer; here are the interviews. Have a good read!</p>
+<p>Interview of Mortis Ghost &amp; Alias Conrald Coldwood</p>
+<p><strong>Q: Did you have any prior experience with your respective domains - game design and music production - before starting development on*OFF*?</strong></p>
+<p>M: Yes, I’ve know RPG Maker for a very long time. I discovered the it in some time around 2001 or 2002, when my best friend back then gave me a CD with the software burned on it as a birthday present - which truly was a great present. So, I kind of timidly tried to get involved in french-speaking RPG Maker on-line communities, and I ended up joining a message board called Zanarkland (which is the heir to the esteemed Black Sword forum, which is several centuries old in Internet years), but it did end up dissociating itself from the Making scene so well yeah. Actually, I’ve always been “making games” since I started fiddling with RPG Maker, but those who were made before *OFF* are just lame heroic fantasy stuff with time-travelling dinosaurs.</p>
+<p>C: Well, I’m really embarassed about it, to be honnest: I used to be a singer in a folk-rock group from which I was sent packing. After that case, I started to knock stuff together, mainly “electronic music” - a term that doesn’t mean much today but was synonymous with “synthetic-sounding rhythmic track” back in that time when computers were still coal-powered.</p>
+<p><strong>Q: How did you meet each other? And how did you end up starting a video game project? Was the context in the Making scene favorable, or did it just spring up out of nowhere?</strong></p>
+<p>M: I met ACC a few years before getting started on *OFF*. We were in the same high school class and he quickly became my best friend. We were both video game fans, and I even remember him mentioning that he was developing a game engine as he’s a programmer too. Then, in 2005 or 2006, I wanted to make a game and started creating *OFF* without much thinking. I showed these scraps with stock music from random sources to ACC, and he directly offered me to handle the game’s soundtrack and sound design. I naturally accepted that offer; how could I say “no” to someone both talented and intimidating at the same time?</p>
+<p>C: Yes, we were pursuing art studies in the same school and that’s where we met. I was producing electronic music during that period… Just listen to my <a href="*Crying Girls*" target="_blank" rel="noopener">*Crying Girls*</a> compilation: Some of the tracks on there are from that time, and some actually are like ten years old! Then… We found ourselves in the same studio - more like a building site really - as well and that’s when Mortis started working on *OFF* on his own. I’ve indeed produced the game’s music, and I also contributed a few other things like the balloon game’s code and a bunch of sprites.</p>
+<p><strong>Q: How did you work together? Was there time allocated to brainstorming, or was it more freeform?</strong></p>
+<p>M: Broadly speaking, I was just developing the game and asking ACC when I got stuck. He’s got a programmer’s mind, so he helped me a lot when I came across things that were too complex for me. He also regularly shared interesting ideas, like cultural references or entire lines of dialogue. When it comes to its main work, the soundtrack, I just gave him an outline of what kind of atmosphere I wanted; he’d then proceed to make me have a listen to what he produced, and there were very little occasions on which it wasn’t perfect from the start.</p>
+<p>C: During the whole development process, we were less than 300 feet away from each other. I always had an up-to-date version of the game around to see what was to be done. There was no restriction whatsoever, either on quantity or length. That’s why *Soft Breeze* is SO LONG even though only the ten first seconds are really heard in-game; following that, I focused on way shorter loops. So, basically: I attempted to make scraps that sounded good, copied them on an USB flash drive and went to Mortis so he could review the result. I don’t think he ever rejected anything; the tracks that didn’t make it into the game simply were either forgotten or not even shown to Mortis to begin with.</p>
+<p><strong>Q: Mortis, how did you find inspiration as the game’s writer and artist? Did you have precise ideas of what *OFF* should look like, or did it came bit by bit during development?</strong></p>
+<p>M: At the very beginning, I had absolutely no idea of where I was going. I just wanted to make a game, everything in it without taking assets from somewhere else like it’s often done in RPG Maker projects. So, I went for something simple: Large yellowish cubes, ultra-minimalist aesthetics, black and white characters inspired by my latest scribblings - a cat and a baseball batter. Then, I quickly got new ideas starting from this rather abstract base and started writing a more thorough scenario, and I got an outline of what *OFF* would go on to become. ACC also provided me with various leads pretty early, and we kept on finding new stuff to add up until the very end; but I got the important characters and main concepts pretty quickly.</p>
+<p><strong>Q: ACC, how would you describle the soundtrack you have produced for *OFF*? How did you get to that kind of sounds?</strong></p>
+<p>C: I’ve got a binder for important paperwork, and it’s empty! I’m really not good at sorting things. I know where things are, and a vague idea of what they’re used for. I think I don’t need much more for what I do with them. I’ve been asked several times what genre I would put OFF’s soundtrack into, and I usually reply “soundtrack”. Most of the tracks are pots-pourris, and were composed independantly of each other. One or the other *might* be considered trip-hop and some other techno or IDM, I suppose. I’ll disgress for a bit - I like disgressing - to also mention a fantastic website called <a href="Juneberry78s" target="_blank" rel="noopener">Juneberry78s</a> that features downloadable old pieces of music like Washboard Rhythm Kings’ *Pepper Steak*. I downloaded a bunch of them and put them of my MP3 player. Then, one day, at the station, I came across that one track. And I told to myself it would make a great battle theme! *OFF*’s *Pepper Steak* might have been Blind Blake’s *Hookworm Blues* actually.</p>
+<p><strong>Q: What were the influences on *OFF*’s artistic directions? Are there other video games or films, books, albums, events, etc that have inspired you in the creation of this bizarre universe?</strong></p>
+<p>M: There are thousands of more-or-less direct references in *OFF*, it’s a real catch-all of eclectic influences. I’ve often mentioned them over the Internet, since it’s a recuring question. The most important probably are*Silent Hill 2* - a whole part of Zone 3 is a tribute to the series - which I was playing through during *OFF*’s development and *killer7* which was my favorite game back then an still ranks pretty high in my all-time favorites toplist today, and also helped me be more comfortable with the idea of making something visually stripped-down and off-beat. There’s still a whole bunch of other influences: In video games, I can mention *Final Fantasy VI* and the two first episodes of the *Metal Gear Solid* series; and for the rest I can mention Terry Gilliam’s *Brazil*, Katsuhiro Otomo’s *Akira*, Satoshi Kon’s *Paranoia Agent*, Kazuya Tsurumaki’s *FLCL*, Masaaki Yuasa’s*Mind Game* and obviously *The Wizard of Oz* from which I went as far as to steal the credits song.</p>
+<p>C: Whatever I do, I work using references A LOT. That one guy (I forgot who) once said (something like): “What’s important is not what you copy, but what you do of it.” Since there were no constraints, I was deeply influenced by what I was listening to at the moment: *Second Sight*(Graham Norgate’s choirs), *Silent Hill* (Akira Yamaoka’s spheres and distortions), *Donnie Darko* (Michael Andrews’s piano and vocoder), the “bootleg soundtrack” of *serial experiments lain* (Nakaido Reichi’s drums) as well as other stuff like *Soldier of Fortune* (Chia Chin Lee’s strings) and*Hitman* (Jesper Kyd’s electronic sounds)… I think that’s where most of my influences came from. Then, there also is the base layer, composed of what I’m constantly listening to: Mainly trip-hop (Massive Attack, Portishead, DJ Krush, Sneaker Pimps, Halou) and rock (David Bowie, Radiohead, REM, Bloc Party, Blur -including the great, great *13*) as well as bands like Boards of Canada and The Postal Service. Speaking of the later, there is a huge nod to them in *OFF* when Pablo meows after his brother - I don’t know whether or not the english translators were notified of this.</p>
+<p><strong>Q: Is there a part of the game of which you’re specifically satisfied? It could be a whole Zone, or something smaller like a character design or an audio loop.</strong></p>
+<p>M: It’s a really hard question because I’m generally unsatisfied by a lot of things. There is that part I do like though before the battle against japhet, when you read his story in the library’s book as you ascend to finally meet him as the bird of millenary fire. It’s pretty close to the vision I had in mind before concretizing it, so I probably wouldn’t change it if I had to restart the game from scratch. There’s always stuff to change and improve, though; I personnaly think *OFF* is very clumsy in its realization. Now that I think of it, Japhet’s final design isn’t all that great really.</p>
+<p>C: Thereare two tracks that have a rather good impact in-game: *Dramatic Crescendo* (the BGM on the way to the library’s summit,the part Mortis mentioned) and *Avatar Beat* (the final battle theme). Now that I think of it, the best moment is the silence after Japhet’s death; it’s ironic, but the moment the music is the most impacting is when it when it disappears. If I had to pick one to listen outside of the game, I think *Burned Bodies* is my favorite.</p>
+<p><strong>Q: One of OFF’s universe core component is its self-conscious approach to game progression: The player is brought to question the Batter’s motivation aswell as his own reponsibility and perception. Mortis, what brought you to this experiment? Do you think the potentiel of video games as a medium are under-exploited?</strong></p>
+<p>M: Oh, yeah, clearly, video games clearly are under-exploited in their concepts of player manipulation and one’s action reponsability. I personally really like shooting virtual things, but I also think I’m too rarely reminded of what these actions implies even though it’s not always supposed to be funny. From this perspective, I’m still completely in love with *Metal Gear Solid 2* and *Red Dead Redemption* because - no spoiler ahead - they reallymanage to play with their own mechanics and to integrate them in their narrative; and to hit the player in the face in the process by forcing him to act against his will or to question his actions. It’s brilliant. *killer7*, in a more subtle way, is also signifcantly about black-and-white morality and personal perceptions of what is good and evil. These themes are of great relevance to me, and they definetely can have a huge impact when they’re used that way in video games where the gameplay often relies on “unfriendly” concepts - like shooting people. So, uh, yeah, I really like it and wanted that kind of stuff in my game.</p>
+<p><strong>Q: It’s been five years now since *OFF* was first released, and two since it became a cult hit overseas. When you have a good look at the end product, what do you think of it? Were you able to achieve what you wanted to do? And what do you think of this inbternational success you probably didn’t expect.</strong></p>
+<p>M: Hard to tell. *OFF* does seem to have completed the guidelines I had imagined for it, and made people reactthe way I wished it did… or so I think… Well, I had no idea so many people would play it, and didn’t even dream about it being translated to other languages. I do think the game is unpolished though: The first part of the game as a whole is too blurry and pompous, even tiresome in all its aspects; I really am beffudled that people who play the game get through that part without being disheartened. It probably does get less bad once you get to Zone 2, but there’s still a wholelot of flaws up until the end. In the end, I’m relatively satisfied of a few isolated sequences, and absolutely mesmerized by how people seems to like some other I think of poorly with indsight. Regarding the popularity overseas, I’ve already stated it numerous times: I just still can’t believe it. I received a Batter plushie from mail the other day and, uh, I almost was knocked over by surprise. It’s crazy.</p>
+<p>C: I don’t even know if we *wanted* to do something special. I think Mortis just simply wanted to make a game, without grand plans or great hopes. Then, the english translation was set in motion… Starting there, there was a time were Mortis and I would send links to fan reactions to each other over MSN Messenger - most of the time, we just reacted by saying “people are insane”. Well, we still do that kind of thing, just a bit less. Seriously, we didn’t see it coming. It’s funny to see all the fan works: Cosplays, fan fictions, artworks - ALL the artworks, we know of ALL of them *wink wink nudge nudge*. People are insane.</p>
+<p><strong>Q: Is there an anecdote you’d like to share about the development of*OFF*. It could be explosions-filled awesome, or sad and depressing.</strong></p>
+<p>M: er.. Toward the end of working on the game. I was also finishing my BD studies (BD is short for Bande Dessinee, it’s the name of the genre it’s like comics) in Liege (it’s a city), and i participated in a contest to be published in a flemish magazine by sending a BD scenarised by ACC, but without crediting him anywhere, which was really assholy on my part. I don’t even remember why i did that. The BD was selected and published with only my name on it. So he was pretty angry at me and he was right to be. And While we lived together, we almost didn’t speak together anymore. Yet, he still made all of OFF musics up till the very end and, we are still friend to this day, i’m really very lucky, if he had abandoned the project, OFF wouldn’t be as good as it is (probably)</p>
+<p>C: There are a lot of anecdotes, but I have a hard time remembering them so i’ll just talk about *Silent Hill* instead. Someone uploaded a music comparison of DIE from the first episode of the series and *OFF*’s *Endless Hallway*: It really made me laugh because the segment of the Zone just before meeting Enoch IS a reference to *Silent Hill* and it doesn’t seem like much people noticed it. Here’s a list: The music as mentioned, the hallways that makes up a “SH” pattern, the doors that are locked in most cases and the fact that it’s the only place in the game were battles can be avoided since enemies are visible on the map. Recently, I even realized that it’s also the only Zone where there is a white area before “purification”, similar to the “real” and “alternate” zones of Silebnt Hill. So, I was accused of plagiarism - ok, I wasn’t, I’m just being dishonnest - with that *Endless Hallway* thing, but it seems like nobody heard the melody from *CONSPIRACY* (still from the first *Silent Hill* game) in *Brain Plague* - just listen starting at the 40 seconds mark, when the track reverses!</p>
+<p><strong>Q: Did you get involved in other video game projects after *OFF*? Do you wish to take part in other ones in the future? Aldo, would you wish to become either proessional game designer or game music producer, respectively?</strong></p>
+<p>M: Yeah, I did get involved in various stuff after completing *OFF*. I’ve notably contributed (with ACC) to the spectacular *Dark Soul.ace 2*, a multi-developer project with a lot of great people (like Saturnome) of which I’m very proud. I’ve also realized two rushed projects for on-line events: *Duplo*, a game made in one night only with the help of ACC again as well as eXaHeVa, Bolt, Hyvenos and Sylvanor (the sympathetic psychopath who made *Aëdemphia*); and then *There is A Picture* for the Ludum Dare 23, done with ACC alone in one week-end. These were both very nice experiences each time. Of course, I’d like to make other games, possibly longer and more thorough, but it takes a lot of time and well - we’ll see. I’m not worried about it, it’s bound to happen in the future. I’m concentrating more on my work as a comics artist, of which I’d like to make living someday. It’s not really much of a sucess for the moment, but we’ll jsut see. THE FUTURE IS FILLED WITH HOPE!</p>
+<p>C: I’ve made a few tracks for the soundtrack of a robot-themed point &amp; click called *Prototypical* (the project has been cancelled though). Then, the projects Mortis mentioned… but other than that, nada.</p>
+<p><strong>Q: Oh, yeah! A breaking revelation to the public: The Queen’s “voice” sounds like otherwordly blabbering, but it’s actually a young girl saying “va ranger ta chambre” (“go and tidy up your room”) in reverse. What are you going to do now that you most well-kept secret has been disclosed?</strong></p>
+<p>A: Uh, is it? I didn’t know that’s what she’s saying. I have totally forgotten anything about that detail. Sound design was ACC’s work, and I do remember that a female roommate back then did the Queen’s “voice”. I can’t remember if we asked her to spout out gibberish or if it was an actual sentence, since I just knew ACC edited it enough to make it strange beyond recognition.</p>
+<p>C: Oh yeah, right, that girl’s name is Aureden and I think we did ask her to say something “an angry mother would say”. Since the game’s “voices” had to be unintelligible, I reversed it.</p>
+<p><strong>Q: One last word for *OFF*’s fans?</strong></p>
+<p>M: “Eugenics.”</p>
+<p>C: “You are insane.”</p></div>
+</main>
+
+<footer>
+<p>《OFF》© Mortis Ghost / Unproductive Fun Time · 音乐：Alias Conrad Coldwood · 实体版：Fangamer</p>
+<p>本站仅供个人研究收藏，图片与文字版权归原作者所有，禁止商用与二次发布。</p>
+<p>资料源：<a href="https://offtherpg.com">offtherpg.com</a> · <a href="https://www.fangamer.com/collections/off">Fangamer</a> ·
+<a href="https://mortisghost.tumblr.com">Mortis Ghost</a> · <a href="https://off.fandom.com">OFF Wiki</a></p>
+</footer>
+
+
+</body>
+</html>

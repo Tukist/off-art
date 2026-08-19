@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OFF 设定 · Zone 2</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+:root { --ink:#e8e6e1; --bg:#0d0d0f; --dim:#9a978e; --line:#2a2a30; --card:#151519; --accent:#f2f2f2; }
+body { background:var(--bg); color:var(--ink); font-family:'Courier New',monospace; line-height:1.7; }
+a { color:var(--ink); }
+.topbar { position:sticky; top:0; z-index:50; background:rgba(13,13,15,.92); backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--line); }
+.topbar nav { max-width:1200px; margin:0 auto; display:flex; flex-wrap:wrap; gap:4px 22px;
+  padding:14px 20px; align-items:center; font-size:.82rem; letter-spacing:.1em; }
+.topbar nav a { color:var(--dim); text-decoration:none; white-space:nowrap; }
+.topbar nav a:hover { color:var(--ink); }
+.topbar .brand { color:var(--ink); font-weight:bold; letter-spacing:.25em; margin-right:8px; }
+header.hero { padding:72px 20px 48px; text-align:center; border-bottom:1px solid var(--line); }
+header.hero h1 { font-size:2.4rem; letter-spacing:.4em; text-transform:uppercase; }
+header.hero p.tagline { color:var(--dim); margin-top:16px; max-width:640px; margin-left:auto; margin-right:auto; font-size:.95rem; }
+header.sub { padding:48px 20px 28px; text-align:center; border-bottom:1px solid var(--line); }
+header.sub h1 { font-size:1.6rem; letter-spacing:.3em; text-transform:uppercase; }
+header.sub p { color:var(--dim); margin-top:10px; font-size:.9rem; }
+main { max-width:1200px; margin:0 auto; padding:16px 20px 40px; }
+section { scroll-margin-top:64px; }
+.group { margin:52px 0; }
+.group h2 { font-size:1.25rem; letter-spacing:.2em; border-left:4px solid var(--ink); padding-left:12px; }
+.group .count { color:var(--dim); font-size:.8rem; margin-left:10px; letter-spacing:.1em; }
+.group .intro { color:var(--dim); font-size:.9rem; margin:12px 0 20px 16px; max-width:780px; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(190px,1fr)); gap:10px; }
+.card-img { display:block; background:var(--line); overflow:hidden; aspect-ratio:1/1; }
+.card-img img { width:100%; height:100%; object-fit:cover; display:block; filter:grayscale(.18);
+  transition:transform .25s, filter .25s; }
+.card-img:hover img { transform:scale(1.05); filter:grayscale(0); }
+.cardlist { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px; }
+.tag { display:inline-block; border:1px solid var(--dim); color:var(--dim);
+  font-size:.68rem; padding:1px 8px; letter-spacing:.12em; margin-right:8px; }
+.lcard { display:block; background:var(--card); border:1px solid var(--line);
+  text-decoration:none; padding:18px 20px; transition:border-color .2s, transform .2s; }
+.lcard:hover { border-color:var(--ink); transform:translateY(-2px); }
+.lcard h3 { font-size:1rem; letter-spacing:.08em; color:var(--ink); }
+.lcard .meta { color:var(--dim); font-size:.78rem; margin-top:8px; }
+.lcard .arrow { float:right; color:var(--dim); font-size:1.1rem; }
+.lcard ul { margin:10px 0 0 18px; color:var(--dim); font-size:.82rem; }
+.lcard li { margin:3px 0; }
+header.sub p a { color:var(--dim); text-decoration:none; border-bottom:1px dotted var(--dim); }
+header.sub p a:hover { color:var(--ink); }
+.article { max-width:880px; margin:0 auto; padding:36px 20px 70px; }
+.article h1 { font-size:1.35rem; letter-spacing:.15em; margin:30px 0 8px; }
+.article h2 { font-size:1.25rem; letter-spacing:.12em; margin:30px 0 8px; border-left:4px solid var(--ink); padding-left:12px; }
+.article h3 { font-size:1.05rem; margin:20px 0 6px; }
+.article p { margin:12px 0; color:#d2d0c9; }
+.article ul, .article ol { margin:10px 0 10px 26px; color:#d2d0c9; }
+.article table { border-collapse:collapse; margin:14px 0; width:100%; font-size:.85rem; }
+.article th, .article td { border:1px solid var(--line); padding:6px 12px; text-align:left; }
+.article code { background:var(--line); padding:1px 6px; font-size:.85rem; }
+.article pre { background:#0a0a0c; border:1px solid var(--line); padding:14px; overflow-x:auto; font-size:.8rem; margin:12px 0; }
+.article a { color:var(--ink); text-decoration:underline; text-underline-offset:3px; }
+.entry { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:16px; margin-top:8px; }
+.entry a { display:block; border:1px solid var(--line); background:var(--card); padding:28px 24px;
+  text-decoration:none; transition:border-color .2s, transform .2s; }
+.entry a:hover { border-color:var(--ink); transform:translateY(-2px); }
+.entry h2 { font-size:1.15rem; letter-spacing:.2em; }
+.entry p { color:var(--dim); font-size:.85rem; margin-top:10px; }
+.entry .n { font-size:2.2rem; color:var(--dim); letter-spacing:.1em; margin-bottom:8px; }
+footer { border-top:1px solid var(--line); margin-top:80px; padding:36px 20px 60px;
+  text-align:center; color:var(--dim); font-size:.78rem; line-height:2.1; }
+footer code { background:var(--line); padding:1px 6px; }
+#lightbox { position:fixed; inset:0; background:rgba(0,0,0,.93); display:none; align-items:center;
+  justify-content:center; z-index:99; cursor:zoom-out; }
+#lightbox img { max-width:92vw; max-height:86vh; }
+#lightbox .cap { position:fixed; bottom:22px; left:0; right:0; text-align:center; color:var(--dim); font-size:.78rem; }
+@media (max-width:640px){ header.hero h1{ font-size:1.5rem; letter-spacing:.25em; } .grid{ grid-template-columns:repeat(auto-fill,minmax(130px,1fr)); } }
+</style>
+</head>
+<body>
+<div class="topbar"><nav><a class="brand" href="../../index.html">OFF</a><a href="../index.html#g0">官方宣传</a><a href="../index.html#g1">概念图</a><a href="../index.html#g2">角色</a><a href="../index.html#g3">区域</a><a href="../index.html#g4">封面标志</a><a href="../index.html#g5">粉丝档案</a><a href="../index.html#g6">周边收藏</a><a href="../lore.html">设定文本</a><a href="../interviews.html">访谈</a></nav></div>
+<header class="sub"><h1>Zone 2</h1><p><span class="tag">区域</span><a href="../lore.html">← 设定文本</a> · <a href="../index.html">画廊</a></p></header>
+<main>
+<div class="article"><p>Zone 2</p>
+<p>Information</p>
+<p>a.k.a. Bismark</p>
+<p>Sublocations Grand Library Gomez Galleries Park Residential District</p>
+<p>Music Pepper Steak (original) Desperately Safe (original) The Walls are Listening (original) Windows Licking (original) A Stab of Happiness (original) Unreasonable Behavior (original) Minuit à Fond la Caisse (original) Not Safe (original) Still Phantoms (remaster) The Walls Judging in Silence (remaster) Window Shopping (remaster) A Glimmer of Fun (remaster) Paranoia Shelter (remaster) Don&#x27;t Be Too Loud (remaster) Phoenix (remaster) After Swings, More Runs (remaster) Chaos is Life (remaster) Zone 2, also known as Bismark, is a group of areas ruled by Japhet, the Guardian of that Zone. It consists of a library, a shopping mall, an amusement park, and a residential location. The Elsen in this zone all seem to be afflicted with great paranoia and place heavy importance on safety, even while possessing a large lack of self-awareness as well as understanding of what&#x27;s happening around them.</p>
+<p>While going through this Zone, The Batter and The Player learn more about the nature of the world of OFF by looking at the materials in the massive library. Through this, they both learn that a significant section of the Zone is apparently owned and/or administrated by Zacharie. In the end, the purification mission leads to a conflict between Japhet and The Batter.</p>
+<p>Contents 1Areas 1.1Library 1.2Shopping Center 1.3Amusement Park 1.4Residential Area 2Purification 3Trivia 4Gallery</p>
+<p>Areas</p>
+<p>Library See also: Books Entrance to the library In the Library, which The Batter will ultimately have to ascend in order to get to Japhet, as it is his greatest achievement, the Elsen have blocked off the fourth floor and beyond due to others tearing pages out of the books. There are also false shelves in the library, presumably for book safety reasons. However, there are real books that can be read on the second floor.</p>
+<p>An Elsen on the first floor will grant access to the fourth floor to The Batter if he retrieves and fills in all of the missing pages. On the third floor, there are four books in need of pages, each with a different card symbol. The books of Spades, Clubs, and Diamonds can all be repaired without leaving the room. However, the book of Heart&#x27;s missing page isn&#x27;t in the library and must be purchased from an Elsen in the area leading to the amusement park for 100 credits. After all the books are repaired, the Player would then be able to read about the Guardians and the lore of OFF, although each book appears to have the exact same story on their pages. It is also in this library where The Batter acquires Omega.</p>
+<p>Shopping Center At the shopping center In the Shopping Mall, Zacharie can be immediately spotted on the first floor. The area itself consists primarily of a maze-like area that will need to be traversed.</p>
+<p>Inside the maze, several chests can be found, containing Fortune Tickets and Belials&#x27; meat. There is also a midway checkpoint in the maze, containing a single save point. In another room in the maze, there is a lost Elsen. The exit of the maze is near the inaccessible hallway where Japhet can be seen pacing back and forth.</p>
+<p>Once through the exit, the Judge will be viewing an advertisement for presumably cat food. He will question the Batter about seeing his brother, Valerie, around and about, and tells him to give Valerie his greetings if they cross paths. At the end of the maze, a pedalo access point can be found, which is necessary to reach the amusement park.</p>
+<p>Amusement Park Entrance to the roller coaster Amusement Park, due to the Elsen&#x27;s strict value of safety, consists mainly of low risk attractions, such as a set of chairs to sit in, which are supposed to emulate a roller coaster, which still manages to stir up the Elsen.</p>
+<p>In the Balloon Popping mini-game, The Batter and an Elsen manning the stand take turns popping one, two, or three balloons. The one who is stuck with the last balloon loses. If The Batter wins, the Elsen accuses The Batter of cheating and becomes a Valzong-burnt. Upon defeating  it, The Batter will get a necktie, which allows progressing further in the Residential Area. After completing the mini-game, the Elsen in the entrance will panic, mistaking the Valzong-burnt as specters invading the park.</p>
+<p>In the pedalo ride, there are barely visible motors in the water that The Batter will have to maneuver around in order to gain the items in the balloons scattered about, as well as to reach the switch to activate the roller-coaster.</p>
+<p>Due to safety concerns, the roller-coaster was shut down and replaced with a row of chairs. Once the Batter reaches and activates the switch in the pedalo ride, it becomes available for riding, with The Batter adamantly insisting on riding in the front seat. The Batter can have a photo taken of himself and push a statue of Zacharie into the front row on the ride to obtain a Photo with Zacharie. Since he seems to be the owner of the amusement park, this will allow the Batter access to his office, where he can gain various Orbs. The photos themselves can also be sold to Zacharie later on, with the photo taken with the statue worth much more than the one of just The Batter riding.</p>
+<p>Residential Area The Residential Area is blocked off to non-residents due to safety concerns, but The Batter can wear the necktie obtained in the Balloon Popping game to fool the Elsen into thinking he&#x27;s a resident.</p>
+<p>Upon entering the Residential Area, Japhet will attack the residents with specters that The Batter will have to defeat within 4 minutes. If The Batter also purifies the three Burnt that dwell in the city, the Player will receive a Sunday. He is promptly told to leave and relinquish the necktie upon completing this task, giving only this brief opportunity to gather the access codes into the bunkers and acquire any items within.</p>
+<p>In order to get one of these codes, The Batter must speak with an Elsen in the southwest part of the map. The Elsen will then tell The Batter:</p>
+<p>&quot;Please... Help me find the bunker...&quot; &quot;You know, the one with 1805 as the access code...&quot; This is the access code to the northeast bunker, inside is several storage supplies and a chest containing Golden Flesh.</p>
+<p>The next access code can be given to the Player by speaking with the Elsen inside the building up the stairs where Japhet was standing. There are four different things The Batter can ask this particular Elsen.</p>
+<p>&quot;No... No... Leave me alone...&quot; &quot;I&#x27;ll tell you everything...&quot; &quot;The code of the northeast bunker&quot; &quot;I... I don&#x27;t know... I&#x27;m not in charge of that particular bunker... Too much responsibility is too stressful...&quot; &quot;The code of the southwest bunker&quot; &quot;Yes... Yes, I&#x27;ll give it to you right away, it&#x27;s... 1402...&quot; &quot;The code of the southeast bunker&quot; &quot;N... No... Uh... I don&#x27;t know...&quot; &quot;Will there be an Off sequel?&quot; &quot;W... What? What are you talking about?&quot; Inside the southwest bunker, the Player will find regular barrels and chairs, an Elsen, and a chest. As soon as The Batter enters, the Elsen will panic and say:</p>
+<p>&quot;Aaargh! They found me! I&#x27;ve been found!&quot; The Elsen will then sprint backward into the corner, blocking the chest. Speaking to him again will initiate combat.</p>
+<p>&quot;No, no... Go away, Masque of the Red Death...&quot; This Elsen is one of the Burnt in the Residential Area, therefore killing him will get the Player one third of the way closer to receiving a Sunday. A Michael Bat will be found inside the chest.</p>
+<p>Another Burnt can be found inside a house in the west side of the map. He will be poorly hiding behind some crates, speaking to him will initiate combat.</p>
+<p>&quot;No! No! I have done nothing, by pity!&quot; The code to the last bunker cannot be found until after Zone 2 has been purified. It will be written on the wall next to where this Elsen once hid his stash.</p>
+<p>The third Burnt will be panicking along with the other Elsen just a bit north of the house. Speaking to him, like the others, will initiate combat.</p>
+<p>&quot;Th... This is too much agitation for my brain...&quot; &quot;I think it might... KABLOOOOSH&quot;</p>
+<p>Purification Zone 2 becomes purified when Japhet is killed by The Batter. Upon returning to the Zone, the player discovers that it has become devoid of color and empty, with almost no life except for Secretaries, The Judge, a lone Elsen, and Maldicion remaining.</p>
+<p>The Judge can be found at the top of the library, meowing loudly and sadly in attempt to find his dead brother Valerie.</p>
+<p>&quot;What are you doing?&quot; &quot;I am meowing at my lung&#x27;s fullest. I would even argue that the echo that reverberates back to me is the voice of someone I know...&quot; &quot;Have you seen my dear brother?&quot; The Elsen can be found hiding a safe-house in the Residential Area.</p>
+<p>&quot;The ghosts are gone...&quot; &quot;The color is gone... Everything&#x27;s gone... I&#x27;m now forever safe...&quot; The layout of the Zone also changes a bit, usually falling apart or becoming unstable and cutting off many areas. Signs and posters also become unreadable. After Purification, the Player can also acquire the Grand Diagonal and a Thursday, which is hidden in the same bunker as the lone Elsen.</p>
+<p>Trivia In the English translation, the Library of Zone 2 that has a random bookcase containing a faded carving that reads, &quot;Th... ...rving w... in memori... of Re...ra... Isia... who d...d of ennui repr...cing ... fake b...ks.&quot; In version 3.0 of the English translation, if the player returns to the roof of the Library after purifying Zone 2, The Judge will tell The Batter, &quot;I am meowing at the top of my lungs, pretending the echos belong to someone, someone I used to know...&quot;; This line is borrowed from &quot;We Will Become Silhouettes&quot; by The Postal Service, though &quot;meowing&quot; is &quot;screaming&quot; in the original song. The untitled book that reads, &quot;I have run out of oxygen&quot; may hint that there was once another human in the world of OFF that died by asphyxiation. Once you receive the Necktie, it is possible to sell it to Zacharie in the Shopping Mall for 40 credits. However, this prevents access to the Residential Area, and therefore the rest of the game is inaccessible.</p>
+<p>Gallery The Library&#x27;s lobby. &quot;Bismark&quot; &quot;Explanations&quot; &quot;Tales and Legends&quot; &quot;The Cardinal Points&quot; &quot;The Up-Children-Down&quot; An untitled book. Another untitled book. &quot;Written by E.S.&quot; Meeting Valerie, or Japhet, for the first time. The entrance to the Shopping Mall. The maze entrance. A lost Elsen found in a room in the maze. The exit of the shopping wall maze. The Entrance to the Amusement Park. The balloon game. Elsen panicking after the Player wins the balloon game. The entrance to the boat ride. The boat ride. The lever that allows access to the Roller Coaster. The Batter riding the Roller Coaster. A photo of The Batter riding the Roller Coaster alone. A photo of The Batter riding the Roller Coaster with the statue of Zacharie. Zacharie&#x27;s office. Japhet summoning ghosts to attack the Elsen. The entrance of the Residential Area, where The Batter must clear the town of specters. The codes for the three bunkers in the Residential Area. After the Residential Area has been purified of specters. The room where the Grand Diagonal is found. The last survivor of Zone 2. The Judge calling out for his deceased brother. The now inaccessible Amusement Park. The missing Residential entrance. Locations ZonesZone 0 ● Zone 1 ● Zone 2 ● Zone 3 Other The Room ●  The Nothingness ● Purified Zones</p></div>
+</main>
+
+<footer>
+<p>《OFF》© Mortis Ghost / Unproductive Fun Time · 音乐：Alias Conrad Coldwood · 实体版：Fangamer</p>
+<p>本站仅供个人研究收藏，图片与文字版权归原作者所有，禁止商用与二次发布。</p>
+<p>资料源：<a href="https://offtherpg.com">offtherpg.com</a> · <a href="https://www.fangamer.com/collections/off">Fangamer</a> ·
+<a href="https://mortisghost.tumblr.com">Mortis Ghost</a> · <a href="https://off.fandom.com">OFF Wiki</a></p>
+</footer>
+
+
+</body>
+</html>

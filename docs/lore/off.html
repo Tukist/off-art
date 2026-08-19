@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OFF 设定 · OFF</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+:root { --ink:#e8e6e1; --bg:#0d0d0f; --dim:#9a978e; --line:#2a2a30; --card:#151519; --accent:#f2f2f2; }
+body { background:var(--bg); color:var(--ink); font-family:'Courier New',monospace; line-height:1.7; }
+a { color:var(--ink); }
+.topbar { position:sticky; top:0; z-index:50; background:rgba(13,13,15,.92); backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--line); }
+.topbar nav { max-width:1200px; margin:0 auto; display:flex; flex-wrap:wrap; gap:4px 22px;
+  padding:14px 20px; align-items:center; font-size:.82rem; letter-spacing:.1em; }
+.topbar nav a { color:var(--dim); text-decoration:none; white-space:nowrap; }
+.topbar nav a:hover { color:var(--ink); }
+.topbar .brand { color:var(--ink); font-weight:bold; letter-spacing:.25em; margin-right:8px; }
+header.hero { padding:72px 20px 48px; text-align:center; border-bottom:1px solid var(--line); }
+header.hero h1 { font-size:2.4rem; letter-spacing:.4em; text-transform:uppercase; }
+header.hero p.tagline { color:var(--dim); margin-top:16px; max-width:640px; margin-left:auto; margin-right:auto; font-size:.95rem; }
+header.sub { padding:48px 20px 28px; text-align:center; border-bottom:1px solid var(--line); }
+header.sub h1 { font-size:1.6rem; letter-spacing:.3em; text-transform:uppercase; }
+header.sub p { color:var(--dim); margin-top:10px; font-size:.9rem; }
+main { max-width:1200px; margin:0 auto; padding:16px 20px 40px; }
+section { scroll-margin-top:64px; }
+.group { margin:52px 0; }
+.group h2 { font-size:1.25rem; letter-spacing:.2em; border-left:4px solid var(--ink); padding-left:12px; }
+.group .count { color:var(--dim); font-size:.8rem; margin-left:10px; letter-spacing:.1em; }
+.group .intro { color:var(--dim); font-size:.9rem; margin:12px 0 20px 16px; max-width:780px; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(190px,1fr)); gap:10px; }
+.card-img { display:block; background:var(--line); overflow:hidden; aspect-ratio:1/1; }
+.card-img img { width:100%; height:100%; object-fit:cover; display:block; filter:grayscale(.18);
+  transition:transform .25s, filter .25s; }
+.card-img:hover img { transform:scale(1.05); filter:grayscale(0); }
+.cardlist { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px; }
+.tag { display:inline-block; border:1px solid var(--dim); color:var(--dim);
+  font-size:.68rem; padding:1px 8px; letter-spacing:.12em; margin-right:8px; }
+.lcard { display:block; background:var(--card); border:1px solid var(--line);
+  text-decoration:none; padding:18px 20px; transition:border-color .2s, transform .2s; }
+.lcard:hover { border-color:var(--ink); transform:translateY(-2px); }
+.lcard h3 { font-size:1rem; letter-spacing:.08em; color:var(--ink); }
+.lcard .meta { color:var(--dim); font-size:.78rem; margin-top:8px; }
+.lcard .arrow { float:right; color:var(--dim); font-size:1.1rem; }
+.lcard ul { margin:10px 0 0 18px; color:var(--dim); font-size:.82rem; }
+.lcard li { margin:3px 0; }
+header.sub p a { color:var(--dim); text-decoration:none; border-bottom:1px dotted var(--dim); }
+header.sub p a:hover { color:var(--ink); }
+.article { max-width:880px; margin:0 auto; padding:36px 20px 70px; }
+.article h1 { font-size:1.35rem; letter-spacing:.15em; margin:30px 0 8px; }
+.article h2 { font-size:1.25rem; letter-spacing:.12em; margin:30px 0 8px; border-left:4px solid var(--ink); padding-left:12px; }
+.article h3 { font-size:1.05rem; margin:20px 0 6px; }
+.article p { margin:12px 0; color:#d2d0c9; }
+.article ul, .article ol { margin:10px 0 10px 26px; color:#d2d0c9; }
+.article table { border-collapse:collapse; margin:14px 0; width:100%; font-size:.85rem; }
+.article th, .article td { border:1px solid var(--line); padding:6px 12px; text-align:left; }
+.article code { background:var(--line); padding:1px 6px; font-size:.85rem; }
+.article pre { background:#0a0a0c; border:1px solid var(--line); padding:14px; overflow-x:auto; font-size:.8rem; margin:12px 0; }
+.article a { color:var(--ink); text-decoration:underline; text-underline-offset:3px; }
+.entry { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:16px; margin-top:8px; }
+.entry a { display:block; border:1px solid var(--line); background:var(--card); padding:28px 24px;
+  text-decoration:none; transition:border-color .2s, transform .2s; }
+.entry a:hover { border-color:var(--ink); transform:translateY(-2px); }
+.entry h2 { font-size:1.15rem; letter-spacing:.2em; }
+.entry p { color:var(--dim); font-size:.85rem; margin-top:10px; }
+.entry .n { font-size:2.2rem; color:var(--dim); letter-spacing:.1em; margin-bottom:8px; }
+footer { border-top:1px solid var(--line); margin-top:80px; padding:36px 20px 60px;
+  text-align:center; color:var(--dim); font-size:.78rem; line-height:2.1; }
+footer code { background:var(--line); padding:1px 6px; }
+#lightbox { position:fixed; inset:0; background:rgba(0,0,0,.93); display:none; align-items:center;
+  justify-content:center; z-index:99; cursor:zoom-out; }
+#lightbox img { max-width:92vw; max-height:86vh; }
+#lightbox .cap { position:fixed; bottom:22px; left:0; right:0; text-align:center; color:var(--dim); font-size:.78rem; }
+@media (max-width:640px){ header.hero h1{ font-size:1.5rem; letter-spacing:.25em; } .grid{ grid-template-columns:repeat(auto-fill,minmax(130px,1fr)); } }
+</style>
+</head>
+<body>
+<div class="topbar"><nav><a class="brand" href="../../index.html">OFF</a><a href="../index.html#g0">官方宣传</a><a href="../index.html#g1">概念图</a><a href="../index.html#g2">角色</a><a href="../index.html#g3">区域</a><a href="../index.html#g4">封面标志</a><a href="../index.html#g5">粉丝档案</a><a href="../index.html#g6">周边收藏</a><a href="../lore.html">设定文本</a><a href="../interviews.html">访谈</a></nav></div>
+<header class="sub"><h1>OFF</h1><p><span class="tag">世界观</span><a href="../lore.html">← 设定文本</a> · <a href="../index.html">画廊</a></p></header>
+<main>
+<div class="article"><p>OFF OFF (2025) Logo</p>
+<p>Game Information</p>
+<p>Developer Mortis Ghost, Fangamer (Remaster)</p>
+<p>Release Date 14 May 2008, 15 August 2025 (Remaster)</p>
+<p>Engine RPG Maker 2003 (Original) Unity (Remaster)</p>
+<p>Platform(s) Microsoft Windows, Mac OS X, Nintendo Switch</p>
+<p>Genre RPG, Psychological Horror</p>
+<p>Official Website offtherpg.com Off (stylized as OFF) is a 2008 role-playing video game developed and published by Belgian team Unproductive Fun Time, consisting of Martin Georis (&quot;Mortis Ghost&quot;) and Alias Conrad Coldwood. It has garnered a cult following for its story, characters and atmosphere, particularly after its officially sanctioned fan translation into English in 2011. It is about an enigmatic humanoid entity known as the Batter, who is described as being on a &quot;sacred mission&quot; to &quot;purify&quot; the world of Off. The Batter travels through four bizarre Zones in the world, revealing more about the world as the game goes on.</p>
+<p>A remaster with new content developed by Fangamer for Windows and Nintendo Switch released on 15 August, 2025. The remaster also features a completely different soundtrack created by Toby Fox, Nightmargin, Morusque, Camellia, bansheebeat and James Roach, because Alias Conrad Coldwood was hesitant about licensing his music for the commercial remaster (likely to avoid videos being mistakenly taken down).</p>
+<p>Contents 1Plot Synopsis 1.1Zone 0 1.2Zone 1 1.3Zone 2 1.4Zone 3 1.5The Room 2Development and Reception 3Changes in the remake 4Gallery 5Promotional Material 6References</p>
+<p>Plot Synopsis The player (who is referred to directly) assumes control of the Batter, a man in a baseball uniform on a &quot;sacred mission&quot; to &quot;purify the world&quot;.</p>
+<p>Zone 0 Main article: Zone 0 Here, you meet the Judge who helps you learn the basics of the game.</p>
+<p>Zone 1 Main article: Zone 1 You then proceed to Zone 1, where you ride the train to the smokemines. Here, you find Alpha, your first Add-On, who acompanies you on your mission and fights alongside the Batter during the purification of spectres. Going through the mines, you end up at the farmsteads and later the office building where you encounter Dedan, whom the Batter recognizes as hostile, despite being told otherwise. You go to Alma, where Dedan&#x27;s main office is located, to purify him.</p>
+<p>Zone 2 Main article: Zone 2 Moving on to Zone 2, you explore the library and encounter Japhet. He manages to escape before the Batter finishes purifying him, so you visit the shopping mall, amusement park, and residential area (in that order) before moving on to the roof of the library. On the roof, you finally purify Japhet.</p>
+<p>Zone 3 Main article: Zone 3 Proceeding to Zone 3, you make your way around a factory. Contrary to the behavior the Elsen have shown in previous zones, they do not deem the spectres a threat. You discover the highly addictive sugar, how it is made, and its significance to the workers. You face Enoch, the director of the factory and boss of Zone 3. However, as Enoch predicted, the battle is lost, and you are forced to retreat. You face him again shortly after, this time defeating him.</p>
+<p>The Room Main article: The Room After defeating Enoch, you gain access to the Room, which differs greatly from the environments you have discovered so far. It is a dark, shadowy and dream-like realm, in which you do not encounter enemies, with the exception of the Queen, the game&#x27;s final boss. During your time in the Room, you solve various puzzles, encounter a little arcade sequence and revisit the three Zone&#x27;s bosses, who appear friendly and cannot be attacked.</p>
+<p>After defeating the Queen, you find a chamber containing nothing besides a switch. As you approach it, you are stopped by the Judge and presented with a choice: Fight alongside the Judge and abandon the Batter, or side with the Batter and turn against the Judge. Choosing the Batter and successfully defeating the Judge will allow you to flip the switch, which produces the message &quot;The switch is now on OFF&quot;, followed by the game ending. Choosing the Judge and defeating the Batter will result in an alternative ending, showing the Judge walking through various of the now purified zones.</p>
+<p>Development and Reception To celebrate the 15th anniversary of Off, a stream was held where the game&#x27;s creator, Mortis Ghost, shared insights into its development. He revealed that Off was born out of his own drawings and ideas. He and a few friends used RPG Maker 2003 to bring the game to life while living together in a flat. He candidly discussed the challenges they faced, particularly the limitations of the RPG Maker engine. Despite these hurdles, Mortis Ghost successfully released a demo, which garnered enthusiastic support from players. This encouraged him to release the full game in 2008. Reflecting on his creation, he expressed satisfaction with &#x27;Off&#x27; but also acknowledged areas for improvement. He mentioned that the game&#x27;s difficulty might be &quot;too easy&quot; and that he would adjust it if given the chance to revisit the project.</p>
+<p>Following the release of an English fan-translation on September 8, 2011, &#x27;Off&#x27; exploded in popularity on Tumblr a few years later in 2013. It became the sixth most reblogged game that year. After Undertale&#x27;s release in 2015 it led to to comparisons with other games in the &#x27;Mother-like&#x27; sub-genre. While these comparisons are common, Georis cited &#x27;Killer 7,&#x27; &#x27;Final Fantasy,&#x27; and &#x27;Myst&#x27; as his primary inspirations. He discovered the &#x27;Mother&#x27; games years later and acknowledged that their influence on &#x27;Off&#x27; would likely have been significant had he played them earlier. He believes that &#x27;Off&#x27; might have been less dark if he had been exposed to the &#x27;Mother&#x27; series during its development. Today, he considers &#x27;Mother 3&#x27; his favorite game.[1] Off has been praised for its story, characters, and atmosphere. Heidi Kemps of PC Gamer described it as &quot;a memorable and haunting RPG, filled with tricky puzzles, bizarre symbolism, and challenging thematic elements.&quot; Adam Smith of Rock, Paper, Shotgun compared it to other surrealist RPG Space Funeral. A large fanbase for the game developed on Tumblr; Off became the sixth most reblogged game of 2013, with the first five being AAA games.</p>
+<p>From November 16th to 26th, 2024, Mortis Ghost teased an upcoming OFF project. These teasers not only led to a partnership with Fangamer for merchandise but also culminated in a scheduled stream on December 19th. During this stream, it was announced that OFF would receive official remasters for Steam and Nintendo Switch set to release in 2025. The remake released in August 15, 2025, along with newsletters. Peculiarly enough, they had semi-monthly interviews and retrospectives about OFF with Toby Fox, Morusque, Quinn K. and Nightmargin.</p>
+<p>Changes in the remake For info on OFF&#x27;s soundtrack, see its respective page.</p>
+<p>The game&#x27;s English translation is based on Quinn K. (Reconstructed Dragon)&#x27;s fanmade translation posted on starmen.net. Noticeable changes include:</p>
+<p>Dedan not swearing as much. Enoch discussing the Guardians and their purpose, rather than simply condescending The Batter in Enoch&#x27;s cutscene. Most importantly, Dedan does not say the R slur. He&#x27;s an asshole but he&#x27;s not an ableist. As the game no longer has restrictions under RPG Maker&#x27;s engine:</p>
+<p>The menus and shop interface are now unique, and have new artwork. Instead of simply being described in the UI, Zacharie will quote what he recently said and describe what an item does, instead. The battles take up the entire screen, with options appearing at the left of The Batter and his Add-Ons, and their amount of Health and Competence being at the bottom. Surrounding the screen (in the overworld) is pillar art, which can be collected throughout specific areas in each Zone. A new font is used for the textboxes, and instead of appearing from top left to bottom right (as with how RPG Maker handles textboxes), shorter sentences will be centered. Whenever The Batter runs, a small trail of dust appears. As seen in a preview image with Carnival, and with Maledicion attacking in the launch trailer, new bosses appear in Purified Zones. Reflecting the change in game engine, the bosses&#x27; attacks contrast to the other battle animations; they&#x27;re more hyperrealistic, are in a 3D space and have more frames per second. Hugo, the Queen and Sugar&#x27;s text noises are changed. Noticeably, the Queen whispers a different phrase.</p>
+<p>This is likely because Mortis Ghost&#x27;s friends could not be contacted (as the Elsen&#x27;s noises were kept), so they had to be replaced. Strangely enough, the original voices are not credited. When Dedan is defeated, he has a new sprite where he is seen bleeding, like with Japhet and Enoch&#x27;s deaths. In Zone 1, a green fish has the Annoying Dog&#x27;s face (the dog being a gag character in Toby Fox&#x27;s games, Undertale and Deltarune). The fish was originally referencing a copyrighted character.</p>
+<p>Gallery Announcement for OFF&#x27;s 10th anniversary stream.[2] First announcement for OFF&#x27;s 15th anniversary stream.[3] Second announcement for OFF&#x27;s 15th anniversary stream.[4] First teaser for OFF&#x27;s remaster. Second teaser for OFF&#x27;s remaster. Third teaser for OFF&#x27;s remaster. Fourth teaser for OFF&#x27;s remaster. Final teaser for OFF&#x27;s remaster. The cover art of OFF (2025) Collector&#x27;s Edition Box. Included in the Collector&#x27;s Edition of OFF (2025). A Batter bobblehead statue. Included in the Collector&#x27;s Edition of OFF (2025). A set of six Zodiac cards in a foil-embossed pass case. Included in the Collector&#x27;s Edition of OFF (2025). OFF&#x27;s prequel comic titled &quot;OF&quot;. Included in the Collector&#x27;s Edition of OFF (2025). A “Memories of the Park” souvenir art card. Included in the Collector&#x27;s Edition of OFF (2025). An instruction manual. Included in the Collector&#x27;s Edition of OFF (2025). The Batter and The Judge in the cover of Debug Magazine Issue #8.[5] A strange image located within the &quot;Sketches&quot; folder found on OFF&#x27;s official website. It&#x27;s a picture of someone saying &quot;but who are you?&quot; when translated. The file name implies that it may have been used as some sort of bizarre ad. A strange image located within the &quot;Sketches&quot; folder found on OFF&#x27;s official website. It appears to be two faces mashed together. The file name implies it may have been used as some sort of bizarre ad. A strange image located within the &quot;Sketches&quot; folder found on OFF&#x27;s official website. It&#x27;s a picture of someone saying &quot;get the hell out of my house, now&quot;. The file name implies that it may have been used as some sort of bizarre ad. A strange image located within the &quot;Sketches&quot; folder found on OFF&#x27;s official website. It&#x27;s an extremely saturated picture of someone in a baseball uniform wielding a baseball bat with the silhouette of a cat next to him (possibly referring to The Judge). The file name implies that it may have been used as a bizarre ad. An image found on OFF&#x27;s official website as a pop-up. It&#x27;s an extremely saturated image featuring The Batter swinging at a ball with The Judge near what appears to be a carriage of some sort. If you look closely into the distance, you can also see three rings that are probably The Batter&#x27;s Add-ons.</p>
+<p>Promotional Material OFF 10th Year Anniversary Livestream Off 15th anniversary stream Mortis Ghost - Purified.zone VOD (Archive of the Fangamer OFF Ports Stream by Mortis Ghost) OFF for Nintendo Switch and Steam Announcement Trailer</p>
+<p>References ↑&quot;My favorite game at the time was Killer 7, and I had the desire to create a game as strange as Suda 51’s one. This was the big point.” says Georis. “I was aware of the [Mother] games, especially Earthbound – which was on my to-do list – but I don’t have the memory of me making a mental link between them and OFF at the time. I was more into an idea of making a mix between Killer 7, Final Fantasy and Myst. These were the games I was thinking the most when I made OFF, even if it looks a bit strange. I discovered the Mother series years after OFF’s release, and it was a shock. Today Mother 3 is my favorite game of all time, and I think OFF would have been really different if I played Shigesato Itoi’s game before. Like, much less dark and negative.” - Mortis Ghost on Paste Magazine, November 8, 2016. ↑&quot;Today’s Off 10th anniversary. So I’ll do a little let’s play of my own game and talk about it. Happy birthday!&quot; - Mortis Ghost on Twitter, June 5, 2018. ↑&quot;To celebrate 15 years of OFF, there will be a stream in June. It will be a kind of ultimate FAQ on the game. Ask me all the questions you want in response to this tweet, I will answer as much as possible live. I&#x27;ll give you the date and time of the stream soon.&quot; - Mortis Ghost on Twitter, May 18, 2023. ↑&quot;Off&#x27;s 15th anniversary stream will likely take place on Wednesday, June 28 at 9 p.m. (UTC+2)&quot; - Mortis Ghost on Twitter, June 20, 2023. ↑&quot;Indie gem OFF, inspiration to mega hit Undertale, is back!&quot; - Debug Magazine&#x27;s Website,</p></div>
+</main>
+
+<footer>
+<p>《OFF》© Mortis Ghost / Unproductive Fun Time · 音乐：Alias Conrad Coldwood · 实体版：Fangamer</p>
+<p>本站仅供个人研究收藏，图片与文字版权归原作者所有，禁止商用与二次发布。</p>
+<p>资料源：<a href="https://offtherpg.com">offtherpg.com</a> · <a href="https://www.fangamer.com/collections/off">Fangamer</a> ·
+<a href="https://mortisghost.tumblr.com">Mortis Ghost</a> · <a href="https://off.fandom.com">OFF Wiki</a></p>
+</footer>
+
+
+</body>
+</html>

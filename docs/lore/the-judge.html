@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OFF 设定 · The Judge</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+:root { --ink:#e8e6e1; --bg:#0d0d0f; --dim:#9a978e; --line:#2a2a30; --card:#151519; --accent:#f2f2f2; }
+body { background:var(--bg); color:var(--ink); font-family:'Courier New',monospace; line-height:1.7; }
+a { color:var(--ink); }
+.topbar { position:sticky; top:0; z-index:50; background:rgba(13,13,15,.92); backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--line); }
+.topbar nav { max-width:1200px; margin:0 auto; display:flex; flex-wrap:wrap; gap:4px 22px;
+  padding:14px 20px; align-items:center; font-size:.82rem; letter-spacing:.1em; }
+.topbar nav a { color:var(--dim); text-decoration:none; white-space:nowrap; }
+.topbar nav a:hover { color:var(--ink); }
+.topbar .brand { color:var(--ink); font-weight:bold; letter-spacing:.25em; margin-right:8px; }
+header.hero { padding:72px 20px 48px; text-align:center; border-bottom:1px solid var(--line); }
+header.hero h1 { font-size:2.4rem; letter-spacing:.4em; text-transform:uppercase; }
+header.hero p.tagline { color:var(--dim); margin-top:16px; max-width:640px; margin-left:auto; margin-right:auto; font-size:.95rem; }
+header.sub { padding:48px 20px 28px; text-align:center; border-bottom:1px solid var(--line); }
+header.sub h1 { font-size:1.6rem; letter-spacing:.3em; text-transform:uppercase; }
+header.sub p { color:var(--dim); margin-top:10px; font-size:.9rem; }
+main { max-width:1200px; margin:0 auto; padding:16px 20px 40px; }
+section { scroll-margin-top:64px; }
+.group { margin:52px 0; }
+.group h2 { font-size:1.25rem; letter-spacing:.2em; border-left:4px solid var(--ink); padding-left:12px; }
+.group .count { color:var(--dim); font-size:.8rem; margin-left:10px; letter-spacing:.1em; }
+.group .intro { color:var(--dim); font-size:.9rem; margin:12px 0 20px 16px; max-width:780px; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(190px,1fr)); gap:10px; }
+.card-img { display:block; background:var(--line); overflow:hidden; aspect-ratio:1/1; }
+.card-img img { width:100%; height:100%; object-fit:cover; display:block; filter:grayscale(.18);
+  transition:transform .25s, filter .25s; }
+.card-img:hover img { transform:scale(1.05); filter:grayscale(0); }
+.cardlist { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px; }
+.tag { display:inline-block; border:1px solid var(--dim); color:var(--dim);
+  font-size:.68rem; padding:1px 8px; letter-spacing:.12em; margin-right:8px; }
+.lcard { display:block; background:var(--card); border:1px solid var(--line);
+  text-decoration:none; padding:18px 20px; transition:border-color .2s, transform .2s; }
+.lcard:hover { border-color:var(--ink); transform:translateY(-2px); }
+.lcard h3 { font-size:1rem; letter-spacing:.08em; color:var(--ink); }
+.lcard .meta { color:var(--dim); font-size:.78rem; margin-top:8px; }
+.lcard .arrow { float:right; color:var(--dim); font-size:1.1rem; }
+.lcard ul { margin:10px 0 0 18px; color:var(--dim); font-size:.82rem; }
+.lcard li { margin:3px 0; }
+header.sub p a { color:var(--dim); text-decoration:none; border-bottom:1px dotted var(--dim); }
+header.sub p a:hover { color:var(--ink); }
+.article { max-width:880px; margin:0 auto; padding:36px 20px 70px; }
+.article h1 { font-size:1.35rem; letter-spacing:.15em; margin:30px 0 8px; }
+.article h2 { font-size:1.25rem; letter-spacing:.12em; margin:30px 0 8px; border-left:4px solid var(--ink); padding-left:12px; }
+.article h3 { font-size:1.05rem; margin:20px 0 6px; }
+.article p { margin:12px 0; color:#d2d0c9; }
+.article ul, .article ol { margin:10px 0 10px 26px; color:#d2d0c9; }
+.article table { border-collapse:collapse; margin:14px 0; width:100%; font-size:.85rem; }
+.article th, .article td { border:1px solid var(--line); padding:6px 12px; text-align:left; }
+.article code { background:var(--line); padding:1px 6px; font-size:.85rem; }
+.article pre { background:#0a0a0c; border:1px solid var(--line); padding:14px; overflow-x:auto; font-size:.8rem; margin:12px 0; }
+.article a { color:var(--ink); text-decoration:underline; text-underline-offset:3px; }
+.entry { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:16px; margin-top:8px; }
+.entry a { display:block; border:1px solid var(--line); background:var(--card); padding:28px 24px;
+  text-decoration:none; transition:border-color .2s, transform .2s; }
+.entry a:hover { border-color:var(--ink); transform:translateY(-2px); }
+.entry h2 { font-size:1.15rem; letter-spacing:.2em; }
+.entry p { color:var(--dim); font-size:.85rem; margin-top:10px; }
+.entry .n { font-size:2.2rem; color:var(--dim); letter-spacing:.1em; margin-bottom:8px; }
+footer { border-top:1px solid var(--line); margin-top:80px; padding:36px 20px 60px;
+  text-align:center; color:var(--dim); font-size:.78rem; line-height:2.1; }
+footer code { background:var(--line); padding:1px 6px; }
+#lightbox { position:fixed; inset:0; background:rgba(0,0,0,.93); display:none; align-items:center;
+  justify-content:center; z-index:99; cursor:zoom-out; }
+#lightbox img { max-width:92vw; max-height:86vh; }
+#lightbox .cap { position:fixed; bottom:22px; left:0; right:0; text-align:center; color:var(--dim); font-size:.78rem; }
+@media (max-width:640px){ header.hero h1{ font-size:1.5rem; letter-spacing:.25em; } .grid{ grid-template-columns:repeat(auto-fill,minmax(130px,1fr)); } }
+</style>
+</head>
+<body>
+<div class="topbar"><nav><a class="brand" href="../../index.html">OFF</a><a href="../index.html#g0">官方宣传</a><a href="../index.html#g1">概念图</a><a href="../index.html#g2">角色</a><a href="../index.html#g3">区域</a><a href="../index.html#g4">封面标志</a><a href="../index.html#g5">粉丝档案</a><a href="../index.html#g6">周边收藏</a><a href="../lore.html">设定文本</a><a href="../interviews.html">访谈</a></nav></div>
+<header class="sub"><h1>The Judge</h1><p><span class="tag">角色</span><a href="../lore.html">← 设定文本</a> · <a href="../index.html">画廊</a></p></header>
+<main>
+<div class="article"><p>Spoiler warning! This article contains important details about OFF&#x27;s plot, which may spoil the game for you. If you haven&#x27;t played and finished OFF, it is recommended that you do not read this.</p>
+<p>&quot;There cannot be any other living beings in zone 0, so I must assume that you are only a mere figment of my imagination. Nevertheless, I will introduce myself. I am the Judge, and I am aching to know your name, dear elusory interlocutor.&quot;</p>
+<ul><li>The Judge greeting and introducing himself to The Batter</li></ul>
+<p>The Judge Battle</p>
+<p>Face</p>
+<p>A cryptic feline of odd appearance.</p>
+<p>Character information</p>
+<p>a.k.a. Pablo (real name)</p>
+<p>Locations Zone 0 Zone 1 Zone 2 The Room</p>
+<p>Relationships Valérie (brother) Zacharie (friend) Sugar (Unknown) The Batter (former friend) The Player (determinant) Hugo (possible friend)</p>
+<p>Battle information</p>
+<p>Competences Conniving Aneurysm Malignant Aneurysm Critical Aneurysm Unknown Sclerosis Atypical Sclerosis Purulent Sclerosis</p>
+<p>HP 300 (Tutorial) 4000 (Boss)</p>
+<p>CP 30 (Tutorial) 250 (Boss)</p>
+<p>Attack 60 (Tutorial) 330 (Boss)</p>
+<p>Defense 50 (Tutorial) 105 (Boss)</p>
+<p>Esprit 30 (Tutorial) 150 (Boss)</p>
+<p>Agility 30 (Tutorial) 170 (Boss)</p>
+<p>Wide Angle A cryptic feline of odd appearance. (Tutorial) Feline avenger. (Boss)</p>
+<p>Battle rewards</p>
+<p>EXP 720 (Tutorial; Unused)</p>
+<p>Credits 200 (Tutorial; Unused)</p>
+<p>Item Luck Ticket (Tutorial; Unused) The Judge, real name Pablo, is the first non-player character encountered in the game. He is initially found in Zone 0 and appears throughout the rest of the game in various places. He is the Guardian for Zone 0, as confirmed by the fact that in the game files his title is &quot;Guardian&quot;, and the fact that he possesses a card much like other guardians for each Zone.</p>
+<p>Contents 1Profile 1.1Appearance 1.2Personality 2Plot 3In Battle 3.1Competences 4Relationships 4.1Valérie 5Trivia 6Character Inspiration 7Gallery</p>
+<p>Profile</p>
+<p>Appearance The Judge is a white-furred cat with a disproportionately large head and a constant wide grin. Despite the character&#x27;s grotesquely huge mouth and prominent teeth, he moves, acts, and sounds very much like a normal house cat. He always appears with his trademark smile in his conversational avatar and makes a purring sound when spoken to.</p>
+<p>Personality The Judge is a seemingly almost omniscient being, having a quiz-master-like character. He does not seem to take much interest in the Batter&#x27;s mission until the end of the game, and he appears far more focused on his own amusement. In conversation with The Batter, The Judge will often present a riddle in place of a response. Much like Zacharie, The Judge addresses The Player directly and usually refers to The Batter as merely The Player&#x27;s &quot;puppet&quot;.</p>
+<p>Plot -The Judge</p>
+<p>The Judge proves a very precious help for visitors in the world of OFF - The zones hold no secrets for him. He is easily recognizable by his big ears, his sharp canine teeth and his soft fur (of which he is quite proud). Notified of your presence even if you have not installed OFF, he is the first character to welcome you to this world. But do be careful, for his companionable appearance hides a formidable fighter!</p>
+<ul><li>The Judge&#x27;s section in the &quot;others 02&quot; image (translated), located in the &quot;Sketches&quot; folder on the official OFF website.</li></ul>
+<p>The cat appears, at first, to have dropped out of the game at the conclusion of moving through Zone 2 (playing no role in Zone 3). He, in fact, appears again in The Room. At the climax of the game, The Player is offered a choice to instead control The Judge instead of The Batter. The default, standard ending assumes that The Player declines the offer.</p>
+<p>The Judge takes no side during most of the game, but he occasionally aids The Player by giving them hints. At the end of the game, before The Batter can flip the switch found at the very end of the level The Room, The Judge steps in and requests The Player&#x27;s assistance in stopping The Batter. The cat&#x27;s exact motivations for this change of heart is unknown, although the reversal may stem from a deeply emotional reaction to the unavoidable deaths of Hugo and The Queen moments ago in the game.</p>
+<p>If The Player denies the request, The Batter will face The Judge in battle. The fight will serve as a peculiar kind of bookend to the game, given that The Player started off things with a mock battle against the cat in Zone 0. Upon The Judge&#x27;s defeat, The Batter is free to proceed to the switch and flip it into the &quot;OFF&quot; position. Flicking this will fade the screen to black, followed by a message box informing The Player that &quot;The switch is now on OFF&quot;. After this, the credits roll. It is often presumed (although by no means certain) that this means the complete destruction of not just The Room but the entire OFF world.</p>
+<p>If The Player accepts, they will control The Judge in a battle against The Batter, who will transform into a spectre-like monster (this is confirmed as not a specific physical alteration but as a change in perspective). If he is defeated, the game ends. The Judge is aware that there is no way to reverse the actions the Batter and The Player made but prefers this over The Batter finishing his mission. He is then seen traversing the railway of the purified Zone 1.</p>
+<p>In Battle</p>
+<p>Competences The Judge&#x27;s Competences relate to injury to the arteries and nerves. The &quot;Aneurysm&quot; Competences deal very high damage, while the &quot;Sclerosis&quot; Competences deal low damage but can inflict status effects.</p>
+<p>Name CP Dmg.Acc.Infl.Effects</p>
+<p>Conniving Aneurysm 5 70 100% 0/3/4</p>
+<p>Malignant Aneurysm 13 160 100% 0/3/4</p>
+<p>Critical Aneurysm 26 400 100% 0/3/4</p>
+<p>Aneurysm Rupture 25% 950 100% 0/3/4</p>
+<p>Unknown Sclerosis 8 80 100% 0/3/4 Can inflict Mute.</p>
+<p>Atypical Sclerosis 8 80 100% 0/3/4 Can inflict Blind.</p>
+<p>Purulent Sclerosis 8 80 100% 0/3/4 Can inflict Poison.</p>
+<p>Staggering Sclerosis 8 80 100% 0/3/4 Can inflict Palsy.</p>
+<p>Relationships</p>
+<p>Valérie Valérie is The Judge&#x27;s brother and the two are implied to be quite close, as The Judge is shown to be devastated upon finding out that Japhet was controlling him. Before finding out about Japhet&#x27;s control, he assumed that his brother was simply being delusional and sought to snap him out of it. At the end of the battle he is temporarily replaced by Zacharie, who claims he is mourning the loss of his brother.</p>
+<p>Trivia During the tutorial fight, bringing down the Judge&#x27;s HP down to half will cause him to fake his death, probably for comedic factor. It might also be in order to get The Batter to stop attacking him, since Wide Angle shows that he has twice the HP that takes for him to be killed. Zacharie reveals that The Judge&#x27;s real name is Pablo. This appears to signify that there is some unknown relationship between the two of them that&#x27;s not explicitly shown in the game, which may also relate to how both of them are aware of The Player&#x27;s existence in controlling The Batter. The Judge is one of the very few characters to be identified as part of a family; he explicitly has a brother named Valérie whom he cares about. The Judge&#x27;s appearance of a smiling, talking and enigmatic cat is similar and possibly inspired by the Cheshire Cat of Alice&#x27;s Adventures in Wonderland. All of The Judge&#x27;s competences are based on brain, neck, and spinal damage. Sclerosis is the term for a hardening in the brain, and the aneurysm is a term to describe a blood-filled and balloon-like bulge in a blood vessel. A noticeable gap exists between The Judge&#x27;s abilities regarding things and getting around places earlier in the game versus his final fight against The Batter and The Player in the standard ending. Various explanations exist for the comparative weakness of the character, with the battle appearing perhaps &#x27;too easy&#x27;. It is possible that he believed that the most likely outcome was the Player betraying the Batter to join him, so seeing The Player stick with the Batter severely cripples The Judge&#x27;s will to fight. Alternatively, The Judge may have severely underestimated The Batter&#x27;s strength and stamina due to The Batter&#x27;s use of his Add-Ons.</p>
+<p>Also, The Judge does not use Aneurysm Rupture or Staggering Sclerosis during his fight, this could be due to the fact Staggering Sclerosis wastes too much Competence Points causing him to lose the ability to attack very early but Aneurysm Rupture has little to no purpose being unused unless one of the two earlier theories are correct. Valérie and The Judge could be the subjects of the cards found in the Shachihata post office. The final card states that there are only two, who reside in a secret Zone. This may also refer to The Queen and Hugo in the Room. The fact that The Judge gives you the Leo-Card seems to be symbolic of the Zodiac &quot;Leo&quot;, which represents a lion. Not only is The Judge a feline (like a lion is) but lions are widely considered symbols of bravery and courage, which foreshadows The Judge&#x27;s action in The Room.</p>
+<p>Character Inspiration According to Mortis Ghost during the OFF 15th Anniversary Livestream(timestamped), The Judge was inspired by a cat his roommates had whose name was &quot;Madame le Juge&quot; which in English translates to &quot;Madame Judge&quot;, proving to be the direct inspiration for Pablo&#x27;s character.</p>
+<p>Gallery Sprite Multiple sketches of The Judge, including one of him slurping orange juice loudly. The many faces of The Judge. The Judge, otherwise known as Pablo. A drawing of The Judge signed by Mortis Ghost that appears as a pop-up image in the gallery of OFF&#x27;s official website. The Judge is happily lying down, new promo artwork from OFF&#x27;s remaster. The Judge is sleeping with a pillow, new promo artwork from OFF&#x27;s remaster. The Judge and Batter, new promo artwork from OFF&#x27;s remaster. Characters Playable CharactersThe Batter ● Add-Ons ● The Player GuardiansThe Judge ● Dedan ● Japhet ● Enoch ● Hugo NPCsElsen ● Valérie ● Zacharie Special BossesThe Queen ● Sugar Other Characters Spectres ● Secretaries ● Space Apes</p></div>
+</main>
+
+<footer>
+<p>《OFF》© Mortis Ghost / Unproductive Fun Time · 音乐：Alias Conrad Coldwood · 实体版：Fangamer</p>
+<p>本站仅供个人研究收藏，图片与文字版权归原作者所有，禁止商用与二次发布。</p>
+<p>资料源：<a href="https://offtherpg.com">offtherpg.com</a> · <a href="https://www.fangamer.com/collections/off">Fangamer</a> ·
+<a href="https://mortisghost.tumblr.com">Mortis Ghost</a> · <a href="https://off.fandom.com">OFF Wiki</a></p>
+</footer>
+
+
+</body>
+</html>

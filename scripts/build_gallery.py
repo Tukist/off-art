@@ -56,24 +56,29 @@ section { scroll-margin-top:64px; }
   transition:transform .25s, filter .25s; }
 .card-img:hover img { transform:scale(1.05); filter:grayscale(0); }
 .cardlist { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px; }
-.lcard { background:var(--card); border:1px solid var(--line); transition:border-color .2s; }
-.lcard:hover { border-color:var(--dim); }
-.lcard summary { list-style:none; cursor:pointer; padding:18px 20px; }
-.lcard summary::-webkit-details-marker { display:none; }
-.lcard summary h3 { font-size:1rem; letter-spacing:.08em; }
-.lcard summary .meta { color:var(--dim); font-size:.78rem; margin-top:6px; }
-.lcard summary .tag { display:inline-block; border:1px solid var(--dim); color:var(--dim);
+.tag { display:inline-block; border:1px solid var(--dim); color:var(--dim);
   font-size:.68rem; padding:1px 8px; letter-spacing:.12em; margin-right:8px; }
-.lcard .body { border-top:1px solid var(--line); padding:16px 20px 20px; color:var(--dim); font-size:.88rem; }
-.lcard .body h2, .lcard .body h3 { color:var(--ink); margin:14px 0 6px; font-size:1rem; }
-.lcard .body h1 { color:var(--ink); font-size:1.1rem; margin:14px 0 6px; }
-.lcard .body p { margin:8px 0; }
-.lcard .body ul { margin:8px 0 8px 22px; }
-.lcard .body table { border-collapse:collapse; margin:10px 0; width:100%; font-size:.8rem; }
-.lcard .body th, .lcard .body td { border:1px solid var(--line); padding:4px 10px; text-align:left; }
-.lcard .body code { background:var(--line); padding:1px 5px; font-size:.8rem; }
-.lcard .body pre { background:#0a0a0c; border:1px solid var(--line); padding:12px; overflow-x:auto; font-size:.78rem; margin:10px 0; }
-.lcard .body a { color:var(--ink); text-decoration:underline; text-underline-offset:3px; }
+.lcard { display:block; background:var(--card); border:1px solid var(--line);
+  text-decoration:none; padding:18px 20px; transition:border-color .2s, transform .2s; }
+.lcard:hover { border-color:var(--ink); transform:translateY(-2px); }
+.lcard h3 { font-size:1rem; letter-spacing:.08em; color:var(--ink); }
+.lcard .meta { color:var(--dim); font-size:.78rem; margin-top:8px; }
+.lcard .arrow { float:right; color:var(--dim); font-size:1.1rem; }
+.lcard ul { margin:10px 0 0 18px; color:var(--dim); font-size:.82rem; }
+.lcard li { margin:3px 0; }
+header.sub p a { color:var(--dim); text-decoration:none; border-bottom:1px dotted var(--dim); }
+header.sub p a:hover { color:var(--ink); }
+.article { max-width:880px; margin:0 auto; padding:36px 20px 70px; }
+.article h1 { font-size:1.35rem; letter-spacing:.15em; margin:30px 0 8px; }
+.article h2 { font-size:1.25rem; letter-spacing:.12em; margin:30px 0 8px; border-left:4px solid var(--ink); padding-left:12px; }
+.article h3 { font-size:1.05rem; margin:20px 0 6px; }
+.article p { margin:12px 0; color:#d2d0c9; }
+.article ul, .article ol { margin:10px 0 10px 26px; color:#d2d0c9; }
+.article table { border-collapse:collapse; margin:14px 0; width:100%; font-size:.85rem; }
+.article th, .article td { border:1px solid var(--line); padding:6px 12px; text-align:left; }
+.article code { background:var(--line); padding:1px 6px; font-size:.85rem; }
+.article pre { background:#0a0a0c; border:1px solid var(--line); padding:14px; overflow-x:auto; font-size:.8rem; margin:12px 0; }
+.article a { color:var(--ink); text-decoration:underline; text-underline-offset:3px; }
 .entry { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:16px; margin-top:8px; }
 .entry a { display:block; border:1px solid var(--line); background:var(--card); padding:28px 24px;
   text-decoration:none; transition:border-color .2s, transform .2s; }
@@ -107,17 +112,18 @@ NAV_LINKS = [
 ]
 
 
-def topbar(brand_link="index.html", extra_links=None):
+def topbar(brand_link="index.html", extra_links=None, prefix=""):
     links = list(NAV_LINKS)
     if extra_links:
         links = extra_links + links
-    items = [f'<a class="brand" href="{brand_link}">OFF</a>']
+    items = [f'<a class="brand" href="{prefix}{brand_link}">OFF</a>']
     for name, href in links:
-        items.append(f'<a href="{href}">{name}</a>')
+        h = href if href.startswith("http") else prefix + href
+        items.append(f'<a href="{h}">{name}</a>')
     return f'<div class="topbar"><nav>{"".join(items)}</nav></div>'
 
 
-def page(hero, main_html, brand_link="index.html", extra_links=None):
+def page(hero, main_html, brand_link="index.html", extra_links=None, prefix=""):
     return f"""<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -127,7 +133,7 @@ def page(hero, main_html, brand_link="index.html", extra_links=None):
 <style>{CSS}</style>
 </head>
 <body>
-{topbar(brand_link, extra_links)}
+{topbar(brand_link, extra_links, prefix)}
 {hero["html"]}
 <main>
 {main_html}
@@ -317,7 +323,12 @@ def lore_excerpt(md_text):
     return text[:200] + ("…" if len(text) > 200 else "")
 
 
+def slugify(name):
+    return re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-")
+
+
 def build_lore():
+    os.makedirs(os.path.join(DOCS, "lore"), exist_ok=True)
     sections = []
     for cat, names in LORE_GROUPS:
         cards = []
@@ -326,12 +337,23 @@ def build_lore():
             if not os.path.exists(path):
                 continue
             raw = open(path, encoding="utf-8").read()
+            slug = slugify(name)
             body = re.sub(r"^#\s+.+", "", raw, count=1, flags=re.M).strip()
-            cards.append(
-                f'<details class="lcard"><summary><span class="tag">{escape(cat)}</span>'
-                f'<h3>{escape(display_name(name))}</h3>'
-                f'<div class="meta">{escape(lore_excerpt(raw))}</div></summary>'
-                f'<div class="body">{md_to_html(body)}</div></details>')
+            # 独立详情页
+            hero = {"title": f"OFF 设定 · {display_name(name)}",
+                    "html": f'<header class="sub"><h1>{escape(display_name(name))}</h1>'
+                            f'<p><span class="tag">{escape(cat)}</span>'
+                            f'<a href="../lore.html">← 设定文本</a> · '
+                            f'<a href="../index.html">画廊</a></p></header>',
+                    "script": ""}
+            detail = page(hero, f'<div class="article">{md_to_html(body)}</div>',
+                          brand_link="../index.html", prefix="../")
+            open(os.path.join(DOCS, "lore", slug + ".html"), "w", encoding="utf-8").write(detail)
+            # 索引卡片（跳详情页）
+            cards.append(f'<a class="lcard" href="lore/{slug}.html"><span class="arrow">→</span>'
+                         f'<span class="tag">{escape(cat)}</span>'
+                         f'<h3>{escape(display_name(name))}</h3>'
+                         f'<div class="meta">{escape(lore_excerpt(raw))}</div></a>')
         if cards:
             sections.append(f'<section class="group" id="{escape(cat)}">'
                             f'<h2>{escape(cat)}<span class="count">{len(cards)} 篇</span></h2>'
@@ -339,7 +361,7 @@ def build_lore():
     main = "".join(sections)
     hero = {"title": "OFF 设定文本 · Lore",
             "html": f'<header class="sub"><h1>设定文本 / Lore</h1>'
-                    f'<p>来自 OFF Wiki（Fandom）的 23 页世界观设定 · 点击卡片展开全文</p></header>',
+                    f'<p>来自 OFF Wiki（Fandom）的 23 页世界观设定 · 点击条目进入独立页面</p></header>',
             "script": ""}
     extra = [(c, f"lore.html#{c}") for c, _ in LORE_GROUPS]
     return page(hero, main, brand_link="index.html", extra_links=extra)
@@ -348,6 +370,7 @@ def build_lore():
 # ---------------- 访谈页 ----------------
 
 def build_interviews():
+    os.makedirs(os.path.join(DOCS, "interviews"), exist_ok=True)
     cards = []
     for path in sorted(os.listdir(INTV_DIR)):
         if not path.endswith(".md") or path.startswith("_"):
@@ -356,22 +379,36 @@ def build_interviews():
         title = re.search(r"^# (.+)$", raw, re.M)
         title = title.group(1).strip() if title else display_name(path)
         src = re.search(r"^-\s*来源:\s*(.+)$", raw, re.M)
+        src_url = src.group(1).strip() if src else ""
         date = re.search(r"^-\s*日期:\s*(.+)$", raw, re.M)
+        date_s = date.group(1).strip() if date else ""
         key = re.search(r"## 中文要点摘要\s*\n(.*?)(?=\n## )", raw, re.S)
         points = re.findall(r"^\s*-\s+(.+)$", key.group(1), re.M) if key else []
         full = re.search(r"## 全文\s*\n(.*)$", raw, re.S)
         body = md_to_html(full.group(1)) if full else "<p>（全文缺失）</p>"
         point_html = "".join(f"<li>{md_inline(escape(p))}</li>" for p in points) or "<li>（无摘要）</li>"
-        cards.append(
-            f'<details class="lcard"><summary><h3>{escape(title)}</h3>'
-            f'<div class="meta">{escape(date.group(1).strip()) if date else ""} · '
-            f'<a href="{escape(src.group(1).strip()) if src else "#"}" target="_blank" rel="noopener">来源</a></div>'
-            f'<ul>{"".join(point_html)}</ul></summary>'
-            f'<div class="body">{body}</div></details>')
+        slug = slugify(path[:-3])
+        # 独立详情页
+        hero = {"title": f"OFF 访谈 · {title}",
+                "html": f'<header class="sub"><h1>{escape(title)}</h1>'
+                        f'<p>{escape(date_s)} · '
+                        f'<a href="{escape(src_url)}" target="_blank" rel="noopener">原始来源 ↗</a> · '
+                        f'<a href="../interviews.html">← 访谈</a> · '
+                        f'<a href="../index.html">画廊</a></p></header>',
+                "script": ""}
+        detail = page(hero, f'<div class="article">{body}</div>',
+                      brand_link="../index.html", prefix="../")
+        open(os.path.join(DOCS, "interviews", slug + ".html"), "w", encoding="utf-8").write(detail)
+        # 索引卡片（跳详情页）
+        cards.append(f'<a class="lcard" href="interviews/{slug}.html"><span class="arrow">→</span>'
+                     f'<h3>{escape(title)}</h3>'
+                     f'<div class="meta">{escape(date_s)} · '
+                     f'<a href="{escape(src_url)}" target="_blank" rel="noopener">来源</a></div>'
+                     f'<ul>{"".join(point_html)}</ul></a>')
     main = f'<section class="group" id="interviews"><div class="cardlist">{"".join(cards)}</div></section>'
     hero = {"title": "OFF 作者访谈 · Interviews",
             "html": f'<header class="sub"><h1>作者访谈 / Interviews</h1>'
-                    f'<p>7 篇访谈全文 · Mortis Ghost、Toby Fox、Morusque、Quinn K.、Nightmargin 与 15 周年直播整理</p></header>',
+                    f'<p>7 篇访谈 · Mortis Ghost、Toby Fox、Morusque、Quinn K.、Nightmargin 与 15 周年直播整理 · 点击进入独立页面</p></header>',
             "script": ""}
     return page(hero, main, brand_link="index.html")
 

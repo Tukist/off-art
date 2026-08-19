@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OFF 访谈 · Toby Fox, how has OFF influenced you?</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+:root { --ink:#e8e6e1; --bg:#0d0d0f; --dim:#9a978e; --line:#2a2a30; --card:#151519; --accent:#f2f2f2; }
+body { background:var(--bg); color:var(--ink); font-family:'Courier New',monospace; line-height:1.7; }
+a { color:var(--ink); }
+.topbar { position:sticky; top:0; z-index:50; background:rgba(13,13,15,.92); backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--line); }
+.topbar nav { max-width:1200px; margin:0 auto; display:flex; flex-wrap:wrap; gap:4px 22px;
+  padding:14px 20px; align-items:center; font-size:.82rem; letter-spacing:.1em; }
+.topbar nav a { color:var(--dim); text-decoration:none; white-space:nowrap; }
+.topbar nav a:hover { color:var(--ink); }
+.topbar .brand { color:var(--ink); font-weight:bold; letter-spacing:.25em; margin-right:8px; }
+header.hero { padding:72px 20px 48px; text-align:center; border-bottom:1px solid var(--line); }
+header.hero h1 { font-size:2.4rem; letter-spacing:.4em; text-transform:uppercase; }
+header.hero p.tagline { color:var(--dim); margin-top:16px; max-width:640px; margin-left:auto; margin-right:auto; font-size:.95rem; }
+header.sub { padding:48px 20px 28px; text-align:center; border-bottom:1px solid var(--line); }
+header.sub h1 { font-size:1.6rem; letter-spacing:.3em; text-transform:uppercase; }
+header.sub p { color:var(--dim); margin-top:10px; font-size:.9rem; }
+main { max-width:1200px; margin:0 auto; padding:16px 20px 40px; }
+section { scroll-margin-top:64px; }
+.group { margin:52px 0; }
+.group h2 { font-size:1.25rem; letter-spacing:.2em; border-left:4px solid var(--ink); padding-left:12px; }
+.group .count { color:var(--dim); font-size:.8rem; margin-left:10px; letter-spacing:.1em; }
+.group .intro { color:var(--dim); font-size:.9rem; margin:12px 0 20px 16px; max-width:780px; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(190px,1fr)); gap:10px; }
+.card-img { display:block; background:var(--line); overflow:hidden; aspect-ratio:1/1; }
+.card-img img { width:100%; height:100%; object-fit:cover; display:block; filter:grayscale(.18);
+  transition:transform .25s, filter .25s; }
+.card-img:hover img { transform:scale(1.05); filter:grayscale(0); }
+.cardlist { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px; }
+.tag { display:inline-block; border:1px solid var(--dim); color:var(--dim);
+  font-size:.68rem; padding:1px 8px; letter-spacing:.12em; margin-right:8px; }
+.lcard { display:block; background:var(--card); border:1px solid var(--line);
+  text-decoration:none; padding:18px 20px; transition:border-color .2s, transform .2s; }
+.lcard:hover { border-color:var(--ink); transform:translateY(-2px); }
+.lcard h3 { font-size:1rem; letter-spacing:.08em; color:var(--ink); }
+.lcard .meta { color:var(--dim); font-size:.78rem; margin-top:8px; }
+.lcard .arrow { float:right; color:var(--dim); font-size:1.1rem; }
+.lcard ul { margin:10px 0 0 18px; color:var(--dim); font-size:.82rem; }
+.lcard li { margin:3px 0; }
+header.sub p a { color:var(--dim); text-decoration:none; border-bottom:1px dotted var(--dim); }
+header.sub p a:hover { color:var(--ink); }
+.article { max-width:880px; margin:0 auto; padding:36px 20px 70px; }
+.article h1 { font-size:1.35rem; letter-spacing:.15em; margin:30px 0 8px; }
+.article h2 { font-size:1.25rem; letter-spacing:.12em; margin:30px 0 8px; border-left:4px solid var(--ink); padding-left:12px; }
+.article h3 { font-size:1.05rem; margin:20px 0 6px; }
+.article p { margin:12px 0; color:#d2d0c9; }
+.article ul, .article ol { margin:10px 0 10px 26px; color:#d2d0c9; }
+.article table { border-collapse:collapse; margin:14px 0; width:100%; font-size:.85rem; }
+.article th, .article td { border:1px solid var(--line); padding:6px 12px; text-align:left; }
+.article code { background:var(--line); padding:1px 6px; font-size:.85rem; }
+.article pre { background:#0a0a0c; border:1px solid var(--line); padding:14px; overflow-x:auto; font-size:.8rem; margin:12px 0; }
+.article a { color:var(--ink); text-decoration:underline; text-underline-offset:3px; }
+.entry { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:16px; margin-top:8px; }
+.entry a { display:block; border:1px solid var(--line); background:var(--card); padding:28px 24px;
+  text-decoration:none; transition:border-color .2s, transform .2s; }
+.entry a:hover { border-color:var(--ink); transform:translateY(-2px); }
+.entry h2 { font-size:1.15rem; letter-spacing:.2em; }
+.entry p { color:var(--dim); font-size:.85rem; margin-top:10px; }
+.entry .n { font-size:2.2rem; color:var(--dim); letter-spacing:.1em; margin-bottom:8px; }
+footer { border-top:1px solid var(--line); margin-top:80px; padding:36px 20px 60px;
+  text-align:center; color:var(--dim); font-size:.78rem; line-height:2.1; }
+footer code { background:var(--line); padding:1px 6px; }
+#lightbox { position:fixed; inset:0; background:rgba(0,0,0,.93); display:none; align-items:center;
+  justify-content:center; z-index:99; cursor:zoom-out; }
+#lightbox img { max-width:92vw; max-height:86vh; }
+#lightbox .cap { position:fixed; bottom:22px; left:0; right:0; text-align:center; color:var(--dim); font-size:.78rem; }
+@media (max-width:640px){ header.hero h1{ font-size:1.5rem; letter-spacing:.25em; } .grid{ grid-template-columns:repeat(auto-fill,minmax(130px,1fr)); } }
+</style>
+</head>
+<body>
+<div class="topbar"><nav><a class="brand" href="../../index.html">OFF</a><a href="../index.html#g0">官方宣传</a><a href="../index.html#g1">概念图</a><a href="../index.html#g2">角色</a><a href="../index.html#g3">区域</a><a href="../index.html#g4">封面标志</a><a href="../index.html#g5">粉丝档案</a><a href="../index.html#g6">周边收藏</a><a href="../lore.html">设定文本</a><a href="../interviews.html">访谈</a></nav></div>
+<header class="sub"><h1>Toby Fox, how has OFF influenced you?</h1><p>2025-01-23 · <a href="https://offtherpg.com/interviews/tobyfox/" target="_blank" rel="noopener">原始来源 ↗</a> · <a href="../interviews.html">← 访谈</a> · <a href="../index.html">画廊</a></p></header>
+<main>
+<div class="article"><h3>When did you first play OFF / how did you discover OFF?</h3>
+<p>I first discovered it on the Starmen.net forums, an EarthBound fan website whose staff eventually created Fangamer. The initial English fan translation was done by someone who posted there.</p>
+<h3>How has it influenced your own work?</h3>
+<p>I think the character designs inspired me the most.</p>
+<p>Papyrus’s appearance was initially inspired by the first boss of OFF, Dedan.</p>
+<p>Next, Sans’s character was a bit inspired by Zacharie and the judge. Think about it. He is reliable, friendly, humorous guy that shows up throughout the adventure, and you never quite know what his deal is.  He never stops smiling, either. As for why he would have similarities to The Judge, well...</p>
+<p>By the way, the idea to use jazz music in the battle with Napstablook was also inspired by OFF...</p>
+<h3>Who’s your favorite character?</h3>
+<p>Everybody is great.</p>
+<p>Additionally, I like the Burnt Elsen with his neck going off the top of the screen.</p>
+<h3>What do you think fans of your own game would like about OFF?</h3>
+<p>The atmosphere, character designs, and bizarre story and world. The mix of humor and horror.</p>
+<p>If they haven’t heard the first version of the soundtrack, they might like my songs...</p>
+<p>But, I  would also recommend they check out the soundtrack for the original freeware version. (It’s free.)</p>
+<h3>What element are you?</h3>
+<p>Meat</p>
+<h3>What did you think about composing some tracks for the new soundtrack?</h3>
+<p>Well, it&#x27;s a complicated feeling.</p>
+<p>Let me clarify.</p>
+<p>Obviously, Fangamer and Mortis wanted to use the original soundtrack. They tried to reach out to the composer, ACC, to get the rights to use it... but ultimately, he felt nervous about signing anything and disappeared. However, he has stated that he doesn&#x27;t mind that his music isn&#x27;t being used, and he has no problem with the new soundtrack. So, it&#x27;s a bit weird, but everything is chill.</p>
+<p>That being said, OFF is a very atmospheric and memorable game, and the soundtrack contributed a lot to that. It&#x27;s an integral part of the memories that people have built of this game. Trying to replace those songs feels like breaking into somebody&#x27;s house and pasting your face into their family photo album.</p>
+<p>But, Mortis asked me if I was interested, and, given that his game really inspired me, and he&#x27;s a super nice guy... I decided I would try my best to help. To ensure that new players, even if they didn&#x27;t get the exact same experience, would get a pretty cool one.</p>
+<p>I ended up handling a lot of boss tracks. I attempted to match the game&#x27;s &quot;style&quot; by aiming for idiosyncrasy and atmosphere over everything else. I think the results are pretty cool.</p>
+<p>I also was assigned... the normal battle theme. I&#x27;m gonna be honest, just feels like I got assigned to take a bullet in the back for everybody else. I looked up almost every jazz song from the 1920s, I commissioned Carlos to make an entire fake jazz song for me so I could cut it up into samples, I tried making like 6 entirely different songs, but nothing I could come up with on my own felt quite right.</p>
+<p>In the end, I summoned Camellia to help me out by re-remixing my first track into multiple versions, and so ultimately I think it will feel pretty cool as you go through the game. (But, I&#x27;ll be the first to say that I can&#x27;t replace your memories...)</p>
+<p>▶</p>
+<p>![WHITE MEAT (ZONE 1) - OFF Original Soundtrack thumbnail](/images/thumb-ost-whitemeat1.jpg)</p>
+<p>By clicking to view this video, you agree to <a href="YouTube&#x27;s Privacy Policy" target="_blank" rel="noopener">YouTube&#x27;s Privacy Policy</a>.</p>
+<p>Oh, right. The song you heard in the trailer might appear in the game. I&#x27;m actually quite proud of that one, I think it&#x27;s the best track I made. Apparently no one realized it was me, so I feel pretty good</p>
+<p>▶</p>
+<p>![TRAILER - OFF Original Soundtrack thumbnail](/images/thumb-ost-trailer.jpg)</p>
+<p>By clicking to view this video, you agree to <a href="YouTube&#x27;s Privacy Policy" target="_blank" rel="noopener">YouTube&#x27;s Privacy Policy</a>.</p>
+<p>By the way, I did the music for free, and I&#x27;ll upload my tracks for free after the game comes out. Personally, I don&#x27;t think the original music is replaceable, so I want to treat what I made like &quot;fanmusic&quot;, made just out of love and respect for the original. Alright, see ya.</p></div>
+</main>
+
+<footer>
+<p>《OFF》© Mortis Ghost / Unproductive Fun Time · 音乐：Alias Conrad Coldwood · 实体版：Fangamer</p>
+<p>本站仅供个人研究收藏，图片与文字版权归原作者所有，禁止商用与二次发布。</p>
+<p>资料源：<a href="https://offtherpg.com">offtherpg.com</a> · <a href="https://www.fangamer.com/collections/off">Fangamer</a> ·
+<a href="https://mortisghost.tumblr.com">Mortis Ghost</a> · <a href="https://off.fandom.com">OFF Wiki</a></p>
+</footer>
+
+
+</body>
+</html>

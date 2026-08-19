@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OFF 设定 · Japhet</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+:root { --ink:#e8e6e1; --bg:#0d0d0f; --dim:#9a978e; --line:#2a2a30; --card:#151519; --accent:#f2f2f2; }
+body { background:var(--bg); color:var(--ink); font-family:'Courier New',monospace; line-height:1.7; }
+a { color:var(--ink); }
+.topbar { position:sticky; top:0; z-index:50; background:rgba(13,13,15,.92); backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--line); }
+.topbar nav { max-width:1200px; margin:0 auto; display:flex; flex-wrap:wrap; gap:4px 22px;
+  padding:14px 20px; align-items:center; font-size:.82rem; letter-spacing:.1em; }
+.topbar nav a { color:var(--dim); text-decoration:none; white-space:nowrap; }
+.topbar nav a:hover { color:var(--ink); }
+.topbar .brand { color:var(--ink); font-weight:bold; letter-spacing:.25em; margin-right:8px; }
+header.hero { padding:72px 20px 48px; text-align:center; border-bottom:1px solid var(--line); }
+header.hero h1 { font-size:2.4rem; letter-spacing:.4em; text-transform:uppercase; }
+header.hero p.tagline { color:var(--dim); margin-top:16px; max-width:640px; margin-left:auto; margin-right:auto; font-size:.95rem; }
+header.sub { padding:48px 20px 28px; text-align:center; border-bottom:1px solid var(--line); }
+header.sub h1 { font-size:1.6rem; letter-spacing:.3em; text-transform:uppercase; }
+header.sub p { color:var(--dim); margin-top:10px; font-size:.9rem; }
+main { max-width:1200px; margin:0 auto; padding:16px 20px 40px; }
+section { scroll-margin-top:64px; }
+.group { margin:52px 0; }
+.group h2 { font-size:1.25rem; letter-spacing:.2em; border-left:4px solid var(--ink); padding-left:12px; }
+.group .count { color:var(--dim); font-size:.8rem; margin-left:10px; letter-spacing:.1em; }
+.group .intro { color:var(--dim); font-size:.9rem; margin:12px 0 20px 16px; max-width:780px; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(190px,1fr)); gap:10px; }
+.card-img { display:block; background:var(--line); overflow:hidden; aspect-ratio:1/1; }
+.card-img img { width:100%; height:100%; object-fit:cover; display:block; filter:grayscale(.18);
+  transition:transform .25s, filter .25s; }
+.card-img:hover img { transform:scale(1.05); filter:grayscale(0); }
+.cardlist { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px; }
+.tag { display:inline-block; border:1px solid var(--dim); color:var(--dim);
+  font-size:.68rem; padding:1px 8px; letter-spacing:.12em; margin-right:8px; }
+.lcard { display:block; background:var(--card); border:1px solid var(--line);
+  text-decoration:none; padding:18px 20px; transition:border-color .2s, transform .2s; }
+.lcard:hover { border-color:var(--ink); transform:translateY(-2px); }
+.lcard h3 { font-size:1rem; letter-spacing:.08em; color:var(--ink); }
+.lcard .meta { color:var(--dim); font-size:.78rem; margin-top:8px; }
+.lcard .arrow { float:right; color:var(--dim); font-size:1.1rem; }
+.lcard ul { margin:10px 0 0 18px; color:var(--dim); font-size:.82rem; }
+.lcard li { margin:3px 0; }
+header.sub p a { color:var(--dim); text-decoration:none; border-bottom:1px dotted var(--dim); }
+header.sub p a:hover { color:var(--ink); }
+.article { max-width:880px; margin:0 auto; padding:36px 20px 70px; }
+.article h1 { font-size:1.35rem; letter-spacing:.15em; margin:30px 0 8px; }
+.article h2 { font-size:1.25rem; letter-spacing:.12em; margin:30px 0 8px; border-left:4px solid var(--ink); padding-left:12px; }
+.article h3 { font-size:1.05rem; margin:20px 0 6px; }
+.article p { margin:12px 0; color:#d2d0c9; }
+.article ul, .article ol { margin:10px 0 10px 26px; color:#d2d0c9; }
+.article table { border-collapse:collapse; margin:14px 0; width:100%; font-size:.85rem; }
+.article th, .article td { border:1px solid var(--line); padding:6px 12px; text-align:left; }
+.article code { background:var(--line); padding:1px 6px; font-size:.85rem; }
+.article pre { background:#0a0a0c; border:1px solid var(--line); padding:14px; overflow-x:auto; font-size:.8rem; margin:12px 0; }
+.article a { color:var(--ink); text-decoration:underline; text-underline-offset:3px; }
+.entry { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:16px; margin-top:8px; }
+.entry a { display:block; border:1px solid var(--line); background:var(--card); padding:28px 24px;
+  text-decoration:none; transition:border-color .2s, transform .2s; }
+.entry a:hover { border-color:var(--ink); transform:translateY(-2px); }
+.entry h2 { font-size:1.15rem; letter-spacing:.2em; }
+.entry p { color:var(--dim); font-size:.85rem; margin-top:10px; }
+.entry .n { font-size:2.2rem; color:var(--dim); letter-spacing:.1em; margin-bottom:8px; }
+footer { border-top:1px solid var(--line); margin-top:80px; padding:36px 20px 60px;
+  text-align:center; color:var(--dim); font-size:.78rem; line-height:2.1; }
+footer code { background:var(--line); padding:1px 6px; }
+#lightbox { position:fixed; inset:0; background:rgba(0,0,0,.93); display:none; align-items:center;
+  justify-content:center; z-index:99; cursor:zoom-out; }
+#lightbox img { max-width:92vw; max-height:86vh; }
+#lightbox .cap { position:fixed; bottom:22px; left:0; right:0; text-align:center; color:var(--dim); font-size:.78rem; }
+@media (max-width:640px){ header.hero h1{ font-size:1.5rem; letter-spacing:.25em; } .grid{ grid-template-columns:repeat(auto-fill,minmax(130px,1fr)); } }
+</style>
+</head>
+<body>
+<div class="topbar"><nav><a class="brand" href="../../index.html">OFF</a><a href="../index.html#g0">官方宣传</a><a href="../index.html#g1">概念图</a><a href="../index.html#g2">角色</a><a href="../index.html#g3">区域</a><a href="../index.html#g4">封面标志</a><a href="../index.html#g5">粉丝档案</a><a href="../index.html#g6">周边收藏</a><a href="../lore.html">设定文本</a><a href="../interviews.html">访谈</a></nav></div>
+<header class="sub"><h1>Japhet</h1><p><span class="tag">角色</span><a href="../lore.html">← 设定文本</a> · <a href="../index.html">画廊</a></p></header>
+<main>
+<div class="article"><p>Spoiler warning! This article contains important details about OFF&#x27;s plot, which may spoil the game for you. If you haven&#x27;t played and finished OFF, it is recommended that you do not read this.</p>
+<p>&quot;Valerie? That...is the name of the cat. You are mistaking me for someone else. I am Japhet the fire bird, guardian of zone 2!&quot;</p>
+<ul><li>Japhet disguised as Valérie speaking to The Judge and The Batter</li></ul>
+<p>Japhet Battle</p>
+<p>Face</p>
+<p>Royal guardian of zone 2.</p>
+<p>Character information</p>
+<p>Locations Zone 2 The Room</p>
+<p>Battle information</p>
+<p>Competences Alto Soprano Tenor Head-Voice</p>
+<p>HP 1000 (Valérie (original)) 99999 (Parasite, Master (original)) 6000 (Firebird (original)) 600 (Valérie, Parasite, Master (remaster)) 1200 (Firebird (remaster))</p>
+<p>CP 80 (non-Ultimate) 250 (Firebird)</p>
+<p>Attack 110 (Valérie (original)) 140 (Firebird (original)) 20 (Valérie (remaster)) 36 (Parasite (remaster)) 43 (Master (remaster)) 49 (Firebird (remaster))</p>
+<p>Defense 80 (Valérie, Parasite(original)) 85 (Master(original)) 75 (Firebird) 25 (Valérie (remaster)) 51 (Parasite, Master (remaster)) 58 (Firebird (remaster))</p>
+<p>Esprit 70 (Valérie(original)) 75 (Parasite(original)) 80 (Master(original)) 85 (Ultimate(original)) 20 (Valérie (remaster)) 36 (Parasite (remaster)) 43 (Master (remaster) 49 (Firebird (remaster))</p>
+<p>Agility 42 (Valérie(original)) 90 (Ultimate(original)) 10 (Valérie (remaster)) 9 (Parasite (remaster)) 11 (Master (remaster)) 13 (Firebird (remaster))</p>
+<p>Battle rewards</p>
+<p>EXP 300 (Valérie(original)) 5000 (Firebird (original)) 5000 (Firebird (remaster))</p>
+<p>Credits 150 (Valérie(original)) 1000 (Firebird)</p>
+<p>Item Abaddon&#x27;s Meat (Valérie) Pisces-card (Firebird) Japhet is the Guardian of Zone 2. Like other Guardians, he is responsible for administering the affairs of his Zone in accordance with the wishes of the Queen.</p>
+<p>Contents 1Profile 1.1Appearance 1.2Personality 2Plot 3In Battle 3.1Competences (Original) 3.2Competences (Remaster) 4Trivia 5Gallery 6References</p>
+<p>Profile</p>
+<p>Appearance Japhet first appears when speaking from Valérie&#x27;s body, but his true form is that of a large bird, looking very similar to the mythological phoenix and Firebird  creatures, When fully formed in battle, he wears the body or remains of Valérie on the back of his head.</p>
+<p>Personality Although intelligent, strong, and ambitious, by the time of the game&#x27;s events within the world, the millennial Firebird  has grown emotionally distraught and torn about how things in his Zone has deteriorated. Though trying to maintain his grip over the various Elsen he rules over, he anticipates his own death due to his failure. He is ultimately confronted about the corruptions that have taken place by the Batter and the Player before being killed.</p>
+<p>Plot The second one, Japhet, was good and generous. Due to his kind personality, he was loved by all. He was constantly on his feet, doing his best to provide safety and peace to his subjects.</p>
+<ul><li>Page in Zone 2&#x27;s library, Bismark</li></ul>
+<p>Japhet is responsible for the death of the Judge&#x27;s brother, Valérie. Japhet was eaten by Valérie while he was still a little bird, as shown in the Room, but Valérie was too nice and didn&#x27;t chew him up. Japhet was too powerful to be eaten and instead took control of his body, using it as a host[1]. As Valérie, however, nobody in Zone 2 recognizes him as a Guardian anymore, only seeing him as in the body of a cat.</p>
+<p>In contrast to other enemies encountered, Japhet appears to have a fundamental sense that he has failed, understanding that he has been unable to rule over his Zone as he should have, and that things have fallen apart. At least some of the spectres that exist in the game were intentionally created by him. It is unclear to what extent he knows about the Batter&#x27;s purification mission, with success for the Batter meaning the end of the entire world including every last Zone, or of the existence of the Player. However, despite fighting in vain for his life against the Batter, he is described as having wept profusely and recognized himself as being &quot;evil&quot; as well as anticipating his own death ahead of time.</p>
+<p>Japhet is often mentioned in the various books found in the library as the glorious leader of the Elsen, the subordinate beings at first enjoying the pleasures of his benevolent rule but then started to fear everything. This angered Japhet, seeing the areas under his control deteriorating into despair and madness, and he decided to take revenge by summoning the various spectres encountered in Zone 2. It is unclear whether he actually controls those beings or merely believes himself to do so, and various interpretations also remain as to why other calamitous things such as transformations into Burnt Elsen happen. Japhet may have intentionally caused this corruption, unintentionally caused it, or encountered it naturally as happening due to inherent flaws in the design of the Zone.</p>
+<p>In the upper levels of the library, the Batter is faced with a puzzle that gives the opportunity to read several pages in which Japhet&#x27;s story and relationship with the Elsen is explained. The puzzle must be completed before progress can be made. While the reliability of this account is questionable, it is generally considered genuine due to the frankness and straightforwardness of the writing.</p>
+<p>The pages read:</p>
+<p>Drawing from his waning forces, he created the Library, more beautiful than ever before. Its height pierced the smoky clouds and there he stood. Much like a guardian angel, he had done everything for them. He had brought them peace, security and entertainment. Such was his generosity. For a while, that was all good and well for all, they enjoyed the new land with the innocence of a child. They were running down the streets, enjoying … But the dynamics of the world soon drove the people mad. They forgot about their joys and eventually succumbed to their neurosis of fear and worries. Meanwhile, the Flaming Winged Sovereign weeped on his throne, their joys saddened to have been forgotten by Man. He had no more time for their worries. And so the Flaming Bird turned into a cat and the cat into a Ruler. Driven insane by his anger and sadness, he summoned forth a storm of evil spirits upon his subjects. His madness had ... While the spectres were destroying the world he had created, he sought shelter (sic) at the summit of his most wonderful creation, the Great Library. There was nothing else to be done but wait for the man who would rise forth to destroy him. For deep inside his soul, there was no doubt that what he did was Evil. The End In the Room, the Batter encounters an entity known simply as &quot;The Bird&quot;. This being appears to be a version of Japhet before the events through which he became a Guardian. Akin to the intentionally cheerful version of Japhet described in the writings within the library, this alternate songbird has a caring, resourceful personality. He repeatedly warns the Batter to be careful not to fall off of the cliff he is perched upon. The Batter asks him to help the creature known as &quot;The Big Mister&quot; out of the hole he is trapped in, which the Bird is able to accomplish by attaching a whole flock of other birds to the Big Mister by ropes and instructing said flock to lift the big creature up. The Bird does this in return for a book, which contains a diagram of an orchid.</p>
+<p>The orchid book can also be found in Japhet&#x27;s library earlier on in Zone 2. As well, an orchid is seen painted on a wall near the top of the library while ascending to battle Japhet. These symbols appear inherently associated with the character just like how baseball imagery is associated with the Batter.</p>
+<p>In Battle Japhet is battled twice in the game. He is first fought in the library&#x27;s rooms, possessing Valerie. In this battle, he attempts to summon various spectres to fight the Batter. He fails and ultimately flees, cutting things short. After the battle, the second Add-On, named &quot;Omega&quot;, is found. Japhet is fought again on the roof of the library, where it was foretold he would wait to be destroyed. He has three different forms, in each of which he emerges further from Valerie&#x27;s dead body.</p>
+<p>In the remaster Japhet always acts in the same pattern. Phase 1 (Parasite): Warble, Warble, Alto Phase 2 (Master): Warble, Alto, Warble, Soprano Phase 3 (Firebird): Soprano, Alto, Head-voice, Warble, Tenor</p>
+<p>Competences (Original) Since Japhet is a songbird, his Competences are all choral-themed.</p>
+<p>Name Description Base Value Atk/Esp/Var Influence Priority</p>
+<p>Attack Regular Attack, only the first form uses it ? ?/?/? 50</p>
+<p>Alto Mute status effect applied on targeted member, low impact, all forms use it. 60 0/4/4 50</p>
+<p>Soprano Attack of mediocre impact, only the 2nd and Final forms use it 100 0/3/4 50</p>
+<p>Head-Voice Attack of great impact, only the Final form uses it 180 4/9/7 56</p>
+<p>Tenor Applies Poison status effect on targeted member, low impact, only the Final Form uses it 100 3/6/4 56</p>
+<p>Competences (Remaster) Name Description Base Value Atk/Esp/Var Move Power</p>
+<p>Warble Single target attack. 0 100%/0%/10% 1.33</p>
+<p>Alto Single target attack. Inflicts Mute. 0 30%/70%/10% 1.75</p>
+<p>Soprano Single target attack. 0 30%/70%/20% 1.5</p>
+<p>Head-Voice Single target attack. 0 100%/0%/20% 1</p>
+<p>Tenor Single target attack. Inflicts Poison 0 30%/70%/20% 1</p>
+<p>Trivia The fact that Japhet appears as a cat before revealing himself as a completely different looking bird may serve as foreshadowing, particularly for how the Batter appears different as viewed by the Player in the regular game versus by the Judge in the special ending. Orchids are commonly used not just as foods and flavorings but are also grown for medicinal uses as well as just to be decoration. Japhet&#x27;s early adoption of this as a symbol may be a reference to how he provided the Elsen with not just material comforts but also care for their health and recreation. As with multiple other names in the OFF world, &quot;Japhet&quot; has religious significance. The figure of Japhet (also known as Japheth) in the Bible is one of the sons of Noah and is regarded as a legendary ancestor to the peoples of Europe. The description of Japhet as being a Firebird  directly references the various mythologies about those creatures, many of which involve them functioning as guardians for various individuals or groups. Concept art shows that Japhet was originally supposed to be eaten by The Judge instead of Valerie. If Japhet is defeated before reaching his Firebird transformation (only achievable by cheating), The Batter doesn&#x27;t receive the Pisces-Card and isn&#x27;t allowed to enter Zone 3. This doesn&#x27;t leave Zone 2 purified, even though the post-battle cutscene plays, letting The Batter battle Japhet again.</p>
+<p>Gallery Parasite battle In transformation Parasite face The Room face Sketches of battle sprites by Mortis Ghost Concept art by Mortis Ghost Concept art by Mortis Ghost Concept art by Mortis Ghost Japhet parasitizing Valérie Concept art that shows Japhet inside the Judge Some relatively new artwork by Mortis Ghost, depicting Japhet (true form) next to Valérie. It was sold as a print at his Tictail store. Japhet Club, as seen on Mortis Ghost&#x27;s Redbubble. Japhet being surrounded by Spectres, as seen on Mortis Ghost&#x27;s Redbubble. Japhet&#x27;s cliff in The Room</p>
+<p>References ↑http://comments.deviantart.com/4/3470838/3058713420 Characters Playable CharactersThe Batter ● Add-Ons ● The Player GuardiansThe Judge ● Dedan ● Japhet ● Enoch ● Hugo NPCsElsen ● Valérie ● Zacharie Special BossesThe Queen ● Sugar Other Characters Spectres ● Secretaries ● Space Apes</p></div>
+</main>
+
+<footer>
+<p>《OFF》© Mortis Ghost / Unproductive Fun Time · 音乐：Alias Conrad Coldwood · 实体版：Fangamer</p>
+<p>本站仅供个人研究收藏，图片与文字版权归原作者所有，禁止商用与二次发布。</p>
+<p>资料源：<a href="https://offtherpg.com">offtherpg.com</a> · <a href="https://www.fangamer.com/collections/off">Fangamer</a> ·
+<a href="https://mortisghost.tumblr.com">Mortis Ghost</a> · <a href="https://off.fandom.com">OFF Wiki</a></p>
+</footer>
+
+
+</body>
+</html>

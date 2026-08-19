@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OFF 设定 · The Batter</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+:root { --ink:#e8e6e1; --bg:#0d0d0f; --dim:#9a978e; --line:#2a2a30; --card:#151519; --accent:#f2f2f2; }
+body { background:var(--bg); color:var(--ink); font-family:'Courier New',monospace; line-height:1.7; }
+a { color:var(--ink); }
+.topbar { position:sticky; top:0; z-index:50; background:rgba(13,13,15,.92); backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--line); }
+.topbar nav { max-width:1200px; margin:0 auto; display:flex; flex-wrap:wrap; gap:4px 22px;
+  padding:14px 20px; align-items:center; font-size:.82rem; letter-spacing:.1em; }
+.topbar nav a { color:var(--dim); text-decoration:none; white-space:nowrap; }
+.topbar nav a:hover { color:var(--ink); }
+.topbar .brand { color:var(--ink); font-weight:bold; letter-spacing:.25em; margin-right:8px; }
+header.hero { padding:72px 20px 48px; text-align:center; border-bottom:1px solid var(--line); }
+header.hero h1 { font-size:2.4rem; letter-spacing:.4em; text-transform:uppercase; }
+header.hero p.tagline { color:var(--dim); margin-top:16px; max-width:640px; margin-left:auto; margin-right:auto; font-size:.95rem; }
+header.sub { padding:48px 20px 28px; text-align:center; border-bottom:1px solid var(--line); }
+header.sub h1 { font-size:1.6rem; letter-spacing:.3em; text-transform:uppercase; }
+header.sub p { color:var(--dim); margin-top:10px; font-size:.9rem; }
+main { max-width:1200px; margin:0 auto; padding:16px 20px 40px; }
+section { scroll-margin-top:64px; }
+.group { margin:52px 0; }
+.group h2 { font-size:1.25rem; letter-spacing:.2em; border-left:4px solid var(--ink); padding-left:12px; }
+.group .count { color:var(--dim); font-size:.8rem; margin-left:10px; letter-spacing:.1em; }
+.group .intro { color:var(--dim); font-size:.9rem; margin:12px 0 20px 16px; max-width:780px; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(190px,1fr)); gap:10px; }
+.card-img { display:block; background:var(--line); overflow:hidden; aspect-ratio:1/1; }
+.card-img img { width:100%; height:100%; object-fit:cover; display:block; filter:grayscale(.18);
+  transition:transform .25s, filter .25s; }
+.card-img:hover img { transform:scale(1.05); filter:grayscale(0); }
+.cardlist { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px; }
+.tag { display:inline-block; border:1px solid var(--dim); color:var(--dim);
+  font-size:.68rem; padding:1px 8px; letter-spacing:.12em; margin-right:8px; }
+.lcard { display:block; background:var(--card); border:1px solid var(--line);
+  text-decoration:none; padding:18px 20px; transition:border-color .2s, transform .2s; }
+.lcard:hover { border-color:var(--ink); transform:translateY(-2px); }
+.lcard h3 { font-size:1rem; letter-spacing:.08em; color:var(--ink); }
+.lcard .meta { color:var(--dim); font-size:.78rem; margin-top:8px; }
+.lcard .arrow { float:right; color:var(--dim); font-size:1.1rem; }
+.lcard ul { margin:10px 0 0 18px; color:var(--dim); font-size:.82rem; }
+.lcard li { margin:3px 0; }
+header.sub p a { color:var(--dim); text-decoration:none; border-bottom:1px dotted var(--dim); }
+header.sub p a:hover { color:var(--ink); }
+.article { max-width:880px; margin:0 auto; padding:36px 20px 70px; }
+.article h1 { font-size:1.35rem; letter-spacing:.15em; margin:30px 0 8px; }
+.article h2 { font-size:1.25rem; letter-spacing:.12em; margin:30px 0 8px; border-left:4px solid var(--ink); padding-left:12px; }
+.article h3 { font-size:1.05rem; margin:20px 0 6px; }
+.article p { margin:12px 0; color:#d2d0c9; }
+.article ul, .article ol { margin:10px 0 10px 26px; color:#d2d0c9; }
+.article table { border-collapse:collapse; margin:14px 0; width:100%; font-size:.85rem; }
+.article th, .article td { border:1px solid var(--line); padding:6px 12px; text-align:left; }
+.article code { background:var(--line); padding:1px 6px; font-size:.85rem; }
+.article pre { background:#0a0a0c; border:1px solid var(--line); padding:14px; overflow-x:auto; font-size:.8rem; margin:12px 0; }
+.article a { color:var(--ink); text-decoration:underline; text-underline-offset:3px; }
+.entry { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:16px; margin-top:8px; }
+.entry a { display:block; border:1px solid var(--line); background:var(--card); padding:28px 24px;
+  text-decoration:none; transition:border-color .2s, transform .2s; }
+.entry a:hover { border-color:var(--ink); transform:translateY(-2px); }
+.entry h2 { font-size:1.15rem; letter-spacing:.2em; }
+.entry p { color:var(--dim); font-size:.85rem; margin-top:10px; }
+.entry .n { font-size:2.2rem; color:var(--dim); letter-spacing:.1em; margin-bottom:8px; }
+footer { border-top:1px solid var(--line); margin-top:80px; padding:36px 20px 60px;
+  text-align:center; color:var(--dim); font-size:.78rem; line-height:2.1; }
+footer code { background:var(--line); padding:1px 6px; }
+#lightbox { position:fixed; inset:0; background:rgba(0,0,0,.93); display:none; align-items:center;
+  justify-content:center; z-index:99; cursor:zoom-out; }
+#lightbox img { max-width:92vw; max-height:86vh; }
+#lightbox .cap { position:fixed; bottom:22px; left:0; right:0; text-align:center; color:var(--dim); font-size:.78rem; }
+@media (max-width:640px){ header.hero h1{ font-size:1.5rem; letter-spacing:.25em; } .grid{ grid-template-columns:repeat(auto-fill,minmax(130px,1fr)); } }
+</style>
+</head>
+<body>
+<div class="topbar"><nav><a class="brand" href="../../index.html">OFF</a><a href="../index.html#g0">官方宣传</a><a href="../index.html#g1">概念图</a><a href="../index.html#g2">角色</a><a href="../index.html#g3">区域</a><a href="../index.html#g4">封面标志</a><a href="../index.html#g5">粉丝档案</a><a href="../index.html#g6">周边收藏</a><a href="../lore.html">设定文本</a><a href="../interviews.html">访谈</a></nav></div>
+<header class="sub"><h1>The Batter</h1><p><span class="tag">角色</span><a href="../lore.html">← 设定文本</a> · <a href="../index.html">画廊</a></p></header>
+<main>
+<div class="article"><p>Spoiler warning! This article contains important details about OFF&#x27;s plot, which may spoil the game for you. If you haven&#x27;t played and finished OFF, it is recommended that you do not read this.</p>
+<p>&quot;I have a sacred mission to fulfill. I must purify the world.&quot;</p>
+<ul><li>The Batter claiming what his mission is.</li></ul>
+<p>The Batter Artwork</p>
+<p>Battle</p>
+<p>Face</p>
+<p>A stoical man with a mission to purify the Zones.</p>
+<p>Character information</p>
+<p>Relationships The Player (partner/determinant) The Judge (guide) The Queen (unclear) Hugo (son, creator) Alpha, Omega, Epsilon (Add-Ons) The Batter is the main protagonist of OFF.</p>
+<p>Contents 1Profile 1.1Appearance 1.2Personality 1.3Competences (Original) 1.4Competences (Remaster) 2Plot 2.1Bad Batter 3Trivia 4Gallery 5References</p>
+<p>Profile</p>
+<p>Appearance The Batter&#x27;s appearance is that of a man in a baseball uniform wearing an uncaring, somewhat condescending expression. Despite this, the Batter has been confirmed to be inhuman.[1]</p>
+<p>Personality The Batter appears to be reticent and unfeeling, often speaking in as few words as possible. He is determined to purify the Zones, is very straightforward about his intentions, and does not seem to give his own actions much thought. Observant, the Batter is very smart and can solve puzzles with ease, but allows the Player to solve them for themselves rather than deciphering it on his own. He appears to be meticulous in the way he goes about completing his mission and does not like to be held up by distractions. Why he is driven to purify the world remains vague to both the player and the people around him.</p>
+<p>Competences (Original) The names of The Batter&#x27;s Competences are based on baseball terminology. Wide Angle is a unique skill which provides information on the enemies The Batter is facing. The &quot;Save ... Base&quot; Competences heal The Batter and his allies (Add-Ons). The &quot;Run with...&quot; Competences deal low damage to an enemy, but have elemental properties. The &quot;Homerun&quot; Competences deal very high damage to a single enemy, but have somewhat low accuracy.</p>
+<p>Lv.Name CP Dmg.Acc.Infl.Effects</p>
+<p>1 Wide Angle 2 N/A N/A N/A Analyzes the enemies&#x27; characteristics.</p>
+<p>3 Save First Base 5 100 100% 0/9/2 Heals an ally.</p>
+<p>4 Run with Courage 5 40 100% 4/8/3 Deals Metal damage.</p>
+<p>6 Furious Homerun 7 70 80% 4/8/3</p>
+<p>8 Save Second Base 15 500 100% 0/9/2 Heals an ally.</p>
+<p>10 Run with Grace 7 60 100% 4/8/3 Deals Plastic damage.</p>
+<p>13 Special Homerun 15 160 80% 4/8/3</p>
+<p>16 Save Third Base 40 9999 100% 0/10/0 Heals an ally.</p>
+<p>20 Run with Dementia 10 90 100% 4/8/3 Deals Smoke damage.</p>
+<p>25 Magic Homerun 30 400 80% 4/8/3</p>
+<p>30 Save Fourth Base 80 100 100% 0/3/4 Revives and heals an ally.</p>
+<p>35 Run with Belief 15 140 80% 4/8/3 Deals Meat damage.</p>
+<p>40 Save Secret Base 50 500 100% 0/7/2 Heals the party.</p>
+<p>45 Ultimate Homerun 25% 1000 100% 5/5/5</p>
+<p>Competences (Remaster) Lv.Name CC Dmg.Pow.A/E/VDescription/Effects</p>
+<p>1 Wide Angle 2 N/A N/A N/A Analyzes the enemies&#x27; characteristics.</p>
+<p>1 Run with Courage 16 0 1.66 0%/100%/0% Metal attack, effective against most Specters.</p>
+<p>2 Save First Base 18 0 1.75 0%/100%/0% Restores some HP to an ally.</p>
+<p>4 Furious Home Run 14 0 1.66 100%/0%/0% Special attack with low impact.</p>
+<p>5 Save Second Base 22 0 1 0%/100%/0% Restores a lot of HP to an ally. [Restores 80% of target&#x27;s maximum health in addition to formula.]</p>
+<p>6 Run with Dementia 16 0 1.66 0%/100%/0% Smoke attack, effective against most Burnts.</p>
+<p>8 Special Home Run 20 0 2 100%/0%/0% Special attack with average impact.</p>
+<p>11 Run with Grace 16 0 1.66 0%/100%/0% Plastic attack, effective against most Beasts.</p>
+<p>13 Run with Faith 16 0 1.66 0%/100%/0% Meat attack, effective against ???.</p>
+<p>15 Save Third Base 24 0 1 0%/100%/0% Restores some HP to the whole party. [Restores 25% of target&#x27;s maximum health in addition to formula.]</p>
+<p>17 Magic Home Run 26 0 2.25 100%/0%/0% Special attack with considerable impact.</p>
+<p>19 Save Fourth Base 30 0 1 0%/100%/0% Revives an ally. [Restores 60% of target&#x27;s maximum health in addition to formula.]</p>
+<p>21 Ultimate Home Run 32 0 2.5 100%/0%/0% Special attack with cataclysmic impact.</p>
+<p>23 Save Secret Base 32 0 1 0%/100%/0% Restores a lot of HP to the whole party.</p>
+<p>Plot -The Batter Being a purificatory physical incarnation, the Batter is under the control of a soul from outside the world of Off. He exists for but a single mission: to destroy the spectres that overstep the divine laws and decide to sow discord among the living.</p>
+<ul><li>The Batter&#x27;s section in the &quot;others 02&quot; image (translated), located in the &quot;Sketches&quot; folder on the official OFF website.</li></ul>
+<p>When starting the game, the Player is assigned to the Batter and told that he has a special mission to fulfill. The Batter is aware that the Player is controlling him and that he has a purpose, but is relatively uninformed about the nature of the Zones and the world he is in. The Batter fights with different types of baseball bats and utilizes competences that are usually named after baseball terms. He acts as the savior of the world. Embarked on a holy mission, he plans to fulfill this task with the help of his puppeteer who controls his movements. In many ways, the Batter&#x27;s relationship with the Player resembles that of a solemn religious crusader whose every deed, action and decision is justifiable purely on behalf of his higher power.</p>
+<p>Bad Batter</p>
+<p>Bad Batter Demented purificatory incarnation.</p>
+<p>Character information</p>
+<p>Locations The Judge&#x27;s perception</p>
+<p>Battle information</p>
+<p>Competences Run with Courage Run with Grace Run with Dementia Furious Homerun Special Homerun Magic Homerun</p>
+<p>HP 2500</p>
+<p>CP 400</p>
+<p>Attack 330</p>
+<p>Defense 110</p>
+<p>Esprit 155</p>
+<p>Agility 150</p>
+<p>Battle rewards</p>
+<p>EXP 0</p>
+<p>Credits 0</p>
+<p>Item None If the Player chooses to align with the Judge in the game&#x27;s final battle, the Batter spontaneously takes on a much more disturbing appearance. He is now seen as a depraved, crocodilian creature with soulless white eyes, a mouth filled with serrated teeth and a pair of enormous claws. It is confirmed by Mortis Ghost that this is not a different form of the Batter, but simply a different perspective of him since at that point in the game the player would perceive him as the enemy.[2]</p>
+<p>Trivia In some concept art, the Batter wields two Baseball bats. According to the Judge, the baseball bat that the Batter wields is made of iron. It is unknown if every bat is however, and the fact that some bats have elemental properties might suggest otherwise. The Batter&#x27;s beastly form may be hinted at in the encounter with Sugar, who makes references to a &quot;big ducky.&quot; In the Status menu, the Batter&#x27;s Class is listed as &quot;Savior&quot;. During the OFF anniversary stream, Mortis Ghost made several comments and jokes about the Batter.</p>
+<p>Facts:</p>
+<p>The Batter and the Queen are not married. He is an Aries. Mortis Ghost&#x27;s headcanon is that the Batter has short black hair underneath his hat, but it isn&#x27;t quite canon. The Batter was created the moment the game began. Jokes:</p>
+<p>The Batter is a lesbian. The Batter would not dab, isn&#x27;t a fun guy, but likes dad jokes. He can dance, but he doesn&#x27;t like to. The Batter and Zacharie as a romantic pairing could potentially work in an alternate universe. The Batter would&#x27;ve made an appearance in the platform fighting game, Indie Game Battle, but the game was cancelled before he was implemented.</p>
+<p>His model could&#x27;ve been found in the game&#x27;s files, unused. The Batter appears as a skin in the game OvO.</p>
+<p>Gallery Sprite &quot;BENG.&quot; Art by Mortis Ghost. &quot;A nice game for cute children&quot;. &quot;This block prevents access&quot;. Japhet referring to the Batter as a human. The Batter&#x27;s boss form (also known as the &quot;Bad Batter&quot;) as seen through the eyes of the Judge. A photograph souvenir of the Batter enjoying the rollercoaster ride in Zone 2. It&#x27;s called &quot;Photo of You&quot; in your inventory when you acquire it. Another souvenir photo called &quot;Photo of Zacharie&quot;. This time the Batter is accompanied by a statue of Zacharie. The Batter being surrounded by specters. A sketchy illustration by Mortis Ghost. The origin of the Batter&#x27;s talksprite. &quot;Hard as steel&quot;. The Batter being beat with great force. &quot;Ah, ah, ah&quot;. The Batter and his Add-ons. The Batter falling from a high height. Somewhere over the rainbow... &quot;Play to OFF&quot;. The Batter in his monstrous form. Baseball fever. The Batter sitting atop a pile of dead specters. Humorous Pepper Steak album art featuring The Batter. Official Translation 2.0 release art. Artwork by Mortis Ghost, depicting the Batter&#x27;s monstrous form beside Hugo. It was sold as a print at his Tictail store A recent sketch of the Batter&#x27;s monstrous form done by Mortis Ghost. It was sold as a print on his RedBubble account. A transparent of the Batter (monstrous form) by Mortis Ghost. A relatively new drawing by Mortis Ghost of the Batter batting a baseball. It was sold as a print on his RedBubble account. The Judge and Batter, new promo artwork from OFF&#x27;s remaster.</p>
+<p>References ↑Hugo is human too. The Batter and the Queen are not. - 9/5/2013, DeviantArt ↑There is no &quot;impure&quot; batter. There is only one batter, the only things wich changes is the vision the player have of him. Sometimes someones you likes looks sudently very different. - 7/5/2013, DeviantArt Characters Playable CharactersThe Batter ● Add-Ons ● The Player GuardiansThe Judge ● Dedan ● Japhet ● Enoch ● Hugo NPCsElsen ● Valérie ● Zacharie Special BossesThe Queen ● Sugar Other Characters Spectres ● Secretaries ● Space Apes</p></div>
+</main>
+
+<footer>
+<p>《OFF》© Mortis Ghost / Unproductive Fun Time · 音乐：Alias Conrad Coldwood · 实体版：Fangamer</p>
+<p>本站仅供个人研究收藏，图片与文字版权归原作者所有，禁止商用与二次发布。</p>
+<p>资料源：<a href="https://offtherpg.com">offtherpg.com</a> · <a href="https://www.fangamer.com/collections/off">Fangamer</a> ·
+<a href="https://mortisghost.tumblr.com">Mortis Ghost</a> · <a href="https://off.fandom.com">OFF Wiki</a></p>
+</footer>
+
+
+</body>
+</html>

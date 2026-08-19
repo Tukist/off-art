@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OFF 访谈 · Interview with Mortis Ghost — OFF (GamAtomic, 2025 Remaster)</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+:root { --ink:#e8e6e1; --bg:#0d0d0f; --dim:#9a978e; --line:#2a2a30; --card:#151519; --accent:#f2f2f2; }
+body { background:var(--bg); color:var(--ink); font-family:'Courier New',monospace; line-height:1.7; }
+a { color:var(--ink); }
+.topbar { position:sticky; top:0; z-index:50; background:rgba(13,13,15,.92); backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--line); }
+.topbar nav { max-width:1200px; margin:0 auto; display:flex; flex-wrap:wrap; gap:4px 22px;
+  padding:14px 20px; align-items:center; font-size:.82rem; letter-spacing:.1em; }
+.topbar nav a { color:var(--dim); text-decoration:none; white-space:nowrap; }
+.topbar nav a:hover { color:var(--ink); }
+.topbar .brand { color:var(--ink); font-weight:bold; letter-spacing:.25em; margin-right:8px; }
+header.hero { padding:72px 20px 48px; text-align:center; border-bottom:1px solid var(--line); }
+header.hero h1 { font-size:2.4rem; letter-spacing:.4em; text-transform:uppercase; }
+header.hero p.tagline { color:var(--dim); margin-top:16px; max-width:640px; margin-left:auto; margin-right:auto; font-size:.95rem; }
+header.sub { padding:48px 20px 28px; text-align:center; border-bottom:1px solid var(--line); }
+header.sub h1 { font-size:1.6rem; letter-spacing:.3em; text-transform:uppercase; }
+header.sub p { color:var(--dim); margin-top:10px; font-size:.9rem; }
+main { max-width:1200px; margin:0 auto; padding:16px 20px 40px; }
+section { scroll-margin-top:64px; }
+.group { margin:52px 0; }
+.group h2 { font-size:1.25rem; letter-spacing:.2em; border-left:4px solid var(--ink); padding-left:12px; }
+.group .count { color:var(--dim); font-size:.8rem; margin-left:10px; letter-spacing:.1em; }
+.group .intro { color:var(--dim); font-size:.9rem; margin:12px 0 20px 16px; max-width:780px; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(190px,1fr)); gap:10px; }
+.card-img { display:block; background:var(--line); overflow:hidden; aspect-ratio:1/1; }
+.card-img img { width:100%; height:100%; object-fit:cover; display:block; filter:grayscale(.18);
+  transition:transform .25s, filter .25s; }
+.card-img:hover img { transform:scale(1.05); filter:grayscale(0); }
+.cardlist { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px; }
+.tag { display:inline-block; border:1px solid var(--dim); color:var(--dim);
+  font-size:.68rem; padding:1px 8px; letter-spacing:.12em; margin-right:8px; }
+.lcard { display:block; background:var(--card); border:1px solid var(--line);
+  text-decoration:none; padding:18px 20px; transition:border-color .2s, transform .2s; }
+.lcard:hover { border-color:var(--ink); transform:translateY(-2px); }
+.lcard h3 { font-size:1rem; letter-spacing:.08em; color:var(--ink); }
+.lcard .meta { color:var(--dim); font-size:.78rem; margin-top:8px; }
+.lcard .arrow { float:right; color:var(--dim); font-size:1.1rem; }
+.lcard ul { margin:10px 0 0 18px; color:var(--dim); font-size:.82rem; }
+.lcard li { margin:3px 0; }
+header.sub p a { color:var(--dim); text-decoration:none; border-bottom:1px dotted var(--dim); }
+header.sub p a:hover { color:var(--ink); }
+.article { max-width:880px; margin:0 auto; padding:36px 20px 70px; }
+.article h1 { font-size:1.35rem; letter-spacing:.15em; margin:30px 0 8px; }
+.article h2 { font-size:1.25rem; letter-spacing:.12em; margin:30px 0 8px; border-left:4px solid var(--ink); padding-left:12px; }
+.article h3 { font-size:1.05rem; margin:20px 0 6px; }
+.article p { margin:12px 0; color:#d2d0c9; }
+.article ul, .article ol { margin:10px 0 10px 26px; color:#d2d0c9; }
+.article table { border-collapse:collapse; margin:14px 0; width:100%; font-size:.85rem; }
+.article th, .article td { border:1px solid var(--line); padding:6px 12px; text-align:left; }
+.article code { background:var(--line); padding:1px 6px; font-size:.85rem; }
+.article pre { background:#0a0a0c; border:1px solid var(--line); padding:14px; overflow-x:auto; font-size:.8rem; margin:12px 0; }
+.article a { color:var(--ink); text-decoration:underline; text-underline-offset:3px; }
+.entry { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:16px; margin-top:8px; }
+.entry a { display:block; border:1px solid var(--line); background:var(--card); padding:28px 24px;
+  text-decoration:none; transition:border-color .2s, transform .2s; }
+.entry a:hover { border-color:var(--ink); transform:translateY(-2px); }
+.entry h2 { font-size:1.15rem; letter-spacing:.2em; }
+.entry p { color:var(--dim); font-size:.85rem; margin-top:10px; }
+.entry .n { font-size:2.2rem; color:var(--dim); letter-spacing:.1em; margin-bottom:8px; }
+footer { border-top:1px solid var(--line); margin-top:80px; padding:36px 20px 60px;
+  text-align:center; color:var(--dim); font-size:.78rem; line-height:2.1; }
+footer code { background:var(--line); padding:1px 6px; }
+#lightbox { position:fixed; inset:0; background:rgba(0,0,0,.93); display:none; align-items:center;
+  justify-content:center; z-index:99; cursor:zoom-out; }
+#lightbox img { max-width:92vw; max-height:86vh; }
+#lightbox .cap { position:fixed; bottom:22px; left:0; right:0; text-align:center; color:var(--dim); font-size:.78rem; }
+@media (max-width:640px){ header.hero h1{ font-size:1.5rem; letter-spacing:.25em; } .grid{ grid-template-columns:repeat(auto-fill,minmax(130px,1fr)); } }
+</style>
+</head>
+<body>
+<div class="topbar"><nav><a class="brand" href="../../index.html">OFF</a><a href="../index.html#g0">官方宣传</a><a href="../index.html#g1">概念图</a><a href="../index.html#g2">角色</a><a href="../index.html#g3">区域</a><a href="../index.html#g4">封面标志</a><a href="../index.html#g5">粉丝档案</a><a href="../index.html#g6">周边收藏</a><a href="../lore.html">设定文本</a><a href="../interviews.html">访谈</a></nav></div>
+<header class="sub"><h1>Interview with Mortis Ghost — OFF (GamAtomic, 2025 Remaster)</h1><p>2025-08-18 · <a href="https://www.gamatomic.com/interviews/13448/off" target="_blank" rel="noopener">原始来源 ↗</a> · <a href="../interviews.html">← 访谈</a> · <a href="../index.html">画廊</a></p></header>
+<main>
+<div class="article"><h4>Interview with Mortis Ghost</h4>
+<p>In 2008, a strange game appeared on our screens: a hero in a baseball uniform, monochrome zones, dialogues as mysterious as they were impactful... and a universe that could rival the weirdest dreams. <a href="OFF" target="_blank" rel="noopener">OFF</a>, created by French developer <a href="Mortis Ghost" target="_blank" rel="noopener">Mortis Ghost</a>, quickly became a small monument of cult indie gaming. Today, it returns in a remastered version to keep intriguing you, unsettling you... and maybe making you smile. We took the opportunity to ask its creator a few questions. Beware — some answers might just get &quot;Purified&quot;...</p>
+<h4>&quot;OFF is a weird, funny, and unsettling game.&quot;</h4>
+<p><strong>Q:</strong> If you only had 30 seconds to describe <a href="OFF" target="_blank" rel="noopener">OFF</a> to a curious player?</p>
+<p><strong>A:</strong> <strong>Mortis Ghost:</strong> I&#x27;d say that <a href="OFF" target="_blank" rel="noopener">OFF</a> is an old-school, Japanese-inspired RPG where you play as a mysterious baseball player. His mission is to &quot;purify&quot; the strange world he inhabits. To do so, you must exterminate ghosts (and other disgusting creatures), follow the advice of a big-headed cat, and wander through the cubic, colorful alleys of the three explorable zones. It&#x27;s a weird, funny, and unsettling game.</p>
+<h4>&quot;We were incredibly surprised to see the first cosplays of the game’s characters.&quot;</h4>
+<p><strong>Q:</strong> You originally developed <a href="OFF" target="_blank" rel="noopener">OFF</a> on <a href="RPG Maker 2003" target="_blank" rel="noopener">RPG Maker 2003</a> &quot;just for fun&quot;, yet it became a cult game. At what point did you realize that this quirky, spontaneous project was resonating with so many people?</p>
+<p><strong>A:</strong> <strong>Mortis Ghost:</strong> I don&#x27;t remember the exact date. I finished <a href="OFF" target="_blank" rel="noopener">OFF</a> in 2008, then uploaded it to a few French-speaking amateur game-making forums. I got around fifty players, and I thought that was a great success! A little while later, <strong>Quinn</strong> contacted me to ask if she could translate the game into English. I had no reason to refuse. Once she finished her work and uploaded it, things started to snowball. I remember that with <a href="Alias Conrad Coldwood" target="_blank" rel="noopener">Alias Conrad Coldwood</a>, the composer of the original version&#x27;s music, we were incredibly surprised to see the first cosplays of the game&#x27;s characters. It was a shock!</p>
+<p>![](https://media.gamatomic.com/interviews/OFF/OFF_TheJudge.png)</p>
+<p><strong>Q:</strong> The Batter&#x27;s mission to &quot;purify&quot; a surreal, unsettling world is both disturbing and fascinating. Where did that idea come from, and did you expect it to resonate so strongly?</p>
+<p><strong>A:</strong> <strong>Mortis Ghost:</strong> At the time, I was deeply struck by <a href="Agatha Christie&#x27;s And Then There Were None" target="_blank" rel="noopener">Agatha Christie&#x27;s And Then There Were None</a>, which contains a very important twist. That twist was the starting point for my scenario. As for the game&#x27;s formal elements, it was a patchwork of images I had made before starting to work on it: a cat, a baseball player, and a very cubic world because it made for easy-to-produce and arrange backgrounds. The rest of the elements came later, and I made sure they aligned with what already existed in the project.</p>
+<h4>&quot;I wanted to make something original and weird.&quot;</h4>
+<p><strong>Q:</strong> Your inspirations include <a href="Killer 7" target="_blank" rel="noopener">Killer 7</a>, <a href="Silent Hill 2" target="_blank" rel="noopener">Silent Hill 2</a>, <a href="Myst" target="_blank" rel="noopener">Myst</a> and of course Agatha Christie. How did such varied sources shape <a href="OFF" target="_blank" rel="noopener">OFF</a>&#x27;s unique mix of horror and puzzles?</p>
+<p><strong>A:</strong> <strong>Mortis Ghost:</strong> It&#x27;s hard to explain — that&#x27;s often how works of fiction are made: a mix of varied inspirations, which, once combined and sprinkled with the creator&#x27;s personality, give birth to something new. I did a bit of &quot;shopping&quot; in the works you mentioned, and many others, to pick the basic elements of my world. I didn&#x27;t overthink it.</p>
+<p><strong>Q:</strong> The atmosphere of <a href="OFF" target="_blank" rel="noopener">OFF</a> is unforgettable, thanks in part to its minimalist yet powerful aesthetic and its soundtrack. What&#x27;s your process for creating visuals and music that stir such strong emotions?</p>
+<p><strong>A:</strong> <strong>Mortis Ghost:</strong> The music isn&#x27;t my doing. In the original version, it was composed by <strong>Alias Conrad Coldwood</strong>, and for the new one, it&#x27;s the work of several artists, including <a href="Toby Fox" target="_blank" rel="noopener">Toby Fox</a> and <a href="Morusque" target="_blank" rel="noopener">Morusque</a>. They&#x27;re the ones you should be asking!</p>
+<p>For the graphics, it was a mix of choices dictated by technical constraints (and a few of my own &quot;comfort&quot; decisions) and a personal attempt to make something highly readable and impactful. By limiting each environment to a single color tone, and characters to black and white, I ensured that important elements stood out on screen. And, of course, I wanted to make something original and weird. I think I didn&#x27;t do too badly!</p>
+<h4>&quot;I hate being frustrated in video games myself.&quot;</h4>
+<p><strong>Q:</strong> The game features four strange Zones, multiple endings, and hidden surprises. How do you design ambiguity and mystery without frustrating the player?</p>
+<p><strong>A:</strong> <strong>Mortis Ghost:</strong> I hate being frustrated in video games myself, so that was important for me. Specifically regarding the scenario, I think a good way to avoid frustrating the player – without giving them too many answers – is to be generous with surprising situations and original content. That&#x27;s something I tried to do throughout the adventure.</p>
+<p>That said, I think you&#x27;re being pretty generous in your analysis – <a href="OFF" target="_blank" rel="noopener">OFF</a> can be frustrating in certain design choices I made back then! But well, without frustration, there&#x27;s no challenge, right? You need at least a little bit for a game to be fun.</p>
+<p><strong>Q:</strong> OFF has developed a large fan community, thanks in part to fan translations and cosplays. How have fan contributions influenced your view of the game&#x27;s legacy?</p>
+<p><strong>A:</strong> <strong>Mortis Ghost:</strong> It&#x27;s very hard for me to step outside my own vision of what the game is and tells. But I think <a href="OFF" target="_blank" rel="noopener">OFF</a> now belongs more to the community than to me. I&#x27;m both admiring and grateful for all the attention and effort that&#x27;s been put into my little game, and I&#x27;m constantly amazed by the scale of it. My life would be quite different today if <a href="OFF" target="_blank" rel="noopener">OFF</a> hadn&#x27;t enjoyed such success.</p>
+<h4>&quot;We believe OFF now belongs more to the community than to us.&quot;</h4>
+<p><strong>Q:</strong> With the 2025 remaster, you&#x27;re adding a new combat system, new zones, bosses, and music by renowned artists like <a href="Toby Fox" target="_blank" rel="noopener">Toby Fox</a> and <a href="Camellia" target="_blank" rel="noopener">Camellia</a>. How do you preserve the original spirit of <a href="OFF" target="_blank" rel="noopener">OFF</a> while evolving it?</p>
+<p><strong>A:</strong> <strong>Mortis Ghost:</strong> The whole team is very careful not to alter the game&#x27;s original atmosphere. As I said earlier, we believe <a href="OFF" target="_blank" rel="noopener">OFF</a> now belongs more to the community than to us. So we&#x27;ve done our best to preserve its unique feel. That said, since the original version of <a href="OFF" target="_blank" rel="noopener">OFF</a> remains freely available to everyone, we didn&#x27;t bite our nails down to the quick. The new soundtrack is an important element of this edition — while staying close in tone to what <strong>Alias Conrad Coldwood</strong> created, it will give the adventure a fresh new flavor. I think it&#x27;ll be interesting for veteran players to rediscover familiar places, but with this special new spice.</p>
+<h4>&quot;Comics and video games have diametrically opposite storytelling constraints.&quot;</h4>
+<p><strong>Q:</strong> As a solo developer and comic book author, what&#x27;s your approach to storytelling in games compared to comics? Do the two mediums inspire each other?</p>
+<p><strong>A:</strong> <strong>Mortis Ghost:</strong> Since I&#x27;ve practiced both mediums in parallel, it&#x27;s obvious they&#x27;re connected in my mind, and so they inspire each other. But there&#x27;s a major difference that, in my view, makes you approach storytelling quite differently. Comics are the art of the ellipse par excellence — there&#x27;s literally a cut between each panel, and it&#x27;s up to the reader to connect the dots. Video games have almost no cut in their storytelling: you control a character and witness each of their actions in a &quot;1:1&quot; timeline. These are diametrically opposite narrative constraints. That&#x27;s also what makes writing for both fields interesting.</p>
+<p><strong>Q:</strong> Finally, what do you play when you need to step away from <a href="OFF" target="_blank" rel="noopener">OFF</a>&#x27;s surreal world? Do you have any &quot;normal&quot; games or media you enjoy to clear your head?</p>
+<p><strong>A:</strong> <strong>Mortis Ghost:</strong> I love strange artistic works, whatever the medium, but I also play a lot of mainstream games. I remain a huge weeb *(editor&#x27;s note: fan of anime and manga)*, so many of my choices lean toward Japanese productions. In the most recent games I&#x27;ve played that are relatively &quot;vanilla&quot; *(editor&#x27;s note: base version without mods or expansions)*, I can mention the <a href="Ys" target="_blank" rel="noopener">Ys</a> and <a href="Monster Hunter" target="_blank" rel="noopener">Monster Hunter</a> franchises, both of which I love.</p>
+<p>![](https://media.gamatomic.com/interviews/OFF/OFF_Dedan.png)</p></div>
+</main>
+
+<footer>
+<p>《OFF》© Mortis Ghost / Unproductive Fun Time · 音乐：Alias Conrad Coldwood · 实体版：Fangamer</p>
+<p>本站仅供个人研究收藏，图片与文字版权归原作者所有，禁止商用与二次发布。</p>
+<p>资料源：<a href="https://offtherpg.com">offtherpg.com</a> · <a href="https://www.fangamer.com/collections/off">Fangamer</a> ·
+<a href="https://mortisghost.tumblr.com">Mortis Ghost</a> · <a href="https://off.fandom.com">OFF Wiki</a></p>
+</footer>
+
+
+</body>
+</html>

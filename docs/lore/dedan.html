@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OFF 设定 · Dedan</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+:root { --ink:#e8e6e1; --bg:#0d0d0f; --dim:#9a978e; --line:#2a2a30; --card:#151519; --accent:#f2f2f2; }
+body { background:var(--bg); color:var(--ink); font-family:'Courier New',monospace; line-height:1.7; }
+a { color:var(--ink); }
+.topbar { position:sticky; top:0; z-index:50; background:rgba(13,13,15,.92); backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--line); }
+.topbar nav { max-width:1200px; margin:0 auto; display:flex; flex-wrap:wrap; gap:4px 22px;
+  padding:14px 20px; align-items:center; font-size:.82rem; letter-spacing:.1em; }
+.topbar nav a { color:var(--dim); text-decoration:none; white-space:nowrap; }
+.topbar nav a:hover { color:var(--ink); }
+.topbar .brand { color:var(--ink); font-weight:bold; letter-spacing:.25em; margin-right:8px; }
+header.hero { padding:72px 20px 48px; text-align:center; border-bottom:1px solid var(--line); }
+header.hero h1 { font-size:2.4rem; letter-spacing:.4em; text-transform:uppercase; }
+header.hero p.tagline { color:var(--dim); margin-top:16px; max-width:640px; margin-left:auto; margin-right:auto; font-size:.95rem; }
+header.sub { padding:48px 20px 28px; text-align:center; border-bottom:1px solid var(--line); }
+header.sub h1 { font-size:1.6rem; letter-spacing:.3em; text-transform:uppercase; }
+header.sub p { color:var(--dim); margin-top:10px; font-size:.9rem; }
+main { max-width:1200px; margin:0 auto; padding:16px 20px 40px; }
+section { scroll-margin-top:64px; }
+.group { margin:52px 0; }
+.group h2 { font-size:1.25rem; letter-spacing:.2em; border-left:4px solid var(--ink); padding-left:12px; }
+.group .count { color:var(--dim); font-size:.8rem; margin-left:10px; letter-spacing:.1em; }
+.group .intro { color:var(--dim); font-size:.9rem; margin:12px 0 20px 16px; max-width:780px; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(190px,1fr)); gap:10px; }
+.card-img { display:block; background:var(--line); overflow:hidden; aspect-ratio:1/1; }
+.card-img img { width:100%; height:100%; object-fit:cover; display:block; filter:grayscale(.18);
+  transition:transform .25s, filter .25s; }
+.card-img:hover img { transform:scale(1.05); filter:grayscale(0); }
+.cardlist { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px; }
+.tag { display:inline-block; border:1px solid var(--dim); color:var(--dim);
+  font-size:.68rem; padding:1px 8px; letter-spacing:.12em; margin-right:8px; }
+.lcard { display:block; background:var(--card); border:1px solid var(--line);
+  text-decoration:none; padding:18px 20px; transition:border-color .2s, transform .2s; }
+.lcard:hover { border-color:var(--ink); transform:translateY(-2px); }
+.lcard h3 { font-size:1rem; letter-spacing:.08em; color:var(--ink); }
+.lcard .meta { color:var(--dim); font-size:.78rem; margin-top:8px; }
+.lcard .arrow { float:right; color:var(--dim); font-size:1.1rem; }
+.lcard ul { margin:10px 0 0 18px; color:var(--dim); font-size:.82rem; }
+.lcard li { margin:3px 0; }
+header.sub p a { color:var(--dim); text-decoration:none; border-bottom:1px dotted var(--dim); }
+header.sub p a:hover { color:var(--ink); }
+.article { max-width:880px; margin:0 auto; padding:36px 20px 70px; }
+.article h1 { font-size:1.35rem; letter-spacing:.15em; margin:30px 0 8px; }
+.article h2 { font-size:1.25rem; letter-spacing:.12em; margin:30px 0 8px; border-left:4px solid var(--ink); padding-left:12px; }
+.article h3 { font-size:1.05rem; margin:20px 0 6px; }
+.article p { margin:12px 0; color:#d2d0c9; }
+.article ul, .article ol { margin:10px 0 10px 26px; color:#d2d0c9; }
+.article table { border-collapse:collapse; margin:14px 0; width:100%; font-size:.85rem; }
+.article th, .article td { border:1px solid var(--line); padding:6px 12px; text-align:left; }
+.article code { background:var(--line); padding:1px 6px; font-size:.85rem; }
+.article pre { background:#0a0a0c; border:1px solid var(--line); padding:14px; overflow-x:auto; font-size:.8rem; margin:12px 0; }
+.article a { color:var(--ink); text-decoration:underline; text-underline-offset:3px; }
+.entry { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:16px; margin-top:8px; }
+.entry a { display:block; border:1px solid var(--line); background:var(--card); padding:28px 24px;
+  text-decoration:none; transition:border-color .2s, transform .2s; }
+.entry a:hover { border-color:var(--ink); transform:translateY(-2px); }
+.entry h2 { font-size:1.15rem; letter-spacing:.2em; }
+.entry p { color:var(--dim); font-size:.85rem; margin-top:10px; }
+.entry .n { font-size:2.2rem; color:var(--dim); letter-spacing:.1em; margin-bottom:8px; }
+footer { border-top:1px solid var(--line); margin-top:80px; padding:36px 20px 60px;
+  text-align:center; color:var(--dim); font-size:.78rem; line-height:2.1; }
+footer code { background:var(--line); padding:1px 6px; }
+#lightbox { position:fixed; inset:0; background:rgba(0,0,0,.93); display:none; align-items:center;
+  justify-content:center; z-index:99; cursor:zoom-out; }
+#lightbox img { max-width:92vw; max-height:86vh; }
+#lightbox .cap { position:fixed; bottom:22px; left:0; right:0; text-align:center; color:var(--dim); font-size:.78rem; }
+@media (max-width:640px){ header.hero h1{ font-size:1.5rem; letter-spacing:.25em; } .grid{ grid-template-columns:repeat(auto-fill,minmax(130px,1fr)); } }
+</style>
+</head>
+<body>
+<div class="topbar"><nav><a class="brand" href="../../index.html">OFF</a><a href="../index.html#g0">官方宣传</a><a href="../index.html#g1">概念图</a><a href="../index.html#g2">角色</a><a href="../index.html#g3">区域</a><a href="../index.html#g4">封面标志</a><a href="../index.html#g5">粉丝档案</a><a href="../index.html#g6">周边收藏</a><a href="../lore.html">设定文本</a><a href="../interviews.html">访谈</a></nav></div>
+<header class="sub"><h1>Dedan</h1><p><span class="tag">角色</span><a href="../lore.html">← 设定文本</a> · <a href="../index.html">画廊</a></p></header>
+<main>
+<div class="article"><p>Spoiler warning! This article contains important details about OFF&#x27;s plot, which may spoil the game for you. If you haven&#x27;t played and finished OFF, it is recommended that you do not read this.</p>
+<p>&quot;You&#x27;ll taste the pain, you sick spirit. I&#x27;m gonna cut your face to remove this unsufferable smile.&quot;</p>
+<ul><li>Dedan threatening The Batter before battle</li></ul>
+<p>Dedan Battle</p>
+<p>Face</p>
+<p>Royal guardian of zone 1.</p>
+<p>Character information</p>
+<p>Locations Zone 1 The Room</p>
+<p>Battle information</p>
+<p>Competences Hour Hand Minute Hand Sweep Hand</p>
+<p>HP 4000 (Original) 750 (Remaster)</p>
+<p>CP 200 (Original) 0 (Remaster)</p>
+<p>Attack 80 (Original) 35 (Remaster)</p>
+<p>Defense 65 (Original) 48 (Remaster)</p>
+<p>Esprit 70 (Original) 20 (Remaster)</p>
+<p>Agility 55 (Original) 6 (Remaster)</p>
+<p>Battle rewards</p>
+<p>EXP 3000</p>
+<p>Credits 601</p>
+<p>Item Cancer-card Dedan is the Guardian of Zone 1. He is notable for his nasty temperament, and seems to be constantly enraged and use vulgar language. He interacts with cruelty towards various beings, including his own working staff.</p>
+<p>Contents 1Profile 1.1Appearance 1.2Personality 2Plot 3In Battle 3.1Competences (Original) 3.2Competences (Remaster) 4Gallery 5Trivia 6References</p>
+<p>Profile</p>
+<p>Appearance Most noticeable characteristic Dedan possesses is his teeth, which take up the majority of his face. He seems to be a relatively humanoid-looking monster with grotesque features added onto him. A gaping hole is formed between his upper and lower jaw, and his head appears more like that of an inanimate animal skeleton than a human. His hands are another noticeable difference from humans given the elongated, frail appearance of his fingers. There is a small white dot in this hole on his battle sprite&#x27;s head as well. Though possibly a singular eye, this dot does not appear to be present on his talk sprite (this may be, however, simply because Dedan keeps his eye closed much of the time).</p>
+<p>Tall and with long arms, his body looks inherently imposing. In terms of his outfit, Dedan wears a trench-coat, pants, and boots, although he does not wear a shirt. All of this bears a strong superficial resemblance to a military uniform, as befitting a leader of a large and important area, but is worn in a very shabby manner. This may be related to his disinterest in many aspects of his position, as he does not appear to particularly even enjoy his work even though he rules with an &quot;iron fist&quot;.</p>
+<p>Personality The First Guardian, Dedan, was filled with anger. Thanks to his strong determination and his body made out of steel, he ruled his Zone with an iron fist.</p>
+<ul><li>Page in Zone 2&#x27;s massive library, Bismark</li></ul>
+<p>Dedan has no patience for ineptitude and has a terrible demeanor. He is not only disdainful, but vicious towards the Elsen in his Zone for their inability to handle spectres on their own. Dedan acts similarly towards The Batter, even after The Batter helped Elsen by purifying the spectres, and he remains in a foul mood until his death. He&#x27;s also shown to have a strong work ethic, as shown in The Room to believe that everyone should work together to build their future. He seems to be very direct and prompt in carrying out his job (something that his time related competences seem to illustrate), and is quickly irritated if anyone else doesn&#x27;t share that skill. Despite his obvious nastiness and his wrathful punishments, his end goal does seem to be to keep his Zone safe and operating, even if his overly-strict attitude ends up causing more harm than good.</p>
+<p>Plot Dedan is the Queen&#x27;s inspector. His task consists of eliminating the phantoms that haunt zone 1 (the land to which he is linked). His constant bad mood makes him a predictable, but not necessarily pleasant fellow. You have got to understand him, though, his zone would be perfect if it wasn&#x27;t for all these accursed &quot;apathetic idiots&quot; that pollute the landscapes.</p>
+<ul><li>Dedan&#x27;s section in the &quot;others 02&quot; image (translated), located in the &quot;Sketches&quot; folder on the official OFF website.</li></ul>
+<p>Dedan is introduced early in the game as a supervisor and administrative figure associated with The Queen. Even the Elsen in his own land, Zone 1, greatly fear him, despite the importance of what he and them do in producing goods for other Zones. He allows the spectres to run rampant and terrorize the vulnerable Elsen in their workplaces, having little interest in making efforts to help them.</p>
+<p>Dedan is a supervisor working with the Queen. As Guardian of Zone 1, he is the first boss that the Batter must face. He is first met in the barns of Pentel, where he is angrily shouting at an Elsen for getting in his way. He is then met personally in the office of Shachihata, where he is fighting the spectres that are infiltrating his building. He believes that the Batter is the &quot;chief of spectres&quot; and warns him to leave, saying &quot;If I see you again... you&#x27;re dead&quot;. He then teleports away to Alma (possibly through the use of his Zodiac Card). After encountering him again in his secret office, where he is even more aggressive, he will call the Batter &quot;insane&quot; and engage him in combat. After he is defeated, he is in denial that he has lost and is then purified by the Batter; thus purifying the Zone. Later, in Zone 2, a short description of how Dedan became a Guardian is found in a page in the massive library of Bismark.</p>
+<p>Once the Batter gains access to The Room, he is able to visit beings that are altered versions of previous bosses. One of them, titled &quot;The Tall Mister&quot;, is a counterpart of Dedan. Other beings in the area include &quot;The Bird&quot; and &quot;The Big Mister&quot;, which bear resemblance to Japhet and Enoch respectively. The Tall Mister is an entity which appears to be a time-skipped version of Dedan before he became a Guardian. The Tall Mister&#x27;s personality traits are the opposite of Dedan&#x27;s, as he is observed to have a compassionate and sedate manner. The alternate Dedan has a particular interest in dates and times, commenting about this to the Batter, which could point to the Tall Mister having been an organized and prompt leader before his personality deteriorated.</p>
+<p>Dedan sees the Batter as a particularly aggressive specter, calling him a &quot;sick spirit&quot;. It is unclear if Dedan has any awareness of The Player or of the overall nature of the Batter&#x27;s purification mission.</p>
+<p>In Battle Early in the game, Dedan is a force to be reckoned with. He has more health and defense than any other specter/Burnt encountered beforehand. The damage he deals alone is dangerously high and his &quot;Hour Hand&quot; competence can cripple your party if left alone. It is important to heal up regularly when fighting Dedan, as well as to make sure you have items to counter the status effects that Dedan can inflict upon a member. Dedan also passively summons speech bubbles that inflict Blind/Lethargic and drain your CC.</p>
+<p>In the remaster Dedan&#x27;s battle features a clock, each time an action is taken by anyone, no matter which side of the battle they are on, the clock will move forwards one hour. When it hits 12:00 Dedan will use either Hour Hand or Half Past as his next action.</p>
+<p>Competences (Original) Dedan&#x27;s competences are named after clockwork. This may be referring to his house where a broken clock can be found. The song that plays in the Mail Office of Shachihata is also called &quot;Clockwork&quot;.</p>
+<p>Name Description Base Value Atk/Esp/Var Influence Priority</p>
+<p>Minute Hand Attack of mediocre impact 85 0/3/4 55</p>
+<p>Hour Hand Inflicts Sleep status effect on targeted member. 0 0/3/4 10</p>
+<p>Sweep Hand Inflicts Furious status on targeted member. 70 0/7/4 5</p>
+<p>Competences (Remaster) Name Description Base Value Atk/Esp/Var Move Power</p>
+<p>Minute Hand Single target attack. 0 100%/0%/40% 0.9</p>
+<p>Hour Hand Single target attack. Inflicts Asleep. 0 0%/100%/0% 1</p>
+<p>Half Past Inflicts Dedan with Hasty. 0 0%/0%/0% 1</p>
+<p>Gallery Sprite The origin of Dedan&#x27;s talksprite. Concept art by Mortis Ghost. The origin of Dedan&#x27;s battlesprite. Dedan (cloaked and uncloaked). Dedan with snakes coming out of his eyes. Concept art by Mortis Ghost. Dedan with Japhet. The Batter looking at Dedan Some relatively new artwork by Mortis Ghost, depicting Dedan using the &quot;Sweep Hand&quot; competence in front of an Elsen. It was sold as a print at his Tictail store. A poster of Dedan, as seen on Mortis Ghost&#x27;s Redbubble. Doctor Dedan as seen on Mortis Ghost&#x27;s Redbubble. New promo artwork from OFF&#x27;s remaster.</p>
+<p>Trivia As with most other characters, Dedan&#x27;s name is biblical and means &quot;low ground&quot;. This can be a reference to his ultimate personality, as terms such as &quot;low&quot; and &quot;lowdown&quot; often are applied to people who behave in angry and cruel ways. The word &quot;Dedan&quot; is additionally similar to the French words &quot;des dents&quot;, which mean &quot;some teeth&quot;. This coincides with his physical depiction.</p>
+<p>Dedan&#x27;s name in English shares a close similarity with the term &quot;deaden&quot; as well. Dedan&#x27;s name also has an assonance with the french word &quot;dedans&quot;, meaning &quot;inside&quot;. The speech bubbles that Dedan spawns has the Chinese symbol &quot;笑&quot; (Xiào), which means laugh, or the Japanese symbol &quot;笑&quot; (Emi), which means smile. The Japanese version has similarities to a phrase says, &quot;I&#x27;m going to wipe that smile off your face&quot;. When encountering Dedan in his house hidden in Alma, he says he&#x27;ll wipe The Batter&#x27;s smile from his face, although we see him as a stoic, and non-emotional character.</p>
+<p>Something interesting is that Dedan looks rather similar to The Batter&#x27;s monstrous form that he takes on during The Judge ending. Both have elongated teeth and and have their eye-socket(s) connected to their jaw. Considering that this &quot;form&quot; the Batter takes is merely due to the fact that we now view him as a monster and nothing more, it is possible that Dedan says these words because he views The Batter as the malicious &quot;chief of specters&quot; and as a menace. Due to their visual similarities, it may even be possible that the terrifying form we see Dedan in may only be because we view him as a villain. Dedan&#x27;s competence &quot;Sweep Hand&quot; seems to fit the clockwork motif much better in the French version. There, the attack is referred to as &quot;troteuse&quot;, a slight modification to the word &quot;trotteuse&quot;, a word that commonly refers to the second, &quot;sweep&quot;, hand in clocks. &quot;Trot&quot; is also a word that refers to galloping of a horse in French so it could also be referred to as &quot;running hand&quot; or &quot;charging hand&quot;, which would explain why the English translation refers to it as &quot;Sweep Hand&quot;. When seen in the Room, Dedan takes an interest in pedalos found all across the world of OFF, and also adopts a more calm, level-headed demeanor. According to Mortis Ghost, Dedan might be a mutant[1]. The design of Papyrus from the game Undertale was based off on Dedan.[2] In the 2025 OFF remake demo, Dedan&#x27;s battle theme is one of the songs composed by Toby Fox, and contains noticeable references to Papyrus&#x27;s battle theme, Bonetrousle. This song was later replaced for the game&#x27;s full release.</p>
+<p>References ↑http://comments.deviantart.com/4/3470838/3082657465 ↑(apparently) the genesis of papyrus - Toby Fox, Twitter Characters Playable CharactersThe Batter ● Add-Ons ● The Player GuardiansThe Judge ● Dedan ● Japhet ● Enoch ● Hugo NPCsElsen ● Valérie ● Zacharie Special BossesThe Queen ● Sugar Other Characters Spectres ● Secretaries ● Space Apes</p></div>
+</main>
+
+<footer>
+<p>《OFF》© Mortis Ghost / Unproductive Fun Time · 音乐：Alias Conrad Coldwood · 实体版：Fangamer</p>
+<p>本站仅供个人研究收藏，图片与文字版权归原作者所有，禁止商用与二次发布。</p>
+<p>资料源：<a href="https://offtherpg.com">offtherpg.com</a> · <a href="https://www.fangamer.com/collections/off">Fangamer</a> ·
+<a href="https://mortisghost.tumblr.com">Mortis Ghost</a> · <a href="https://off.fandom.com">OFF Wiki</a></p>
+</footer>
+
+
+</body>
+</html>

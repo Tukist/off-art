@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OFF 设定 · The Queen</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+:root { --ink:#e8e6e1; --bg:#0d0d0f; --dim:#9a978e; --line:#2a2a30; --card:#151519; --accent:#f2f2f2; }
+body { background:var(--bg); color:var(--ink); font-family:'Courier New',monospace; line-height:1.7; }
+a { color:var(--ink); }
+.topbar { position:sticky; top:0; z-index:50; background:rgba(13,13,15,.92); backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--line); }
+.topbar nav { max-width:1200px; margin:0 auto; display:flex; flex-wrap:wrap; gap:4px 22px;
+  padding:14px 20px; align-items:center; font-size:.82rem; letter-spacing:.1em; }
+.topbar nav a { color:var(--dim); text-decoration:none; white-space:nowrap; }
+.topbar nav a:hover { color:var(--ink); }
+.topbar .brand { color:var(--ink); font-weight:bold; letter-spacing:.25em; margin-right:8px; }
+header.hero { padding:72px 20px 48px; text-align:center; border-bottom:1px solid var(--line); }
+header.hero h1 { font-size:2.4rem; letter-spacing:.4em; text-transform:uppercase; }
+header.hero p.tagline { color:var(--dim); margin-top:16px; max-width:640px; margin-left:auto; margin-right:auto; font-size:.95rem; }
+header.sub { padding:48px 20px 28px; text-align:center; border-bottom:1px solid var(--line); }
+header.sub h1 { font-size:1.6rem; letter-spacing:.3em; text-transform:uppercase; }
+header.sub p { color:var(--dim); margin-top:10px; font-size:.9rem; }
+main { max-width:1200px; margin:0 auto; padding:16px 20px 40px; }
+section { scroll-margin-top:64px; }
+.group { margin:52px 0; }
+.group h2 { font-size:1.25rem; letter-spacing:.2em; border-left:4px solid var(--ink); padding-left:12px; }
+.group .count { color:var(--dim); font-size:.8rem; margin-left:10px; letter-spacing:.1em; }
+.group .intro { color:var(--dim); font-size:.9rem; margin:12px 0 20px 16px; max-width:780px; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(190px,1fr)); gap:10px; }
+.card-img { display:block; background:var(--line); overflow:hidden; aspect-ratio:1/1; }
+.card-img img { width:100%; height:100%; object-fit:cover; display:block; filter:grayscale(.18);
+  transition:transform .25s, filter .25s; }
+.card-img:hover img { transform:scale(1.05); filter:grayscale(0); }
+.cardlist { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px; }
+.tag { display:inline-block; border:1px solid var(--dim); color:var(--dim);
+  font-size:.68rem; padding:1px 8px; letter-spacing:.12em; margin-right:8px; }
+.lcard { display:block; background:var(--card); border:1px solid var(--line);
+  text-decoration:none; padding:18px 20px; transition:border-color .2s, transform .2s; }
+.lcard:hover { border-color:var(--ink); transform:translateY(-2px); }
+.lcard h3 { font-size:1rem; letter-spacing:.08em; color:var(--ink); }
+.lcard .meta { color:var(--dim); font-size:.78rem; margin-top:8px; }
+.lcard .arrow { float:right; color:var(--dim); font-size:1.1rem; }
+.lcard ul { margin:10px 0 0 18px; color:var(--dim); font-size:.82rem; }
+.lcard li { margin:3px 0; }
+header.sub p a { color:var(--dim); text-decoration:none; border-bottom:1px dotted var(--dim); }
+header.sub p a:hover { color:var(--ink); }
+.article { max-width:880px; margin:0 auto; padding:36px 20px 70px; }
+.article h1 { font-size:1.35rem; letter-spacing:.15em; margin:30px 0 8px; }
+.article h2 { font-size:1.25rem; letter-spacing:.12em; margin:30px 0 8px; border-left:4px solid var(--ink); padding-left:12px; }
+.article h3 { font-size:1.05rem; margin:20px 0 6px; }
+.article p { margin:12px 0; color:#d2d0c9; }
+.article ul, .article ol { margin:10px 0 10px 26px; color:#d2d0c9; }
+.article table { border-collapse:collapse; margin:14px 0; width:100%; font-size:.85rem; }
+.article th, .article td { border:1px solid var(--line); padding:6px 12px; text-align:left; }
+.article code { background:var(--line); padding:1px 6px; font-size:.85rem; }
+.article pre { background:#0a0a0c; border:1px solid var(--line); padding:14px; overflow-x:auto; font-size:.8rem; margin:12px 0; }
+.article a { color:var(--ink); text-decoration:underline; text-underline-offset:3px; }
+.entry { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:16px; margin-top:8px; }
+.entry a { display:block; border:1px solid var(--line); background:var(--card); padding:28px 24px;
+  text-decoration:none; transition:border-color .2s, transform .2s; }
+.entry a:hover { border-color:var(--ink); transform:translateY(-2px); }
+.entry h2 { font-size:1.15rem; letter-spacing:.2em; }
+.entry p { color:var(--dim); font-size:.85rem; margin-top:10px; }
+.entry .n { font-size:2.2rem; color:var(--dim); letter-spacing:.1em; margin-bottom:8px; }
+footer { border-top:1px solid var(--line); margin-top:80px; padding:36px 20px 60px;
+  text-align:center; color:var(--dim); font-size:.78rem; line-height:2.1; }
+footer code { background:var(--line); padding:1px 6px; }
+#lightbox { position:fixed; inset:0; background:rgba(0,0,0,.93); display:none; align-items:center;
+  justify-content:center; z-index:99; cursor:zoom-out; }
+#lightbox img { max-width:92vw; max-height:86vh; }
+#lightbox .cap { position:fixed; bottom:22px; left:0; right:0; text-align:center; color:var(--dim); font-size:.78rem; }
+@media (max-width:640px){ header.hero h1{ font-size:1.5rem; letter-spacing:.25em; } .grid{ grid-template-columns:repeat(auto-fill,minmax(130px,1fr)); } }
+</style>
+</head>
+<body>
+<div class="topbar"><nav><a class="brand" href="../../index.html">OFF</a><a href="../index.html#g0">官方宣传</a><a href="../index.html#g1">概念图</a><a href="../index.html#g2">角色</a><a href="../index.html#g3">区域</a><a href="../index.html#g4">封面标志</a><a href="../index.html#g5">粉丝档案</a><a href="../index.html#g6">周边收藏</a><a href="../lore.html">设定文本</a><a href="../interviews.html">访谈</a></nav></div>
+<header class="sub"><h1>The Queen</h1><p><span class="tag">角色</span><a href="../lore.html">← 设定文本</a> · <a href="../index.html">画廊</a></p></header>
+<main>
+<div class="article"><p>Spoiler warning! This article contains important details about OFF&#x27;s plot, which may spoil the game for you. If you haven&#x27;t played and finished OFF, it is recommended that you do not read this.</p>
+<p>The Queen Battle</p>
+<p>Face</p>
+<p>The Queen.</p>
+<p>Character information</p>
+<p>a.k.a. Vader Eloha</p>
+<p>Locations The Room</p>
+<p>Relationships Hugo (son, creator) The Batter (unclear) Delta, Sigma, and Ipsilon (Add-Ons)</p>
+<p>Battle information</p>
+<p>Competences Castling King Castling Queen Fool&#x27;s Mate Scholar&#x27;s Mate White Fianchetto Mirror Play Immortal Anderssen</p>
+<p>HP 4000</p>
+<p>CP 1000</p>
+<p>Attack 320</p>
+<p>Defense 100</p>
+<p>Esprit 160</p>
+<p>Agility 170</p>
+<p>Battle rewards</p>
+<p>EXP 7000</p>
+<p>Credits 0</p>
+<p>Item None “Look... he has your eyes...”</p>
+<ul><li>The Queen</li></ul>
+<p>The Queen, also known as Vader Eloha, is a mysterious humanoid entity known to be the mother and creation of Hugo and the main antagonist of OFF. She parallels The Batter in many ways, being the only other parent and creation of Hugo, and being the only other being known to be able to use Add-Ons. The Queen is in charge of the Guardians as a group, who in turn control various Zones. Her exact purpose in doing so is obscure. Although she is often mentioned, she is never shown interacting with anyone other than The Batter.</p>
+<p>Contents 1Profile 1.1Appearance 1.2Personality 2Plot 3In Battle 3.1Competences 4Trivia 5Gallery 6References</p>
+<p>Profile</p>
+<p>Appearance The Queen is one of the most outwardly non-threatening, humanoid-looking entities in the game. However, like The Batter, she is confirmed as not truly being human. She possesses a flowing white gown reminiscent of that worn during weddings and other formal type services. She also has long hair that appears to be related to tentacle-like ends that seem to be coming out of her body. However, these ends may actually come from her elegant attire. Her face is either non-existent or heavily obscured, giving an appearance on her head similar to that of a mannequin. Mortis Ghost has also drawn a version of her with a skeletal face and a crown floating above her head, giving her a different appearance than her sprite.</p>
+<p>Personality In personality terms, she exists as somewhat of a feminine counterpart to The Batter. They both share a deep sense of purpose and moral conviction from their actions as well as a willingness to debate such things, at least for a short time. It is unclear to what extent The Queen understands the depths of despair and tremendous problems that the various Zones had descended to by the time The Batter begins his fights. Whether or not she holds to a naïve viewpoint of everything as going well versus believing that even a suffering existence is preferable to oblivion, or holding some other way of thinking, is unknown. The relationship between her and The Batter is questionable, with her at one point calling him, &quot;my love.&quot;</p>
+<p>Plot In Chapter 1 of the events that take place within The Room, The Batter approaches The Queen, fighting her and eventually killing her after a brief dialogue. The Queen is the protector of Hugo and serves as his mother, though still being his creation. As The Batter challenges her, she exclaims &quot;I won&#x27;t let you lay a finger on the son that has brought us into this world.&quot;</p>
+<p>In Battle See also: Add-Ons The Queen is the second hardest boss fight in the game; defeating her is more difficult than the true final boss battle but easier than facing Sugar. Like The Batter, she has three Add-Ons (though hers look significantly more ornate and beautiful than his) that will attack in unison with her. It is unknown if other characters in the game are inherently unable to use Add-Ons or if they are just otherwise hampered in some way (such as being unable to locate them). Unlike Sugar&#x27;s entities, called &quot;dummies&quot;, The Queen&#x27;s Add-Ons are tough enough to withstand multiple hits. However, The Batter&#x27;s Add-On named Epsilon is able to eliminate them in a relatively short time through its multiple attack ability.</p>
+<p>Competences The Queen herself attacks The Batter by berating him, his quest, and his treatment of Hugo. Despite not physically attacking The Batter, these deal a fair lot of damage and can inflict status effects. The extent to which her comments are either almost entirely true, partly true, or almost entirely false depends on character interpretations, given the ambiguous nature of the game. It is possible that she is correct in that The Batter is an immoral agent of destruction and that he failed as a father-like figure in terms of Hugo, with her words causing direct harm by piercing the perception that The Batter has of himself as a well-intentioned extremist &quot;purifying&quot; the world. It is also possible that The Batter is emotionally failing to keep his generally stoic resolve due to his remaining affection for Hugo, hence why the words hurt so much, yet The Queen is still ultimately self-serving and wrong because The Batter&#x27;s actions are mercy killings, meant to end suffering that must be stopped. The whole matter is deliberately left open. The Queen&#x27;s Competences are named after chess terminology.</p>
+<p>Name Quote CP Dmg.Acc.Infl.Effects</p>
+<p>Castling King No dessert for you.5 150 100% 0/3/4 Can inflict Furious.</p>
+<p>Castling Queen He loves you not.6 150 100% 0/3/4 Can inflict Poison.</p>
+<p>Scholar&#x27;s Mate I am gravely disappointed.5 150 100% 0/3/4 Can inflict Sleep.</p>
+<p>White Fianchetto Have you filled your life with beauty?7 150 100% 0/3/4 Can inflict Blind.</p>
+<p>Mirror Play There is nothing but the void after me.5 230 100% 0/3/4</p>
+<p>Immortal Anderssen You don&#x27;t even know his first name.5 120 100% 0/4/4 Hits all enemies.</p>
+<p>Fool&#x27;s Mate You&#x27;ve been wrong since the beginning.5 10 100% 0/4/4 Absorbs CP from all enemies instead of damaging.</p>
+<p>Trivia In an early English translation of the game, part of her dialogue was mistranslated as &quot;I won&#x27;t let you lay a finger on the son that we have brought into the world.&quot;, сhanging the meaning of the line entirely. The actual line is &quot;I won&#x27;t let you lay a finger on the son that brought us into the world.&quot; The term &quot;Eloha&quot;, in keeping with the religious themes in other names in the game (such as the Add-On names &quot;Alpha&quot; and &quot;Omega&quot;), is one of the traditional Jewish and Christian titles for God, Eloah. As she is dying, The Queen mentions a party that was supposed to be &quot;tonight&quot; and that she had made cake. She also asks The Batter how he would like his coffee. The significance of these lines are not clear. It is possible that she is merely hallucinating about past good times in her possible relationship with The Batter, but the lines may be deliberately said in order to cause even more guilt in both The Batter and The Player for their actions. The title card for her &quot;Chapter&quot; of The room displays what appears to be an emperor moth (or possibly a Polyphemus moth). The use of an &quot;emperor&quot; moth motif works as a reference to her nature, with her serving as leader of all of the various Guardians in all of the Zones.</p>
+<p>One of her Add-Ons, Ipsilon, shares a name with Agrotis ipsilon, a species of moth. This is likely a play on epsilon, following the pattern of Add-Ons having Greek letter names. The Queen is the only character aside from The Batter to have Add-Ons, emphasizing a possible connection between the two. The Queen&#x27;s quote &quot;There is nothing but the void after me.&quot; can be seen as foreshadowing. Once The Batter defeats Hugo in the next boss fight after her own, the Zone is purified. The fact that The Queen&#x27;s statement is correct points to her other words against The Batter also likely being at least somewhat true. The extent to which The Queen knows about the existence of The Player is unknown. However, some of the statements made by her seem to challenge The Player directly. The line &quot;You don’t even know his first name.&quot; in particular appears to be directed specifically at The Player since the exact name of the child (Hugo) is not given in the game-play at any point before The Queen is encountered. The line may also have a double-meaning in that The Player does not appear to know or care about the real name of The Batter either. The direct reference to both The Queen and The Batter as created beings made by Hugo may point to the entire game existing only inside of Hugo&#x27;s immediate environment or even his own mind. Thus, the conflict between the two characters may exist as parts of Hugo&#x27;s own being fighting it out, the defeat of The Queen and other entities symbolizing the child&#x27;s willingness to accept its own death given its illness. Alternatively, Hugo may be picturing the struggle as to whether or not he should have life support cut by someone else in the real world, putting all of that in metaphorical terms. Either of these interpretations fit in well with the flicking of the switch from on to off in the main ending of the game, given the similarity with turning off life support to the terminally ill. However, the exact answer is unknown. It is possible that both The Batter and The Queen were deliberately designed in the context of the game as stand-ins for the long dead parents of Hugo. This would explain why those two characters appear essentially normal and visually non-threatening in contrast to many other entities encountered in the game, such as the other Guardians. This would also explain why those two dress in ways strongly associated with real-world job occupations and hobbies (The Batter as a baseball player and The Queen perhaps as an elegant actress, model, singer, and/or socialite). A comment made by Dedan in Zone 1 before meeting The Queen, referring to her &quot;thousand faces&quot;, seems to indicate that she has the same ability as The Batter in terms of appearing different to different characters (similar to how The Player views The Batter very different from how Sugar does). When reversing The Queen&#x27;s audio file, it is revealed that she actually speaks the sentence &quot;Va ranger ta chambre&quot;, which means &quot;Go tidy your room&quot; in French. During a Q&amp;A on DeviantArt, Mortis revealed that The Queen&#x27;s dialogue is gibberish[1]. As the audio file of The Queen speaking actually can be deciphered, it is likely that Mortis meant &quot;gibberish&quot; in a more metaphorical sense.</p>
+<p>Gallery Sprite Concept art depicting the battle sprites of The Queen and her Add-Ons One of the various phrases The Queen utters while in battle with The Batter Add-On Delta Add-On Ipsilon Add-On Sigma Concept art of an alternate version of The Queen. Possibly mirroring Bad Batter Art from Mortis Ghost depicting her with a skeletal face and a floating crown Art from Mortis Ghost. Artwork by Mortis Ghost, depicting Vader Ehola along with her Add-Ons. It was sold as a print at his Tictail store. A drawing by Mortis Ghost of The Queen spawning spectres from her hands</p>
+<p>References ↑I already said a few times that The Queen is saying a lot of gibberish, and read all of it trying to find a meaning on each sentence isn’t the good way to understand what she’s trying to say. She’s contradicts herself, as you can see. Try to interpret her speech in a more global way. - Mortis Ghost, DeviantArt, 11/10/2013 Characters Playable CharactersThe Batter ● Add-Ons ● The Player GuardiansThe Judge ● Dedan ● Japhet ● Enoch ● Hugo NPCsElsen ● Valérie ● Zacharie Special BossesThe Queen ● Sugar Other Characters Spectres ● Secretaries ● Space Apes</p></div>
+</main>
+
+<footer>
+<p>《OFF》© Mortis Ghost / Unproductive Fun Time · 音乐：Alias Conrad Coldwood · 实体版：Fangamer</p>
+<p>本站仅供个人研究收藏，图片与文字版权归原作者所有，禁止商用与二次发布。</p>
+<p>资料源：<a href="https://offtherpg.com">offtherpg.com</a> · <a href="https://www.fangamer.com/collections/off">Fangamer</a> ·
+<a href="https://mortisghost.tumblr.com">Mortis Ghost</a> · <a href="https://off.fandom.com">OFF Wiki</a></p>
+</footer>
+
+
+</body>
+</html>

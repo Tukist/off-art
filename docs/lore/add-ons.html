@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OFF 设定 · Add-Ons</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+:root { --ink:#e8e6e1; --bg:#0d0d0f; --dim:#9a978e; --line:#2a2a30; --card:#151519; --accent:#f2f2f2; }
+body { background:var(--bg); color:var(--ink); font-family:'Courier New',monospace; line-height:1.7; }
+a { color:var(--ink); }
+.topbar { position:sticky; top:0; z-index:50; background:rgba(13,13,15,.92); backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--line); }
+.topbar nav { max-width:1200px; margin:0 auto; display:flex; flex-wrap:wrap; gap:4px 22px;
+  padding:14px 20px; align-items:center; font-size:.82rem; letter-spacing:.1em; }
+.topbar nav a { color:var(--dim); text-decoration:none; white-space:nowrap; }
+.topbar nav a:hover { color:var(--ink); }
+.topbar .brand { color:var(--ink); font-weight:bold; letter-spacing:.25em; margin-right:8px; }
+header.hero { padding:72px 20px 48px; text-align:center; border-bottom:1px solid var(--line); }
+header.hero h1 { font-size:2.4rem; letter-spacing:.4em; text-transform:uppercase; }
+header.hero p.tagline { color:var(--dim); margin-top:16px; max-width:640px; margin-left:auto; margin-right:auto; font-size:.95rem; }
+header.sub { padding:48px 20px 28px; text-align:center; border-bottom:1px solid var(--line); }
+header.sub h1 { font-size:1.6rem; letter-spacing:.3em; text-transform:uppercase; }
+header.sub p { color:var(--dim); margin-top:10px; font-size:.9rem; }
+main { max-width:1200px; margin:0 auto; padding:16px 20px 40px; }
+section { scroll-margin-top:64px; }
+.group { margin:52px 0; }
+.group h2 { font-size:1.25rem; letter-spacing:.2em; border-left:4px solid var(--ink); padding-left:12px; }
+.group .count { color:var(--dim); font-size:.8rem; margin-left:10px; letter-spacing:.1em; }
+.group .intro { color:var(--dim); font-size:.9rem; margin:12px 0 20px 16px; max-width:780px; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(190px,1fr)); gap:10px; }
+.card-img { display:block; background:var(--line); overflow:hidden; aspect-ratio:1/1; }
+.card-img img { width:100%; height:100%; object-fit:cover; display:block; filter:grayscale(.18);
+  transition:transform .25s, filter .25s; }
+.card-img:hover img { transform:scale(1.05); filter:grayscale(0); }
+.cardlist { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px; }
+.tag { display:inline-block; border:1px solid var(--dim); color:var(--dim);
+  font-size:.68rem; padding:1px 8px; letter-spacing:.12em; margin-right:8px; }
+.lcard { display:block; background:var(--card); border:1px solid var(--line);
+  text-decoration:none; padding:18px 20px; transition:border-color .2s, transform .2s; }
+.lcard:hover { border-color:var(--ink); transform:translateY(-2px); }
+.lcard h3 { font-size:1rem; letter-spacing:.08em; color:var(--ink); }
+.lcard .meta { color:var(--dim); font-size:.78rem; margin-top:8px; }
+.lcard .arrow { float:right; color:var(--dim); font-size:1.1rem; }
+.lcard ul { margin:10px 0 0 18px; color:var(--dim); font-size:.82rem; }
+.lcard li { margin:3px 0; }
+header.sub p a { color:var(--dim); text-decoration:none; border-bottom:1px dotted var(--dim); }
+header.sub p a:hover { color:var(--ink); }
+.article { max-width:880px; margin:0 auto; padding:36px 20px 70px; }
+.article h1 { font-size:1.35rem; letter-spacing:.15em; margin:30px 0 8px; }
+.article h2 { font-size:1.25rem; letter-spacing:.12em; margin:30px 0 8px; border-left:4px solid var(--ink); padding-left:12px; }
+.article h3 { font-size:1.05rem; margin:20px 0 6px; }
+.article p { margin:12px 0; color:#d2d0c9; }
+.article ul, .article ol { margin:10px 0 10px 26px; color:#d2d0c9; }
+.article table { border-collapse:collapse; margin:14px 0; width:100%; font-size:.85rem; }
+.article th, .article td { border:1px solid var(--line); padding:6px 12px; text-align:left; }
+.article code { background:var(--line); padding:1px 6px; font-size:.85rem; }
+.article pre { background:#0a0a0c; border:1px solid var(--line); padding:14px; overflow-x:auto; font-size:.8rem; margin:12px 0; }
+.article a { color:var(--ink); text-decoration:underline; text-underline-offset:3px; }
+.entry { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:16px; margin-top:8px; }
+.entry a { display:block; border:1px solid var(--line); background:var(--card); padding:28px 24px;
+  text-decoration:none; transition:border-color .2s, transform .2s; }
+.entry a:hover { border-color:var(--ink); transform:translateY(-2px); }
+.entry h2 { font-size:1.15rem; letter-spacing:.2em; }
+.entry p { color:var(--dim); font-size:.85rem; margin-top:10px; }
+.entry .n { font-size:2.2rem; color:var(--dim); letter-spacing:.1em; margin-bottom:8px; }
+footer { border-top:1px solid var(--line); margin-top:80px; padding:36px 20px 60px;
+  text-align:center; color:var(--dim); font-size:.78rem; line-height:2.1; }
+footer code { background:var(--line); padding:1px 6px; }
+#lightbox { position:fixed; inset:0; background:rgba(0,0,0,.93); display:none; align-items:center;
+  justify-content:center; z-index:99; cursor:zoom-out; }
+#lightbox img { max-width:92vw; max-height:86vh; }
+#lightbox .cap { position:fixed; bottom:22px; left:0; right:0; text-align:center; color:var(--dim); font-size:.78rem; }
+@media (max-width:640px){ header.hero h1{ font-size:1.5rem; letter-spacing:.25em; } .grid{ grid-template-columns:repeat(auto-fill,minmax(130px,1fr)); } }
+</style>
+</head>
+<body>
+<div class="topbar"><nav><a class="brand" href="../../index.html">OFF</a><a href="../index.html#g0">官方宣传</a><a href="../index.html#g1">概念图</a><a href="../index.html#g2">角色</a><a href="../index.html#g3">区域</a><a href="../index.html#g4">封面标志</a><a href="../index.html#g5">粉丝档案</a><a href="../index.html#g6">周边收藏</a><a href="../lore.html">设定文本</a><a href="../interviews.html">访谈</a></nav></div>
+<header class="sub"><h1>Add-Ons</h1><p><span class="tag">世界观</span><a href="../lore.html">← 设定文本</a> · <a href="../index.html">画廊</a></p></header>
+<main>
+<div class="article"><p>Add-Ons Battle</p>
+<p>Face</p>
+<p>Sprite</p>
+<p>Help in battle.</p>
+<p>Character information</p>
+<p>Locations Alpha: Damien (annex tunnel) Omega: Grand Library (3rd floor) Epsilon: Zone 3 (east dormitories in Area 1 or the room before Enoch&#x27;s office) Add-Ons are floating objects that fight alongside their owner during combat, using their unique Competences to fill various roles in combat. Each one is named after a letter of the Greek alphabet. It is unclear whether an Add-On&#x27;s owner controls it, or if they act of their own accord. The only two characters known to be able to use Add-Ons are The Batter and The Queen, though their Add-Ons differ greatly in appearance and functionality.</p>
+<p>Contents 1The Batter 1.1Alpha 1.1.1Competences (Original) 1.1.2Competences (Remaster) 1.2Omega 1.2.1Competences (Original) 1.2.2Competences (Remaster) 1.3Epsilon 1.3.1Competences (Original) 1.3.2Competences (Remaster) 2The Queen 2.1Delta 2.1.1Competences (Original) 2.1.2Competences (Remaster) 2.2Sigma 2.2.1Competences (Original) 2.2.2Competences (Remaster) 2.3Ipsilon 2.3.1Competences (Original) 2.3.2Competences (Remaster) 3Trivia</p>
+<p>The Batter The Batter&#x27;s Add-Ons appear as simple floating rings, and learn up to eight competences each as they level up. The Batter finds one Add-On in each of the three main Zones. After trying and failing to equip an Add-On, The Judge said that the reason The Batter can use Add-Ons may be because The Player is controlling him.</p>
+<p>Alpha Alpha is the first Add-On that The Batter gets. Alpha (Aα) is the first letter of the Greek alphabet, and Alpha&#x27;s class name is &quot;Father&quot;. It is obtained in the annex tunnel of Damien&#x27;s smoke mines, where the Elsen believed it to be the &quot;leader of the spectres&quot;. When The Batter first gets Alpha, it is Lv. 1, and is equipped with an Audacious Symbol. The names of Alpha&#x27;s Competences are based on programming terminology. The &quot;String&quot; Competences target a single enemy and deal high damage, while the &quot;Bracket&quot; Competences deal low damage and have a chance to inflict status ailments.</p>
+<p>Competences (Original) Lv.Name CP Dmg.Acc.Infl.Effects</p>
+<p>2 Saturated String 5 50 100% 4/8/3</p>
+<p>4 Expected Bracket 7 40 100% 1/9/4 Can inflict Poison.</p>
+<p>7 Converted String 10 120 100% 4/8/3</p>
+<p>10 Requisite Bracket 7 40 100% 1/9/4 Can inflict Blind.</p>
+<p>15 Long String 18 250 100% 4/8/3</p>
+<p>20 Open Bracket 9 50 100% 1/9/4 Can inflict Mute.</p>
+<p>30 Complete String 40 500 100% 2/10/6</p>
+<p>40 Impossible Bracket 9 50 100% 1/9/4 Can inflict Palsy.</p>
+<p>Competences (Remaster) Lv.Name CC Dmg.Pow.A/E/VDescription/Effects</p>
+<p>1 Saturated String 10 0 1.66 25%/75%/0% Special attack with low impact.</p>
+<p>3 Expected Bracket 24 0 1.33 0%/100%/20% Special attack inflicting Poison [80%]. Minimal impact.</p>
+<p>4 Converted String 14 0 2 0%/100%/0% Special attack with average impact.</p>
+<p>7 Requisite Bracket 24 0 1.33 0%/100%/20% Special attack inflicting Lethargic [80%]. Minimal impact.</p>
+<p>10 Long String 18 0 2.5 25%/100%/0% Special attack with considerable impact.</p>
+<p>14 Impossible Bracket 24 0 1.33 0%/100%/20% Special attack inflicting Palsy [80%]. Minimal impact.</p>
+<p>18 Complete String 22 0 3 25%/75%/0% Special attack with incredible impact.</p>
+<p>22 Open Bracket 24 0 1.33 0%/100%/20% Special attack inflicting Muteness [80%]. Minimal impact.</p>
+<p>Omega Omega is the second Add-On that The Batter gets. Omega (Ωω) is the last letter of the Greek alphabet, and Omega&#x27;s class name is &quot;Son&quot;. It is obtained on the 3rd floor of the Grand Library, after fighting Valérie there. When The Batter first gets Omega, its Level is the average of The Batter&#x27;s and Alpha&#x27;s, and is equipped with a Persistent Symbol and a Radius Epidermis. The names of Omega&#x27;s Competences are based on photographic terminology. The &quot;Perspective&quot; Competences target a single ally and cure various status ailments, while the &quot;Blur&quot; Competences target a single enemy, dealing low damage and having a variety of useful secondary effects.</p>
+<p>Competences (Original) Lv.Name CP Dmg.Acc.Infl.Effects</p>
+<p>2 Inverse Perspective 10 0 90% 0/3/4 Cures Blind and Mute.</p>
+<p>4 Optimized Blur 5 70 100% 0/1/10</p>
+<p>7 Overdone Perspective 10 0 90% 0/3/4 Cures Poison and Sleep.</p>
+<p>10 Photographic Blur 10 80 100% 5/5/2 Ignores enemy Defense.</p>
+<p>15 Frontal Perspective 15 0 90% 0/3/4 Cures Fury, Madness, and Palsy.</p>
+<p>20 Gaussian Blur 15 50 100% 0/3/4 Decreases CP instead of damaging.</p>
+<p>30 Multiple Perspective 80 100 100% 0/3/4 Revives. Heals instead of damaging.</p>
+<p>40 Radial Blur 15 30 100% 0/3/4 Decreases Defense instead of damaging.</p>
+<p>Competences (Remaster) Lv.Name CC Dmg.Pow.A/E/VDescription/Effects</p>
+<p>1 Inverse Perspective 14 N/A N/A N/A Cures Lethargic//Muteness.</p>
+<p>5 Optimized Blur 16 0 1.66 100%/0%/100% Special attack with random impact.</p>
+<p>9 Frontal Perspective 14 N/A N/A N/A Cures Fury//Madness//Palsy.</p>
+<p>12 Gaussian Blur 22 0 2 100%/0%/0% Special attack of a random element. Average impact.</p>
+<p>17 Multiple Perspective 28 0 1 0%/100%/0% Revives an ally. [Restores 60% of target&#x27;s maximum health in addition to formula.]</p>
+<p>20 Radial Blur 32 0 2.5 100%/0%/0% Inflicts a random status effect. [currently does not function, as its infliction chance is set to 0%.] Considerable impact.</p>
+<p>22 Exaggerated Perspective 14 N/A N/A N/A Cures Poison//Sleep.</p>
+<p>24 Photographic Blur 14 0 0.4 100%/0%/0% Special attack that ignores defence.</p>
+<p>Epsilon Epsilon is the final Add-On that The Batter gets. Epsilon (Εε) is the fifth letter of the Greek alphabet, and Epsilon&#x27;s class name is &quot;Holy Spirit&quot;. It can be obtained either in the east dormitories of Zone 3 Area 1, or in the room just before the fight with Enoch. When The Batter first gets Epsilon, its Level is the average of The Batter&#x27;s, Alpha&#x27;s, and Omega&#x27;s, and it is equipped with a Choleric Symbol and an Aura of Justice. The names of Epsilon&#x27;s Competences are based on artistic terminology. The &quot;Drama&quot; Competences target a single ally and increase various stats, while the &quot;Tragedy&quot; Competences target all enemies, dealing decent damage.</p>
+<p>Competences (Original) Lv.Name CP Dmg.Acc.Infl.Effects</p>
+<p>2 Classic Drama 25 10 100% 0/3/4 Increases Attack instead of damaging.</p>
+<p>4 Surrealist Tragedy 15 35 100% 4/8/3 Hits all enemies.</p>
+<p>7 Baroque Drama 25 10 100% 0/3/4 Increases Defense instead of damaging.</p>
+<p>10 Abstract Tragedy 26 80 100% 4/8/3 Hits all enemies.</p>
+<p>15 Experienced Drama 25 10 100% 0/3/4 Increases Esprit instead of damaging.</p>
+<p>20 Cubist Tragedy 42 190 100% 4/8/3 Hits all enemies.</p>
+<p>30 Unrevokable Drama 25 10 100% 0/3/4 Increases Agility instead of damaging.</p>
+<p>40 Fauvestic Tragedy 80 310 100% 4/8/3 Hits all enemies.</p>
+<p>Competences (Remaster) Lv.Name CC Dmg.Pow.A/E/VDescription/Effects</p>
+<p>1 Classical Drama 14 N/A N/A N/A Lightly increases an ally&#x27;s attack. [Inflicts Strength.]</p>
+<p>8 Surrealist Tragedy 20 0 1.33 0%/100%/10% Special attack with low impact. Hits all foes.</p>
+<p>11 Baroque Drama 14 N/A N/A N/A Lightly increases an ally&#x27;s defence. [Inflicts Tough.]</p>
+<p>14 Abstract Tragedy 26 0 1.66 0%/100%/10% Special attack with average impact. Hits all foes.</p>
+<p>16 Experienced Drama 14 N/A N/A N/A Lightly increases an ally&#x27;s intelligence. [Inflicts Clever.]</p>
+<p>19 Cubist Tragedy 32 0 2 100%/0%/0% Special attack with considerable impact. Hits all foes.</p>
+<p>23 Irrevocable Drama 14 N/A N/A N/A Lightly increases an ally&#x27;s agility. [Inflicts Hasty.]</p>
+<p>24 Fauvist Tragedy 38 0 2.25 100%/0%/0% Special attack with multiple, incredible impacts.</p>
+<p>The Queen The Queen&#x27;s Add-Ons only appear when The Batter fights The Queen in Chapter 1 of The Room. They&#x27;re significantly more ornate than The Batter&#x27;s Add-Ons, and are shaped to allow them to nestle closely next to each other. Like The Batter&#x27;s Add-Ons, they assist The Queen in battle with their unique Competences, although they have far fewer (two each compared to The Batters&#x27; up to eight) and they cannot attack or use Objects. The Queen&#x27;s Add-Ons&#x27; Competence names are based on musical terminology.</p>
+<p>Delta Ipsilon Sigma Statistics</p>
+<p>Max HP: 1200 (Original, all) 512 (Remaster, all) Max CP: 500 Attack: 300 (Original, all) 48 (Remaster, Delta and Ipsilon) 32 (Remaster, Sigma) Defense: 100 (Original, all) 32 (Remaster, Delta and Ipsilon) 48 (Remaster, Sigma) Esprit: 120 (Original, all) 48 (Remaster, Delta and Ipsilon) 32 (Remaster, Sigma) Agility: 155 (Original, all) 12 (Remaster, Delta) 8 (Remaster, Sigma) 4 (Remaster, Ipsilon) Experience: 1000 Credits: 0 Item: None</p>
+<p>Delta Delta (Δδ) is the fourth letter in the Greek alphabet.</p>
+<p>Competences (Original) Name CP Dmg.Acc.Infl.Effects</p>
+<p>Short Silence 0 200 100% 0/3/4 Hits a single enemy.</p>
+<p>Long Silence 5 50 100% 0/3/4 Hits all enemies.</p>
+<p>Competences (Remaster) Name Dmg.Pow.A/E/VEffects</p>
+<p>Long Silence 0 1.25 100%/0%/10% Hits the whole party.</p>
+<p>Brief Silence 0 2 100%/0%/10% No special effects.</p>
+<p>Sigma Sigma (Σσς) is the 18th letter in the Greek alphabet.</p>
+<p>Competences (Original) Name CP Dmg.Acc.Infl.Effects</p>
+<p>Major Chord 5 5 100% 0/3/4 Increases an ally&#x27;s Attack instead of damaging.</p>
+<p>Minor Chord 5 5 100% 0/3/4 Increases an ally&#x27;s Defense instead of damaging.</p>
+<p>Competences (Remaster) Name Dmg.Pow.A/E/VEffects</p>
+<p>Major Chord 0 0.8 0%/0%/0% Inflicts Frail.</p>
+<p>Diminished Chord 0 0.4 0%/0%/0% Inflicts Weak.</p>
+<p>Ipsilon Ipsilon is likely named after Ypsilon (Υυ), the 20th letter in the Greek alphabet.</p>
+<p>Competences (Original) Name CP Dmg.Acc.Infl.Effects</p>
+<p>Alto Clef 0 10 100% 0/3/4 Restores an ally&#x27;s CP instead of damaging.</p>
+<p>Treble Clef 20 100 100% 0/3/4 Heals an ally instead of damaging.</p>
+<p>Competences (Remaster) Name Dmg.Pow.A/E/VEffects</p>
+<p>Alto Clef N/A N/A N/A Supposed to inflict a status effect to an ally, but doesn&#x27;t seem to work(?)</p>
+<p>Treble Clef 0 0 0%/0%/10% Heals 10% of an ally&#x27;s maximum health.</p>
+<p>Trivia The Batter&#x27;s Add-Ons&#x27; class are &quot;Father&quot; (Alpha), &quot;Son&quot; (Omega) and &quot;Holy Spirit&quot; (Epsilon), which allude to the Holy Trinity.</p>
+<p>Due to this allusion, the Batter&#x27;s seemingly religious demeanor and his Add-Ons&#x27; shared shape, they may be interpreted as the Batter&#x27;s halos. They could also be based off the &quot;Ophanim&quot;, a type of angel seen in the Book of Ezekiel said to resemble a giant floating wheel covered in eyes. The Queen&#x27;s own Add-Ons are much larger and uniquely intricate compared to the Batter&#x27;s ones, which also visually fit with her elegant manner of dress.</p>
+<p>Delta, Sigma, and Ipsilon are referred to as &quot;Royal Add-Ons.&quot; There are other characters that seem to use things similar to Add-Ons but are not confirmed as actual Add-Ons:</p>
+<p>Sugar uses four Add-On-like battle companions known as Dummies, which are pieces of candy suspended on hooks on her hands. Like an Add-On, they are treated as if they are a separate party member and can cast competencies. The Pastel-burnt has an Elsen&#x27;s head as a kind of Add-On. There are also characters that can summon in Add-On-like party members during battle. They most often come in the form of speech bubbles, though they seem to act as damage sponges rather actual attackers or casters. Only two enemies in the game can do this, and they are Dedan and Fat Spectres. Chapter 4 of The Room implied that the Add-Ons Alpha, Omega, and Epsilon are related to Dedan, Japhet, and Enoch. This is seen at the conclusion of the chapter, where the Add-On sprites appear on screen when The Tall Mister, The Little Bird and The Big Mister are named. They are the manifestations of the Guardians&#x27; friendship with Hugo.[1] Characters Playable CharactersThe Batter ● Add-Ons ● The Player GuardiansThe Judge ● Dedan ● Japhet ● Enoch ● Hugo NPCsElsen ● Valérie ● Zacharie Special BossesThe Queen ● Sugar Other Characters Spectres ● Secretaries ● Space Apes ↑OFF 10th anniversary stream, 4:30:01</p></div>
+</main>
+
+<footer>
+<p>《OFF》© Mortis Ghost / Unproductive Fun Time · 音乐：Alias Conrad Coldwood · 实体版：Fangamer</p>
+<p>本站仅供个人研究收藏，图片与文字版权归原作者所有，禁止商用与二次发布。</p>
+<p>资料源：<a href="https://offtherpg.com">offtherpg.com</a> · <a href="https://www.fangamer.com/collections/off">Fangamer</a> ·
+<a href="https://mortisghost.tumblr.com">Mortis Ghost</a> · <a href="https://off.fandom.com">OFF Wiki</a></p>
+</footer>
+
+
+</body>
+</html>
