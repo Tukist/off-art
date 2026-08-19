@@ -9,6 +9,7 @@ OFF 站点生成器（docs/）
 import os
 import re
 import json
+import csv
 import shutil
 import random
 from html import escape
@@ -92,10 +93,27 @@ header.sub p a:hover { color:var(--ink); }
 footer { border-top:1px solid var(--line); margin-top:80px; padding:36px 20px 60px;
   text-align:center; color:var(--dim); font-size:.78rem; line-height:2.1; }
 footer code { background:var(--line); padding:1px 6px; }
-#lightbox { position:fixed; inset:0; background:rgba(0,0,0,.93); display:none; align-items:center;
-  justify-content:center; z-index:99; cursor:zoom-out; }
-#lightbox img { max-width:92vw; max-height:86vh; }
-#lightbox .cap { position:fixed; bottom:22px; left:0; right:0; text-align:center; color:var(--dim); font-size:.78rem; }
+#lightbox { position:fixed; inset:0; background:rgba(0,0,0,.94); display:none; z-index:99; }
+#lb-stage { position:absolute; inset:0; overflow:hidden; cursor:zoom-in; }
+#lb-img { position:absolute; left:50%; top:50%; max-width:92vw; max-height:82vh;
+  transform:translate(-50%,-50%); transition:transform .12s ease-out; user-select:none; -webkit-user-drag:none; }
+#lb-img.zoom { max-width:none; max-height:none; cursor:grab; }
+#lb-img.drag { cursor:grabbing; transition:none; }
+#lb-bar { position:fixed; bottom:58px; left:50%; transform:translateX(-50%); display:flex;
+  align-items:center; gap:6px; background:rgba(20,20,24,.92); border:1px solid var(--line);
+  padding:6px 10px; z-index:2; }
+#lb-bar button { background:none; border:1px solid var(--line); color:var(--ink); width:34px; height:34px;
+  cursor:pointer; font-size:1.05rem; transition:all .2s; }
+#lb-bar button:hover { background:var(--ink); color:var(--bg); }
+#lb-bar .sep { width:1px; height:20px; background:var(--line); margin:0 5px; }
+#lb-count { color:var(--dim); font-size:.75rem; padding:0 8px; min-width:72px; text-align:center; }
+#lb-zoomind { position:fixed; top:16px; right:20px; color:var(--dim); font-size:.72rem;
+  background:rgba(20,20,24,.85); border:1px solid var(--line); padding:4px 10px; z-index:2; }
+#lb-cap { position:fixed; bottom:14px; left:0; right:0; text-align:center; color:var(--dim);
+  font-size:.76rem; padding:0 24px; line-height:1.7; pointer-events:none; z-index:2; }
+#lb-cap .t { color:var(--ink); letter-spacing:.06em; }
+#lb-cap .d { opacity:.85; max-width:780px; margin:3px auto 0; }
+#lb-cap .hint { opacity:.55; font-size:.68rem; margin-top:6px; }
 @media (max-width:640px){ header.hero h1{ font-size:1.5rem; letter-spacing:.25em; } .grid{ grid-template-columns:repeat(auto-fill,minmax(130px,1fr)); } }
 
 /* ===== 侧边栏音乐播放器（OFF 风） ===== */
@@ -378,6 +396,65 @@ def list_images(folder):
     return out
 
 
+# ---------------- 图片来源说明（帖文上下文） ----------------
+
+FAN_DIR = os.path.join(BASE, "art", "fan")
+OFFICIAL_DIR = os.path.join(BASE, "art", "official")
+WIKI_ART_DIR = os.path.join(BASE, "art", "wiki")
+MERCH_DIR = os.path.join(BASE, "art", "merch")
+
+FAN_NOTES = {}    # post_id -> (url, text)
+MORTIS_POSTS = {} # post_id -> (url, text)
+
+
+def load_fan_notes():
+    p = os.path.join(FAN_DIR, "_notes.csv")
+    if os.path.exists(p):
+        with open(p, encoding="utf-8-sig") as f:
+            for row in csv.reader(f):
+                if row and len(row) >= 4 and row[0] != "post_id":
+                    FAN_NOTES[row[0]] = (row[1], row[3])
+
+
+def load_mortis_posts():
+    p = os.path.join(OFFICIAL_DIR, "_mortis_posts.md")
+    if os.path.exists(p):
+        text = open(p, encoding="utf-8").read()
+        for block in re.split(r"\n---\n", text):
+            m = re.search(r"post/(\d+)/", block)
+            if not m:
+                continue
+            body = re.sub(r"^#{1,4}\s+.+", "", block, flags=re.M).strip()
+            body = re.sub(r"\s+", " ", body).strip()
+            if len(body) > 5:
+                MORTIS_POSTS[m.group(1)] = (m.group(0).strip()[:0] or "", body)
+
+
+def human_name(fname):
+    """文件名 → 可读标题"""
+    base = os.path.splitext(fname)[0]
+    base = re.sub(r"^(mortis_post|post)_\d+_", "", base)
+    return base.replace("_", " ").strip() or fname
+
+
+def caption_for(src):
+    """图片说明：优先帖文原文上下文，否则来源说明"""
+    base = os.path.basename(src)
+    low = base.lower()
+    m = re.match(r"post_(\d+)_", base)
+    if m and m.group(1) in FAN_NOTES:
+        text = FAN_NOTES[m.group(1)][1]
+        return ("粉丝档案帖文： " + text[:170] + ("…" if len(text) > 170 else ""))
+    m = re.match(r"mortis_post_(\d+)_", base)
+    if m and m.group(1) in MORTIS_POSTS:
+        text = MORTIS_POSTS[m.group(1)][1]
+        return ("Mortis Ghost 博客帖文： " + text[:170] + ("…" if len(text) > 170 else ""))
+    if low.startswith("merch_") or low.startswith(("screenshot", "bg-", "off-logo", "trailer", "merch-")):
+        return "OFF 官方宣传美术 / 周边内容物（offtherpg.com · Fangamer）"
+    if base.lower().endswith((".png", ".jpg", ".jpeg", ".gif", ".webp")):
+        return "OFF Wiki 美术资料（off.fandom.com）"
+
+
 GLOBAL_IDX = 0
 GROUPS = []
 
@@ -416,7 +493,8 @@ def add_group(title, intro, paths, max_n=None, seed=1):
     items = []
     for p in paths:
         t, f = thumb_and_copy(p)
-        items.append((t, f, os.path.basename(p)))
+        name = os.path.basename(p)
+        items.append((t, f, name, caption_for(p)))
     GROUPS.append({"title": title, "intro": intro, "items": items})
 
 
@@ -644,12 +722,13 @@ def build_interviews():
 # ---------------- 主页 ----------------
 
 def build_index():
-    for g in GROUPS:
+    for gi, g in enumerate(GROUPS):
         cards = "".join(
-            f'<a class="card-img" href="{escape(f)}" data-caption="{escape(name)}">'
+            f'<a class="card-img" data-g="{gi}" href="{escape(f)}" data-name="{escape(human_name(name))}" '
+            f'data-cap="{escape(cap)}">'
             f'<img loading="lazy" src="{escape(t)}" alt="{escape(name)}"></a>'
-            for t, f, name in g["items"])
-        g["html"] = (f'<section class="group" id="g{GROUPS.index(g)}">'
+            for t, f, name, cap in g["items"])
+        g["html"] = (f'<section class="group" id="g{gi}">'
                      f'<h2>{escape(g["title"])}<span class="count">{len(g["items"])} 张</span></h2>'
                      f'<p class="intro">{escape(g["intro"])}</p>'
                      f'<div class="grid">{cards}</div></section>')
@@ -670,13 +749,79 @@ def build_index():
                      'The Batter 净化之旅的设定图、概念草稿、官方美术与周边档案</p></header>'),
             "script": """
 <script>
-const lb=document.getElementById('lightbox'),img=document.getElementById('lb-img'),cap=document.getElementById('lb-cap');
-document.querySelectorAll('.card-img').forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();
-img.src=a.href;cap.textContent=a.dataset.caption+' · '+a.href.split('/').pop();lb.style.display='flex';});});
-lb.addEventListener('click',()=>lb.style.display='none');
-document.addEventListener('keydown',e=>{if(e.key==='Escape')lb.style.display='none';});
+(function(){
+var lb=document.getElementById('lightbox'),stage=document.getElementById('lb-stage'),img=document.getElementById('lb-img'),
+    capEl=document.getElementById('lb-cap'),countEl=document.getElementById('lb-count'),zi=document.getElementById('lb-zoomind');
+var cards=[].slice.call(document.querySelectorAll('.card-img')), idx=0, scale=1, tx=0, ty=0,
+    dragging=false, sx=0, sy=0, stx=0, sty=0;
+function setTransform(){
+  img.style.transform='translate(-50%,-50%) translate('+tx+'px,'+ty+'px) scale('+scale+')';
+  img.classList.toggle('zoom', scale>1);
+  img.classList.toggle('drag', dragging);
+  zi.textContent=Math.round(scale*100)+'%';
+}
+function show(i){
+  i=(i+cards.length)%cards.length; idx=i; var a=cards[i];
+  img.src=a.href; scale=1; tx=0; ty=0; setTransform();
+  var html='';
+  if(a.dataset.name) html+='<div class="t">'+a.dataset.name+'</div>';
+  if(a.dataset.cap) html+='<div class="d">'+a.dataset.cap+'</div>';
+  html+='<div class="hint">滚轮缩放 · 拖拽平移 · ← → 切换 · Esc 关闭</div>';
+  capEl.innerHTML=html;
+  var g=cards.filter(function(c){return c.dataset.g===a.dataset.g;});
+  countEl.textContent=(g.indexOf(a)+1)+' / '+g.length;
+  lb.style.display='flex';
+}
+function zoomAt(ns,px,py){
+  var r=stage.getBoundingClientRect(),cx=r.width/2,cy=r.height/2,os=scale;
+  ns=Math.max(1,Math.min(8,ns));
+  var dx=px-(r.left+cx+tx), dy=py-(r.top+cy+ty);
+  tx+=dx*(1-ns/os); ty+=dy*(1-ns/os); scale=ns; setTransform();
+}
+cards.forEach(function(a,i){a.addEventListener('click',function(e){e.preventDefault();show(i);});});
+stage.addEventListener('wheel',function(e){
+  e.preventDefault();
+  zoomAt(scale*(e.deltaY<0?1.18:1/1.18),e.clientX,e.clientY);
+},{passive:false});
+stage.addEventListener('pointerdown',function(e){
+  if(scale<=1)return; dragging=true; sx=e.clientX; sy=e.clientY; stx=tx; sty=ty;
+  stage.setPointerCapture(e.pointerId); setTransform();
+});
+stage.addEventListener('pointermove',function(e){
+  if(!dragging)return; tx=stx+(e.clientX-sx); ty=sty+(e.clientY-sy); setTransform();
+});
+stage.addEventListener('pointerup',function(){dragging=false; setTransform();});
+stage.addEventListener('pointercancel',function(){dragging=false; setTransform();});
+document.getElementById('lb-prev').addEventListener('click',function(e){e.stopPropagation();show(idx-1);});
+document.getElementById('lb-next').addEventListener('click',function(e){e.stopPropagation();show(idx+1);});
+document.getElementById('lb-zoomin').addEventListener('click',function(e){e.stopPropagation();zoomAt(scale*1.25,window.innerWidth/2,window.innerHeight/2);});
+document.getElementById('lb-zoomout').addEventListener('click',function(e){e.stopPropagation();zoomAt(scale/1.25,window.innerWidth/2,window.innerHeight/2);});
+document.getElementById('lb-reset').addEventListener('click',function(e){e.stopPropagation();zoomAt(1,window.innerWidth/2,window.innerHeight/2);});
+lb.addEventListener('click',function(e){if(e.target===lb)lb.style.display='none';});
+document.addEventListener('keydown',function(e){
+  if(lb.style.display==='none')return;
+  if(e.key==='Escape')lb.style.display='none';
+  else if(e.key==='ArrowRight')show(idx+1);
+  else if(e.key==='ArrowLeft')show(idx-1);
+  else if(e.key==='+'||e.key==='=')zoomAt(scale*1.25,window.innerWidth/2,window.innerHeight/2);
+  else if(e.key==='-')zoomAt(scale/1.25,window.innerWidth/2,window.innerHeight/2);
+});
+})();
 </script>
-<div id="lightbox"><img id="lb-img" alt=""><div class="cap" id="lb-cap"></div></div>
+<div id="lightbox" role="dialog" aria-label="图片查看器">
+  <div id="lb-stage"><img id="lb-img" alt=""></div>
+  <div id="lb-zoomind">100%</div>
+  <div id="lb-bar">
+    <button id="lb-prev" title="上一张 (←)">‹</button>
+    <span id="lb-count"></span>
+    <button id="lb-next" title="下一张 (→)">›</button>
+    <span class="sep"></span>
+    <button id="lb-zoomin" title="放大 (+)">+</button>
+    <button id="lb-zoomout" title="缩小 (−)">−</button>
+    <button id="lb-reset" title="重置 1:1">1:1</button>
+  </div>
+  <div id="lb-cap"></div>
+</div>
 """}
     return page(hero, main, brand_link="index.html")
 
@@ -684,6 +829,8 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')lb.style.display='no
 # ---------------- 主流程 ----------------
 
 def build():
+    load_fan_notes()
+    load_mortis_posts()
     os.makedirs(THUMB_DIR, exist_ok=True)
     os.makedirs(FULL_DIR, exist_ok=True)
     # 重新生成缩略图/原图时先清空，避免残留旧序号
