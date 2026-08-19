@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>OFF 設定 · The Batter</title>
+<title>OFF 设定 · The Batter</title>
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
 html { scroll-behavior:smooth; }
 :root { --ink:#e8e6e1; --bg:#0d0d0f; --dim:#9a978e; --line:#2a2a30; --card:#151519; --accent:#f2f2f2; }
-body { background:var(--bg); color:var(--ink); font-family:'PMingLiU','MingLiU','新細明體','細明體',serif; line-height:1.7; }
+body { background:var(--bg); color:var(--ink); font-family:'Courier New',monospace; line-height:1.7; }
 a { color:var(--ink); }
 .topbar { position:sticky; top:0; z-index:50; background:rgba(13,13,15,.92); backdrop-filter:blur(6px);
   border-bottom:1px solid var(--line); }
@@ -95,7 +95,7 @@ footer code { background:var(--line); padding:1px 6px; }
 #lb-cap .hint { opacity:.55; font-size:.68rem; margin-top:6px; }
 @media (max-width:640px){ header.hero h1{ font-size:1.5rem; letter-spacing:.25em; } .grid{ grid-template-columns:repeat(auto-fill,minmax(130px,1fr)); } }
 
-/* ===== 側邊欄音樂播放器（OFF 風） ===== */
+/* ===== 侧边栏音乐播放器（OFF 风） ===== */
 .player { position:fixed; right:16px; bottom:16vh; z-index:80; }
 #player-toggle { width:48px; height:66px; border:1px solid var(--line); background:#0d0d0f;
   color:var(--ink); cursor:pointer; font-size:1.1rem; letter-spacing:.1em;
@@ -164,8 +164,8 @@ footer code { background:var(--line); padding:1px 6px; }
 </style>
 </head>
 <body>
-<div class="topbar"><nav><a class="brand" href="../../index.html">OFF</a><a href="../index.html#g0">官方宣傳</a><a href="../index.html#g1">概念圖</a><a href="../index.html#g2">角色</a><a href="../index.html#g3">區域</a><a href="../index.html#g4">封面標誌</a><a href="../index.html#g5">粉絲檔案</a><a href="../index.html#g6">周邊收藏</a><a href="../lore.html">設定文本</a><a href="../interviews.html">訪談</a></nav></div>
-<header class="sub"><h1>The Batter</h1><p><span class="tag">角色</span><a href="../lore.html">← 設定文本</a> · <a href="../index.html">畫廊</a></p></header>
+<div class="topbar"><nav><a class="brand" href="../../index.html">OFF</a><a href="../index.html#g0">官方宣传</a><a href="../index.html#g1">概念图</a><a href="../index.html#g2">角色</a><a href="../index.html#g3">区域</a><a href="../index.html#g4">封面标志</a><a href="../index.html#g5">粉丝档案</a><a href="../index.html#g6">周边收藏</a><a href="../lore.html">设定文本</a><a href="../interviews.html">访谈</a></nav></div>
+<header class="sub"><h1>The Batter</h1><p><span class="tag">角色</span><a href="../lore.html">← 设定文本</a> · <a href="../index.html">画廊</a></p></header>
 <main>
 <div class="article"><p>Spoiler warning! This article contains important details about OFF&#x27;s plot, which may spoil the game for you. If you haven&#x27;t played and finished OFF, it is recommended that you do not read this.</p>
 <p>&quot;I have a sacred mission to fulfill. I must purify the world.&quot;</p>
@@ -240,26 +240,26 @@ footer code { background:var(--line); padding:1px 6px; }
 </main>
 
 <footer>
-<p>《OFF》© Mortis Ghost / Unproductive Fun Time · 音樂：Alias Conrad Coldwood · 實體版：Fangamer</p>
-<p>本站僅供個人研究收藏，圖片與文字版權歸原作者所有，禁止商用與二次發佈。</p>
-<p>資料源：<a href="https://offtherpg.com">offtherpg.com</a> · <a href="https://www.fangamer.com/collections/off">Fangamer</a> ·
+<p>《OFF》© Mortis Ghost / Unproductive Fun Time · 音乐：Alias Conrad Coldwood · 实体版：Fangamer</p>
+<p>本站仅供个人研究收藏，图片与文字版权归原作者所有，禁止商用与二次发布。</p>
+<p>资料源：<a href="https://offtherpg.com">offtherpg.com</a> · <a href="https://www.fangamer.com/collections/off">Fangamer</a> ·
 <a href="https://mortisghost.tumblr.com">Mortis Ghost</a> · <a href="https://off.fandom.com">OFF Wiki</a></p>
 </footer>
 
 
 <div class="player" id="player">
-  <button id="player-toggle" title="OFF 原聲播放器">♪</button>
+  <button id="player-toggle" title="OFF 原声播放器">♪</button>
   <div id="player-panel">
     <div class="p-head"><span class="p-logo"><i>◆</i>OFF // OST</span><button id="player-close" aria-label="收起">×</button></div>
     <div class="p-now">
       <div class="p-disc" id="p-disc">♪</div>
-      <div class="p-meta"><div class="p-track" id="p-track">選擇一首曲目</div><div class="p-artist" id="p-artist">Alias Conrad Coldwood</div></div>
+      <div class="p-meta"><div class="p-track" id="p-track">选择一首曲目</div><div class="p-artist" id="p-artist">Alias Conrad Coldwood</div></div>
     </div>
     <div class="p-controls">
       <button id="p-prev" title="上一首">⏮</button>
-      <button id="p-play" title="播放/暫停">▶</button>
+      <button id="p-play" title="播放/暂停">▶</button>
       <button id="p-next" title="下一首">⏭</button>
-      <button id="p-mode" title="播放模式：循環 / 隨機">循環</button>
+      <button id="p-mode" title="播放模式：循环 / 随机">循环</button>
     </div>
     <div class="p-progress">
       <div class="p-bar" id="p-bar"><div class="p-fill" id="p-fill"></div><div class="p-knob" id="p-knob"></div></div>
@@ -318,7 +318,7 @@ var modeBtn = el('p-mode');
 function setMode(m){
   mode = m;
   localStorage.setItem('off_mode', m);
-  modeBtn.textContent = (m === 'shuffle') ? '隨機' : '循環';
+  modeBtn.textContent = (m === 'shuffle') ? '随机' : '循环';
   modeBtn.classList.toggle('on', m === 'shuffle');
 }
 setMode(mode);
@@ -360,7 +360,7 @@ var player = document.getElementById('player');
 function setOpen(o){ player.classList.toggle('open', o); localStorage.setItem('off_open', o?'1':'0'); }
 el('player-toggle').addEventListener('click', function(){ setOpen(!player.classList.contains('open')); });
 el('player-close').addEventListener('click', function(){ setOpen(false); });
-// 點擊面板以外區域收起 + ESC 收起
+// 点击面板以外区域收起 + ESC 收起
 document.addEventListener('click', function(e){
   if(player.classList.contains('open') && !player.contains(e.target)) setOpen(false);
 });
