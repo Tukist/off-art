@@ -62,10 +62,12 @@ section { scroll-margin-top:64px; }
   text-decoration:none; padding:18px 20px; transition:border-color .2s, transform .2s; }
 .lcard:hover { border-color:var(--ink); transform:translateY(-2px); }
 .lcard h3 { font-size:1rem; letter-spacing:.08em; color:var(--ink); }
-.lcard .meta { color:var(--dim); font-size:.78rem; margin-top:8px; }
+.lcard .meta { color:var(--dim); font-size:.78rem; margin-top:8px; display:-webkit-box;
+  -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
 .lcard .arrow { float:right; color:var(--dim); font-size:1.1rem; }
-.lcard ul { margin:10px 0 0 18px; color:var(--dim); font-size:.82rem; }
-.lcard li { margin:3px 0; }
+.lcard ul { margin:10px 0 0 18px; color:#8a877e; font-size:.74rem; }
+.lcard li { margin:2px 0; display:-webkit-box; -webkit-line-clamp:2;
+  -webkit-box-orient:vertical; overflow:hidden; }
 header.sub p a { color:var(--dim); text-decoration:none; border-bottom:1px dotted var(--dim); }
 header.sub p a:hover { color:var(--ink); }
 .article { max-width:880px; margin:0 auto; padding:36px 20px 70px; }
@@ -311,11 +313,16 @@ def lore_excerpt(md_text):
     cleaned = []
     for ln in md_text.split("\n"):
         low = ln.strip().lower()
+        if re.match(r"^#\s", ln):  # 跳过标题行
+            continue
         if low.startswith("contents"):
             skip = True
         if skip and low == "references":
             skip = False
         if skip or "spoiler warning" in low or not ln.strip():
+            continue
+        # 过滤 infobox 噪音短标签（如 Artwork / Battle / Mask 1）
+        if len(ln.strip()) < 25 and not re.search(r"[.!?。！？]", ln):
             continue
         cleaned.append(ln)
     text = re.sub(r"\s+", " ", " ".join(cleaned)).strip()
@@ -353,7 +360,7 @@ def build_lore():
             cards.append(f'<a class="lcard" href="lore/{slug}.html"><span class="arrow">→</span>'
                          f'<span class="tag">{escape(cat)}</span>'
                          f'<h3>{escape(display_name(name))}</h3>'
-                         f'<div class="meta">{escape(lore_excerpt(raw))}</div></a>')
+                         f'<div class="meta" title="{escape(lore_excerpt(raw))}">{escape(lore_excerpt(raw))}</div></a>')
         if cards:
             sections.append(f'<section class="group" id="{escape(cat)}">'
                             f'<h2>{escape(cat)}<span class="count">{len(cards)} 篇</span></h2>'
@@ -386,7 +393,7 @@ def build_interviews():
         points = re.findall(r"^\s*-\s+(.+)$", key.group(1), re.M) if key else []
         full = re.search(r"## 全文\s*\n(.*)$", raw, re.S)
         body = md_to_html(full.group(1)) if full else "<p>（全文缺失）</p>"
-        point_html = "".join(f"<li>{md_inline(escape(p))}</li>" for p in points) or "<li>（无摘要）</li>"
+        point_html = "".join(f'<li title="{escape(p)}">{md_inline(escape(p))}</li>' for p in points) or "<li>（无摘要）</li>"
         slug = slugify(path[:-3])
         # 独立详情页
         hero = {"title": f"OFF 访谈 · {title}",
