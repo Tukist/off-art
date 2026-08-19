@@ -1,0 +1,9 @@
+# 全量图片数据保留在本地，不入库（画廊精选图在 docs/img/）
+art/
+
+# 抓取临时产物
+scripts/_raw/
+__pycache__/
+*.pyc
+*.log
+*.log.*
