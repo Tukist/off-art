@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OFF 作者访谈 · Interviews</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+:root { --ink:#e8e6e1; --bg:#0d0d0f; --dim:#9a978e; --line:#2a2a30; --card:#151519; --accent:#f2f2f2; }
+body { background:var(--bg); color:var(--ink); font-family:'Courier New',monospace; line-height:1.7; }
+a { color:var(--ink); }
+.topbar { position:sticky; top:0; z-index:50; background:rgba(13,13,15,.92); backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--line); }
+.topbar nav { max-width:1200px; margin:0 auto; display:flex; flex-wrap:wrap; gap:4px 22px;
+  padding:14px 20px; align-items:center; font-size:.82rem; letter-spacing:.1em; }
+.topbar nav a { color:var(--dim); text-decoration:none; white-space:nowrap; }
+.topbar nav a:hover { color:var(--ink); }
+.topbar .brand { color:var(--ink); font-weight:bold; letter-spacing:.25em; margin-right:8px; }
+header.hero { padding:72px 20px 48px; text-align:center; border-bottom:1px solid var(--line); }
+header.hero h1 { font-size:2.4rem; letter-spacing:.4em; text-transform:uppercase; }
+header.hero p.tagline { color:var(--dim); margin-top:16px; max-width:640px; margin-left:auto; margin-right:auto; font-size:.95rem; }
+header.sub { padding:48px 20px 28px; text-align:center; border-bottom:1px solid var(--line); }
+header.sub h1 { font-size:1.6rem; letter-spacing:.3em; text-transform:uppercase; }
+header.sub p { color:var(--dim); margin-top:10px; font-size:.9rem; }
+main { max-width:1200px; margin:0 auto; padding:16px 20px 40px; }
+section { scroll-margin-top:64px; }
+.group { margin:52px 0; }
+.group h2 { font-size:1.25rem; letter-spacing:.2em; border-left:4px solid var(--ink); padding-left:12px; }
+.group .count { color:var(--dim); font-size:.8rem; margin-left:10px; letter-spacing:.1em; }
+.group .intro { color:var(--dim); font-size:.9rem; margin:12px 0 20px 16px; max-width:780px; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(190px,1fr)); gap:10px; }
+.card-img { display:block; background:var(--line); overflow:hidden; aspect-ratio:1/1; }
+.card-img img { width:100%; height:100%; object-fit:cover; display:block; filter:grayscale(.18);
+  transition:transform .25s, filter .25s; }
+.card-img:hover img { transform:scale(1.05); filter:grayscale(0); }
+.cardlist { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px; }
+.lcard { background:var(--card); border:1px solid var(--line); transition:border-color .2s; }
+.lcard:hover { border-color:var(--dim); }
+.lcard summary { list-style:none; cursor:pointer; padding:18px 20px; }
+.lcard summary::-webkit-details-marker { display:none; }
+.lcard summary h3 { font-size:1rem; letter-spacing:.08em; }
+.lcard summary .meta { color:var(--dim); font-size:.78rem; margin-top:6px; }
+.lcard summary .tag { display:inline-block; border:1px solid var(--dim); color:var(--dim);
+  font-size:.68rem; padding:1px 8px; letter-spacing:.12em; margin-right:8px; }
+.lcard .body { border-top:1px solid var(--line); padding:16px 20px 20px; color:var(--dim); font-size:.88rem; }
+.lcard .body h2, .lcard .body h3 { color:var(--ink); margin:14px 0 6px; font-size:1rem; }
+.lcard .body h1 { color:var(--ink); font-size:1.1rem; margin:14px 0 6px; }
+.lcard .body p { margin:8px 0; }
+.lcard .body ul { margin:8px 0 8px 22px; }
+.lcard .body table { border-collapse:collapse; margin:10px 0; width:100%; font-size:.8rem; }
+.lcard .body th, .lcard .body td { border:1px solid var(--line); padding:4px 10px; text-align:left; }
+.lcard .body code { background:var(--line); padding:1px 5px; font-size:.8rem; }
+.lcard .body pre { background:#0a0a0c; border:1px solid var(--line); padding:12px; overflow-x:auto; font-size:.78rem; margin:10px 0; }
+.lcard .body a { color:var(--ink); text-decoration:underline; text-underline-offset:3px; }
+.entry { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:16px; margin-top:8px; }
+.entry a { display:block; border:1px solid var(--line); background:var(--card); padding:28px 24px;
+  text-decoration:none; transition:border-color .2s, transform .2s; }
+.entry a:hover { border-color:var(--ink); transform:translateY(-2px); }
+.entry h2 { font-size:1.15rem; letter-spacing:.2em; }
+.entry p { color:var(--dim); font-size:.85rem; margin-top:10px; }
+.entry .n { font-size:2.2rem; color:var(--dim); letter-spacing:.1em; margin-bottom:8px; }
+footer { border-top:1px solid var(--line); margin-top:80px; padding:36px 20px 60px;
+  text-align:center; color:var(--dim); font-size:.78rem; line-height:2.1; }
+footer code { background:var(--line); padding:1px 6px; }
+#lightbox { position:fixed; inset:0; background:rgba(0,0,0,.93); display:none; align-items:center;
+  justify-content:center; z-index:99; cursor:zoom-out; }
+#lightbox img { max-width:92vw; max-height:86vh; }
+#lightbox .cap { position:fixed; bottom:22px; left:0; right:0; text-align:center; color:var(--dim); font-size:.78rem; }
+@media (max-width:640px){ header.hero h1{ font-size:1.5rem; letter-spacing:.25em; } .grid{ grid-template-columns:repeat(auto-fill,minmax(130px,1fr)); } }
+</style>
+</head>
+<body>
+<div class="topbar"><nav><a class="brand" href="index.html">OFF</a><a href="index.html#g0">官方宣传</a><a href="index.html#g1">概念图</a><a href="index.html#g2">角色</a><a href="index.html#g3">区域</a><a href="index.html#g4">封面标志</a><a href="index.html#g5">粉丝档案</a><a href="index.html#g6">周边收藏</a><a href="lore.html">设定文本</a><a href="interviews.html">访谈</a></nav></div>
+<header class="sub"><h1>作者访谈 / Interviews</h1><p>7 篇访谈全文 · Mortis Ghost、Toby Fox、Morusque、Quinn K.、Nightmargin 与 15 周年直播整理</p></header>
+<main>
+<section class="group" id="interviews"><div class="cardlist"><details class="lcard"><summary><h3>Interview with Mortis Ghost — OFF (GamAtomic, 2025 Remaster)</h3><div class="meta">2025-08-18 · <a href="https://www.gamatomic.com/interviews/13448/off" target="_blank" rel="noopener">来源</a></div><ul><li>2025 年重制版发售时 GamAtomic 对 Mortis Ghost 的专访（英文问答），覆盖 OFF 的起源、创作理念与重制细节，是该批资料中最全面的一篇</li><li>创作源头：剧本受阿加莎·克里斯蒂《无人生还》的剧情转折启发；角色与视觉来自他随手涂鸦（棒球手、大头猫、方块世界），刻意追求极简、可读的单色场景</li><li>走红过程：2008 年发布后法语论坛仅约 50 名玩家，Quinn 主动联系翻译成英文后才逐渐爆红；看到首个角色 cosplay 让他与 Coldwood 十分震惊</li><li>重制版定位：新增战斗系统、区域、Boss，以及 Toby Fox / Morusque / Camellia 等创作的新配乐；团队极力保留原版氛围，且认为 OFF 如今更多属于社区而非作者</li><li>叙事观与个人趣味：对比漫画（省略的艺术）与游戏（1:1 时间线）的叙事差异；日常偏爱&quot;怪&quot;作品与日系游戏，常玩 Ys 与 Monster Hunter 系列</li></ul></summary><div class="body"><h4>Interview with Mortis Ghost</h4>
+<p>In 2008, a strange game appeared on our screens: a hero in a baseball uniform, monochrome zones, dialogues as mysterious as they were impactful... and a universe that could rival the weirdest dreams. <a href="OFF" target="_blank" rel="noopener">OFF</a>, created by French developer <a href="Mortis Ghost" target="_blank" rel="noopener">Mortis Ghost</a>, quickly became a small monument of cult indie gaming. Today, it returns in a remastered version to keep intriguing you, unsettling you... and maybe making you smile. We took the opportunity to ask its creator a few questions. Beware — some answers might just get &quot;Purified&quot;...</p>
+<h4>&quot;OFF is a weird, funny, and unsettling game.&quot;</h4>
+<p><strong>Q:</strong> If you only had 30 seconds to describe <a href="OFF" target="_blank" rel="noopener">OFF</a> to a curious player?</p>
+<p><strong>A:</strong> <strong>Mortis Ghost:</strong> I&#x27;d say that <a href="OFF" target="_blank" rel="noopener">OFF</a> is an old-school, Japanese-inspired RPG where you play as a mysterious baseball player. His mission is to &quot;purify&quot; the strange world he inhabits. To do so, you must exterminate ghosts (and other disgusting creatures), follow the advice of a big-headed cat, and wander through the cubic, colorful alleys of the three explorable zones. It&#x27;s a weird, funny, and unsettling game.</p>
+<h4>&quot;We were incredibly surprised to see the first cosplays of the game’s characters.&quot;</h4>
+<p><strong>Q:</strong> You originally developed <a href="OFF" target="_blank" rel="noopener">OFF</a> on <a href="RPG Maker 2003" target="_blank" rel="noopener">RPG Maker 2003</a> &quot;just for fun&quot;, yet it became a cult game. At what point did you realize that this quirky, spontaneous project was resonating with so many people?</p>
+<p><strong>A:</strong> <strong>Mortis Ghost:</strong> I don&#x27;t remember the exact date. I finished <a href="OFF" target="_blank" rel="noopener">OFF</a> in 2008, then uploaded it to a few French-speaking amateur game-making forums. I got around fifty players, and I thought that was a great success! A little while later, <strong>Quinn</strong> contacted me to ask if she could translate the game into English. I had no reason to refuse. Once she finished her work and uploaded it, things started to snowball. I remember that with <a href="Alias Conrad Coldwood" target="_blank" rel="noopener">Alias Conrad Coldwood</a>, the composer of the original version&#x27;s music, we were incredibly surprised to see the first cosplays of the game&#x27;s characters. It was a shock!</p>
+<p>![](https://media.gamatomic.com/interviews/OFF/OFF_TheJudge.png)</p>
+<p><strong>Q:</strong> The Batter&#x27;s mission to &quot;purify&quot; a surreal, unsettling world is both disturbing and fascinating. Where did that idea come from, and did you expect it to resonate so strongly?</p>
+<p><strong>A:</strong> <strong>Mortis Ghost:</strong> At the time, I was deeply struck by <a href="Agatha Christie&#x27;s And Then There Were None" target="_blank" rel="noopener">Agatha Christie&#x27;s And Then There Were None</a>, which contains a very important twist. That twist was the starting point for my scenario. As for the game&#x27;s formal elements, it was a patchwork of images I had made before starting to work on it: a cat, a baseball player, and a very cubic world because it made for easy-to-produce and arrange backgrounds. The rest of the elements came later, and I made sure they aligned with what already existed in the project.</p>
+<h4>&quot;I wanted to make something original and weird.&quot;</h4>
+<p><strong>Q:</strong> Your inspirations include <a href="Killer 7" target="_blank" rel="noopener">Killer 7</a>, <a href="Silent Hill 2" target="_blank" rel="noopener">Silent Hill 2</a>, <a href="Myst" target="_blank" rel="noopener">Myst</a> and of course Agatha Christie. How did such varied sources shape <a href="OFF" target="_blank" rel="noopener">OFF</a>&#x27;s unique mix of horror and puzzles?</p>
+<p><strong>A:</strong> <strong>Mortis Ghost:</strong> It&#x27;s hard to explain — that&#x27;s often how works of fiction are made: a mix of varied inspirations, which, once combined and sprinkled with the creator&#x27;s personality, give birth to something new. I did a bit of &quot;shopping&quot; in the works you mentioned, and many others, to pick the basic elements of my world. I didn&#x27;t overthink it.</p>
+<p><strong>Q:</strong> The atmosphere of <a href="OFF" target="_blank" rel="noopener">OFF</a> is unforgettable, thanks in part to its minimalist yet powerful aesthetic and its soundtrack. What&#x27;s your process for creating visuals and music that stir such strong emotions?</p>
+<p><strong>A:</strong> <strong>Mortis Ghost:</strong> The music isn&#x27;t my doing. In the original version, it was composed by <strong>Alias Conrad Coldwood</strong>, and for the new one, it&#x27;s the work of several artists, including <a href="Toby Fox" target="_blank" rel="noopener">Toby Fox</a> and <a href="Morusque" target="_blank" rel="noopener">Morusque</a>. They&#x27;re the ones you should be asking!</p>
+<p>For the graphics, it was a mix of choices dictated by technical constraints (and a few of my own &quot;comfort&quot; decisions) and a personal attempt to make something highly readable and impactful. By limiting each environment to a single color tone, and characters to black and white, I ensured that important elements stood out on screen. And, of course, I wanted to make something original and weird. I think I didn&#x27;t do too badly!</p>
+<h4>&quot;I hate being frustrated in video games myself.&quot;</h4>
+<p><strong>Q:</strong> The game features four strange Zones, multiple endings, and hidden surprises. How do you design ambiguity and mystery without frustrating the player?</p>
+<p><strong>A:</strong> <strong>Mortis Ghost:</strong> I hate being frustrated in video games myself, so that was important for me. Specifically regarding the scenario, I think a good way to avoid frustrating the player – without giving them too many answers – is to be generous with surprising situations and original content. That&#x27;s something I tried to do throughout the adventure.</p>
+<p>That said, I think you&#x27;re being pretty generous in your analysis – <a href="OFF" target="_blank" rel="noopener">OFF</a> can be frustrating in certain design choices I made back then! But well, without frustration, there&#x27;s no challenge, right? You need at least a little bit for a game to be fun.</p>
+<p><strong>Q:</strong> OFF has developed a large fan community, thanks in part to fan translations and cosplays. How have fan contributions influenced your view of the game&#x27;s legacy?</p>
+<p><strong>A:</strong> <strong>Mortis Ghost:</strong> It&#x27;s very hard for me to step outside my own vision of what the game is and tells. But I think <a href="OFF" target="_blank" rel="noopener">OFF</a> now belongs more to the community than to me. I&#x27;m both admiring and grateful for all the attention and effort that&#x27;s been put into my little game, and I&#x27;m constantly amazed by the scale of it. My life would be quite different today if <a href="OFF" target="_blank" rel="noopener">OFF</a> hadn&#x27;t enjoyed such success.</p>
+<h4>&quot;We believe OFF now belongs more to the community than to us.&quot;</h4>
+<p><strong>Q:</strong> With the 2025 remaster, you&#x27;re adding a new combat system, new zones, bosses, and music by renowned artists like <a href="Toby Fox" target="_blank" rel="noopener">Toby Fox</a> and <a href="Camellia" target="_blank" rel="noopener">Camellia</a>. How do you preserve the original spirit of <a href="OFF" target="_blank" rel="noopener">OFF</a> while evolving it?</p>
+<p><strong>A:</strong> <strong>Mortis Ghost:</strong> The whole team is very careful not to alter the game&#x27;s original atmosphere. As I said earlier, we believe <a href="OFF" target="_blank" rel="noopener">OFF</a> now belongs more to the community than to us. So we&#x27;ve done our best to preserve its unique feel. That said, since the original version of <a href="OFF" target="_blank" rel="noopener">OFF</a> remains freely available to everyone, we didn&#x27;t bite our nails down to the quick. The new soundtrack is an important element of this edition — while staying close in tone to what <strong>Alias Conrad Coldwood</strong> created, it will give the adventure a fresh new flavor. I think it&#x27;ll be interesting for veteran players to rediscover familiar places, but with this special new spice.</p>
+<h4>&quot;Comics and video games have diametrically opposite storytelling constraints.&quot;</h4>
+<p><strong>Q:</strong> As a solo developer and comic book author, what&#x27;s your approach to storytelling in games compared to comics? Do the two mediums inspire each other?</p>
+<p><strong>A:</strong> <strong>Mortis Ghost:</strong> Since I&#x27;ve practiced both mediums in parallel, it&#x27;s obvious they&#x27;re connected in my mind, and so they inspire each other. But there&#x27;s a major difference that, in my view, makes you approach storytelling quite differently. Comics are the art of the ellipse par excellence — there&#x27;s literally a cut between each panel, and it&#x27;s up to the reader to connect the dots. Video games have almost no cut in their storytelling: you control a character and witness each of their actions in a &quot;1:1&quot; timeline. These are diametrically opposite narrative constraints. That&#x27;s also what makes writing for both fields interesting.</p>
+<p><strong>Q:</strong> Finally, what do you play when you need to step away from <a href="OFF" target="_blank" rel="noopener">OFF</a>&#x27;s surreal world? Do you have any &quot;normal&quot; games or media you enjoy to clear your head?</p>
+<p><strong>A:</strong> <strong>Mortis Ghost:</strong> I love strange artistic works, whatever the medium, but I also play a lot of mainstream games. I remain a huge weeb *(editor&#x27;s note: fan of anime and manga)*, so many of my choices lean toward Japanese productions. In the most recent games I&#x27;ve played that are relatively &quot;vanilla&quot; *(editor&#x27;s note: base version without mods or expansions)*, I can mention the <a href="Ys" target="_blank" rel="noopener">Ys</a> and <a href="Monster Hunter" target="_blank" rel="noopener">Monster Hunter</a> franchises, both of which I love.</p>
+<p>![](https://media.gamatomic.com/interviews/OFF/OFF_Dedan.png)</p></div></details><details class="lcard"><summary><h3>Text For Interview of Mortis Ghost and Alias Conrad Coldwood</h3><div class="meta">2016-09-10 · <a href="https://brainplaguerewind.tumblr.com/post/150232549905/text-for-interview-of-mortis-ghost-and-alias" target="_blank" rel="noopener">来源</a></div><ul><li>2016 年粉丝 Iwant（原帖发布于 nonbinaryrobot 博客）对 Mortis Ghost（M）与作曲家 Alias Conrad Coldwood（C）的经典深度访谈，两人交替作答，是研究 OFF 起源的第一手资料（维基百科引用的正是此篇）</li><li>相识与合作：两人高中同班成为挚友，后同入艺术学院；2005–2006 年 Mortis 开始开发 OFF，ACC 主动包揽原声与音效，还写了气球小游戏代码与一批 sprite；合作模式是相距不到 300 英尺的面对面快速迭代</li><li>创作源头：Mortis 初始只有&quot;大黄色方块 + 黑白角色&quot;的抽象构想；影响最大的是《寂静岭 2》与 killer7，另有《妙想天开》《阿基拉》《妄想代理人》《FLCL》《心灵游戏》及《绿野仙踪》（片尾曲直接&quot;借用&quot;）</li><li>配乐秘辛：ACC 从 Juneberry78s 网淘老唱片做素材，OFF 的战斗曲《Pepper Steak》可能实为 Blind Blake 的《Hookworm Blues》；Pablo 的猫叫致敬 The Postal Service</li><li>彩蛋与收尾：女王之声是年轻女孩 Aureden 倒放的&quot;va ranger ta chambre&quot;（去收拾你房间）；对粉丝的最后一句话——M：&quot;Eugenics.&quot;，C：&quot;You are insane.&quot;</li></ul></summary><div class="body"><h4>Text For Interview of Mortis Ghost and Alias Conrad Coldwood</h4>
+<p>When 2008 amateur RPG OFF was released on the french-speaking web, it met with surpsingly overwhelming reception for a game made with RPGMaker but obviously achieved little popularity due to the rather private nature of its circulation. Five years later, it is possible to catch sight of characters from that game at various cosplay conventions in the US, miles away from its Belgian homeland.</p>
+<p>At the occasion of my article covering the game, I - Iwant - took the initiative to conduct an interview with the guys behind the game: Mortis Ghost and Alias Conrad Coldwood, the artists from the Unproductive Fun Time collab responsible for *OFF*’s creation.</p>
+<p>Do not hesitate to take a look at my article: It contains everything you need to know where to find *OFF* if you still haven’t had the chance to touch it before. Let us not wait any longer; here are the interviews. Have a good read!</p>
+<p>Interview of Mortis Ghost &amp; Alias Conrald Coldwood</p>
+<p><strong>Q: Did you have any prior experience with your respective domains - game design and music production - before starting development on*OFF*?</strong></p>
+<p>M: Yes, I’ve know RPG Maker for a very long time. I discovered the it in some time around 2001 or 2002, when my best friend back then gave me a CD with the software burned on it as a birthday present - which truly was a great present. So, I kind of timidly tried to get involved in french-speaking RPG Maker on-line communities, and I ended up joining a message board called Zanarkland (which is the heir to the esteemed Black Sword forum, which is several centuries old in Internet years), but it did end up dissociating itself from the Making scene so well yeah. Actually, I’ve always been “making games” since I started fiddling with RPG Maker, but those who were made before *OFF* are just lame heroic fantasy stuff with time-travelling dinosaurs.</p>
+<p>C: Well, I’m really embarassed about it, to be honnest: I used to be a singer in a folk-rock group from which I was sent packing. After that case, I started to knock stuff together, mainly “electronic music” - a term that doesn’t mean much today but was synonymous with “synthetic-sounding rhythmic track” back in that time when computers were still coal-powered.</p>
+<p><strong>Q: How did you meet each other? And how did you end up starting a video game project? Was the context in the Making scene favorable, or did it just spring up out of nowhere?</strong></p>
+<p>M: I met ACC a few years before getting started on *OFF*. We were in the same high school class and he quickly became my best friend. We were both video game fans, and I even remember him mentioning that he was developing a game engine as he’s a programmer too. Then, in 2005 or 2006, I wanted to make a game and started creating *OFF* without much thinking. I showed these scraps with stock music from random sources to ACC, and he directly offered me to handle the game’s soundtrack and sound design. I naturally accepted that offer; how could I say “no” to someone both talented and intimidating at the same time?</p>
+<p>C: Yes, we were pursuing art studies in the same school and that’s where we met. I was producing electronic music during that period… Just listen to my <a href="*Crying Girls*" target="_blank" rel="noopener">*Crying Girls*</a> compilation: Some of the tracks on there are from that time, and some actually are like ten years old! Then… We found ourselves in the same studio - more like a building site really - as well and that’s when Mortis started working on *OFF* on his own. I’ve indeed produced the game’s music, and I also contributed a few other things like the balloon game’s code and a bunch of sprites.</p>
+<p><strong>Q: How did you work together? Was there time allocated to brainstorming, or was it more freeform?</strong></p>
+<p>M: Broadly speaking, I was just developing the game and asking ACC when I got stuck. He’s got a programmer’s mind, so he helped me a lot when I came across things that were too complex for me. He also regularly shared interesting ideas, like cultural references or entire lines of dialogue. When it comes to its main work, the soundtrack, I just gave him an outline of what kind of atmosphere I wanted; he’d then proceed to make me have a listen to what he produced, and there were very little occasions on which it wasn’t perfect from the start.</p>
+<p>C: During the whole development process, we were less than 300 feet away from each other. I always had an up-to-date version of the game around to see what was to be done. There was no restriction whatsoever, either on quantity or length. That’s why *Soft Breeze* is SO LONG even though only the ten first seconds are really heard in-game; following that, I focused on way shorter loops. So, basically: I attempted to make scraps that sounded good, copied them on an USB flash drive and went to Mortis so he could review the result. I don’t think he ever rejected anything; the tracks that didn’t make it into the game simply were either forgotten or not even shown to Mortis to begin with.</p>
+<p><strong>Q: Mortis, how did you find inspiration as the game’s writer and artist? Did you have precise ideas of what *OFF* should look like, or did it came bit by bit during development?</strong></p>
+<p>M: At the very beginning, I had absolutely no idea of where I was going. I just wanted to make a game, everything in it without taking assets from somewhere else like it’s often done in RPG Maker projects. So, I went for something simple: Large yellowish cubes, ultra-minimalist aesthetics, black and white characters inspired by my latest scribblings - a cat and a baseball batter. Then, I quickly got new ideas starting from this rather abstract base and started writing a more thorough scenario, and I got an outline of what *OFF* would go on to become. ACC also provided me with various leads pretty early, and we kept on finding new stuff to add up until the very end; but I got the important characters and main concepts pretty quickly.</p>
+<p><strong>Q: ACC, how would you describle the soundtrack you have produced for *OFF*? How did you get to that kind of sounds?</strong></p>
+<p>C: I’ve got a binder for important paperwork, and it’s empty! I’m really not good at sorting things. I know where things are, and a vague idea of what they’re used for. I think I don’t need much more for what I do with them. I’ve been asked several times what genre I would put OFF’s soundtrack into, and I usually reply “soundtrack”. Most of the tracks are pots-pourris, and were composed independantly of each other. One or the other *might* be considered trip-hop and some other techno or IDM, I suppose. I’ll disgress for a bit - I like disgressing - to also mention a fantastic website called <a href="Juneberry78s" target="_blank" rel="noopener">Juneberry78s</a> that features downloadable old pieces of music like Washboard Rhythm Kings’ *Pepper Steak*. I downloaded a bunch of them and put them of my MP3 player. Then, one day, at the station, I came across that one track. And I told to myself it would make a great battle theme! *OFF*’s *Pepper Steak* might have been Blind Blake’s *Hookworm Blues* actually.</p>
+<p><strong>Q: What were the influences on *OFF*’s artistic directions? Are there other video games or films, books, albums, events, etc that have inspired you in the creation of this bizarre universe?</strong></p>
+<p>M: There are thousands of more-or-less direct references in *OFF*, it’s a real catch-all of eclectic influences. I’ve often mentioned them over the Internet, since it’s a recuring question. The most important probably are*Silent Hill 2* - a whole part of Zone 3 is a tribute to the series - which I was playing through during *OFF*’s development and *killer7* which was my favorite game back then an still ranks pretty high in my all-time favorites toplist today, and also helped me be more comfortable with the idea of making something visually stripped-down and off-beat. There’s still a whole bunch of other influences: In video games, I can mention *Final Fantasy VI* and the two first episodes of the *Metal Gear Solid* series; and for the rest I can mention Terry Gilliam’s *Brazil*, Katsuhiro Otomo’s *Akira*, Satoshi Kon’s *Paranoia Agent*, Kazuya Tsurumaki’s *FLCL*, Masaaki Yuasa’s*Mind Game* and obviously *The Wizard of Oz* from which I went as far as to steal the credits song.</p>
+<p>C: Whatever I do, I work using references A LOT. That one guy (I forgot who) once said (something like): “What’s important is not what you copy, but what you do of it.” Since there were no constraints, I was deeply influenced by what I was listening to at the moment: *Second Sight*(Graham Norgate’s choirs), *Silent Hill* (Akira Yamaoka’s spheres and distortions), *Donnie Darko* (Michael Andrews’s piano and vocoder), the “bootleg soundtrack” of *serial experiments lain* (Nakaido Reichi’s drums) as well as other stuff like *Soldier of Fortune* (Chia Chin Lee’s strings) and*Hitman* (Jesper Kyd’s electronic sounds)… I think that’s where most of my influences came from. Then, there also is the base layer, composed of what I’m constantly listening to: Mainly trip-hop (Massive Attack, Portishead, DJ Krush, Sneaker Pimps, Halou) and rock (David Bowie, Radiohead, REM, Bloc Party, Blur -including the great, great *13*) as well as bands like Boards of Canada and The Postal Service. Speaking of the later, there is a huge nod to them in *OFF* when Pablo meows after his brother - I don’t know whether or not the english translators were notified of this.</p>
+<p><strong>Q: Is there a part of the game of which you’re specifically satisfied? It could be a whole Zone, or something smaller like a character design or an audio loop.</strong></p>
+<p>M: It’s a really hard question because I’m generally unsatisfied by a lot of things. There is that part I do like though before the battle against japhet, when you read his story in the library’s book as you ascend to finally meet him as the bird of millenary fire. It’s pretty close to the vision I had in mind before concretizing it, so I probably wouldn’t change it if I had to restart the game from scratch. There’s always stuff to change and improve, though; I personnaly think *OFF* is very clumsy in its realization. Now that I think of it, Japhet’s final design isn’t all that great really.</p>
+<p>C: Thereare two tracks that have a rather good impact in-game: *Dramatic Crescendo* (the BGM on the way to the library’s summit,the part Mortis mentioned) and *Avatar Beat* (the final battle theme). Now that I think of it, the best moment is the silence after Japhet’s death; it’s ironic, but the moment the music is the most impacting is when it when it disappears. If I had to pick one to listen outside of the game, I think *Burned Bodies* is my favorite.</p>
+<p><strong>Q: One of OFF’s universe core component is its self-conscious approach to game progression: The player is brought to question the Batter’s motivation aswell as his own reponsibility and perception. Mortis, what brought you to this experiment? Do you think the potentiel of video games as a medium are under-exploited?</strong></p>
+<p>M: Oh, yeah, clearly, video games clearly are under-exploited in their concepts of player manipulation and one’s action reponsability. I personally really like shooting virtual things, but I also think I’m too rarely reminded of what these actions implies even though it’s not always supposed to be funny. From this perspective, I’m still completely in love with *Metal Gear Solid 2* and *Red Dead Redemption* because - no spoiler ahead - they reallymanage to play with their own mechanics and to integrate them in their narrative; and to hit the player in the face in the process by forcing him to act against his will or to question his actions. It’s brilliant. *killer7*, in a more subtle way, is also signifcantly about black-and-white morality and personal perceptions of what is good and evil. These themes are of great relevance to me, and they definetely can have a huge impact when they’re used that way in video games where the gameplay often relies on “unfriendly” concepts - like shooting people. So, uh, yeah, I really like it and wanted that kind of stuff in my game.</p>
+<p><strong>Q: It’s been five years now since *OFF* was first released, and two since it became a cult hit overseas. When you have a good look at the end product, what do you think of it? Were you able to achieve what you wanted to do? And what do you think of this inbternational success you probably didn’t expect.</strong></p>
+<p>M: Hard to tell. *OFF* does seem to have completed the guidelines I had imagined for it, and made people reactthe way I wished it did… or so I think… Well, I had no idea so many people would play it, and didn’t even dream about it being translated to other languages. I do think the game is unpolished though: The first part of the game as a whole is too blurry and pompous, even tiresome in all its aspects; I really am beffudled that people who play the game get through that part without being disheartened. It probably does get less bad once you get to Zone 2, but there’s still a wholelot of flaws up until the end. In the end, I’m relatively satisfied of a few isolated sequences, and absolutely mesmerized by how people seems to like some other I think of poorly with indsight. Regarding the popularity overseas, I’ve already stated it numerous times: I just still can’t believe it. I received a Batter plushie from mail the other day and, uh, I almost was knocked over by surprise. It’s crazy.</p>
+<p>C: I don’t even know if we *wanted* to do something special. I think Mortis just simply wanted to make a game, without grand plans or great hopes. Then, the english translation was set in motion… Starting there, there was a time were Mortis and I would send links to fan reactions to each other over MSN Messenger - most of the time, we just reacted by saying “people are insane”. Well, we still do that kind of thing, just a bit less. Seriously, we didn’t see it coming. It’s funny to see all the fan works: Cosplays, fan fictions, artworks - ALL the artworks, we know of ALL of them *wink wink nudge nudge*. People are insane.</p>
+<p><strong>Q: Is there an anecdote you’d like to share about the development of*OFF*. It could be explosions-filled awesome, or sad and depressing.</strong></p>
+<p>M: er.. Toward the end of working on the game. I was also finishing my BD studies (BD is short for Bande Dessinee, it’s the name of the genre it’s like comics) in Liege (it’s a city), and i participated in a contest to be published in a flemish magazine by sending a BD scenarised by ACC, but without crediting him anywhere, which was really assholy on my part. I don’t even remember why i did that. The BD was selected and published with only my name on it. So he was pretty angry at me and he was right to be. And While we lived together, we almost didn’t speak together anymore. Yet, he still made all of OFF musics up till the very end and, we are still friend to this day, i’m really very lucky, if he had abandoned the project, OFF wouldn’t be as good as it is (probably)</p>
+<p>C: There are a lot of anecdotes, but I have a hard time remembering them so i’ll just talk about *Silent Hill* instead. Someone uploaded a music comparison of DIE from the first episode of the series and *OFF*’s *Endless Hallway*: It really made me laugh because the segment of the Zone just before meeting Enoch IS a reference to *Silent Hill* and it doesn’t seem like much people noticed it. Here’s a list: The music as mentioned, the hallways that makes up a “SH” pattern, the doors that are locked in most cases and the fact that it’s the only place in the game were battles can be avoided since enemies are visible on the map. Recently, I even realized that it’s also the only Zone where there is a white area before “purification”, similar to the “real” and “alternate” zones of Silebnt Hill. So, I was accused of plagiarism - ok, I wasn’t, I’m just being dishonnest - with that *Endless Hallway* thing, but it seems like nobody heard the melody from *CONSPIRACY* (still from the first *Silent Hill* game) in *Brain Plague* - just listen starting at the 40 seconds mark, when the track reverses!</p>
+<p><strong>Q: Did you get involved in other video game projects after *OFF*? Do you wish to take part in other ones in the future? Aldo, would you wish to become either proessional game designer or game music producer, respectively?</strong></p>
+<p>M: Yeah, I did get involved in various stuff after completing *OFF*. I’ve notably contributed (with ACC) to the spectacular *Dark Soul.ace 2*, a multi-developer project with a lot of great people (like Saturnome) of which I’m very proud. I’ve also realized two rushed projects for on-line events: *Duplo*, a game made in one night only with the help of ACC again as well as eXaHeVa, Bolt, Hyvenos and Sylvanor (the sympathetic psychopath who made *Aëdemphia*); and then *There is A Picture* for the Ludum Dare 23, done with ACC alone in one week-end. These were both very nice experiences each time. Of course, I’d like to make other games, possibly longer and more thorough, but it takes a lot of time and well - we’ll see. I’m not worried about it, it’s bound to happen in the future. I’m concentrating more on my work as a comics artist, of which I’d like to make living someday. It’s not really much of a sucess for the moment, but we’ll jsut see. THE FUTURE IS FILLED WITH HOPE!</p>
+<p>C: I’ve made a few tracks for the soundtrack of a robot-themed point &amp; click called *Prototypical* (the project has been cancelled though). Then, the projects Mortis mentioned… but other than that, nada.</p>
+<p><strong>Q: Oh, yeah! A breaking revelation to the public: The Queen’s “voice” sounds like otherwordly blabbering, but it’s actually a young girl saying “va ranger ta chambre” (“go and tidy up your room”) in reverse. What are you going to do now that you most well-kept secret has been disclosed?</strong></p>
+<p>A: Uh, is it? I didn’t know that’s what she’s saying. I have totally forgotten anything about that detail. Sound design was ACC’s work, and I do remember that a female roommate back then did the Queen’s “voice”. I can’t remember if we asked her to spout out gibberish or if it was an actual sentence, since I just knew ACC edited it enough to make it strange beyond recognition.</p>
+<p>C: Oh yeah, right, that girl’s name is Aureden and I think we did ask her to say something “an angry mother would say”. Since the game’s “voices” had to be unintelligible, I reversed it.</p>
+<p><strong>Q: One last word for *OFF*’s fans?</strong></p>
+<p>M: “Eugenics.”</p>
+<p>C: “You are insane.”</p></div></details><details class="lcard"><summary><h3>Abriged text of OFF&#x27;s 15th anniversary stream! (fan transcript)</h3><div class="meta">2023-07-12 · <a href="https://fronomeeps.tumblr.com/post/722598150455640064/abriged-text-of-offs-15th-anniversary-stream" target="_blank" rel="noopener">来源</a></div><ul><li>粉丝整理的 2023 年 OFF 15 周年 4 小时直播文字稿（英文），分 5 部分：OFF 起源、世界观设定、游戏制作、粉丝文化、杂谈；官方 VOD 见文首链接</li><li>起源：角色先于游戏存在——Batter 与&quot;大头猫&quot;是 Mortis 的随手涂鸦，无象征意义；用 RPG Maker 2003 约一年完成，坚持全素材自制；若用今天的工具，OFF 会是完全不同的游戏</li><li>世界设定：逐个讲解角色灵感（Japhet 源自 FF6 的 Valigarmanda、Enoch 受 Nicolas de Crécy 漫画影响、Bad Batter 是&quot;可怕版&quot;Batter 等）；The Judge 原型是大学室友的猫 Madame Le Judge</li><li>游戏制作：对战斗数值平衡与 Zone 1 谜题（如 Alma 日历谜）不满，认为偏难；《Over the Rainbow》片尾曲的选用缘由；与 Alias Coldwood 的合作模式；女王之声是倒放的&quot;va ranger ta chambre&quot;</li><li>结局与正典观：&quot;一切皆可正典&quot;，玩完游戏故事即属于玩家；穿插大量轻松段子（The Judge 有毛还是无毛、Zacharie 与 Sucre 的关系、Batter 是否秃顶等）</li></ul></summary><div class="body"><h4>Abriged text of Off’s 15th anniversary stream!</h4>
+<p>official VOD on youtube: <a href="https://youtu.be/RG4yEM9J3Zg" target="_blank" rel="noopener">https://youtu.be/RG4yEM9J3Zg</a></p>
+<p>full disclaimer there are inconsistencies with the typing and punctuation and capitalization, but here it is!!! the full 4 hour stream in abriged text form! i tried including as much as i can while making it short and sweet-ish, everything under the cut!</p>
+<p><strong>Part 1: Off’s Childhood (Off creation)</strong></p>
+<p>Q: Did you design and draw the characters before you decided to make a game for them or did you have the idea to design a game first and have the visuals come after?</p>
+<ul><li>Some of them he drew before. He knew about RPGmaker for a long time and used it to make little games. Most of the RPGmaker games he would make before were using the RPGmaker assets. When he started Off, he decided that everything would be made by him. He never made a game with his own resources before, so he had no idea what to do with the graphics. He made everything very simple with flat colors and lines, which made it easy to use and easy to create. The first map he made in OFF was Zone 0’s building extremely fast to test his chipset and as an exercise. Afterwards he thought of what characters to make for the game. He had piles of drawings he did for fun with no particular meaning, and he happened to have a drawing of a baseball player and a cat with a “very big head” and decided that these would be characters in the game. There was no symbolic meaning to it, he just thought the drawings were cool.</li><li>Yes, the characters were made before the game was made but not intended to be in the game.</li></ul>
+<p>Q: Was there anything in the game you weren’t happy with or anything you didn’t get to finish when OFF released?</p>
+<ul><li>He was quite happy with everything in the game, there was some cut content, but when he finished he was really happy with what he made. It took him 1 year to make Off. He is still happy about the state of Off. Sometimes he was frustrated with the limitations of RPGmaker2003, such as the battle system, that he would change if he had total control of these things. But with the tools he had, he was happy with the results.</li><li>If he had tools he had today back then, Off would be a completely different game. There are some things he is unhappy with and says he was a completely different person back then, but it’s been 15 years and he’s proud of what he made and what Off is and is happy people like the way it is.</li></ul>
+<p>Q: If you could easily implement any game mechanic into off regardless of how hard it would be to implement, what would it be?</p>
+<ul><li>He would make a battle system from scratch. He likes the JRPG battle system, but the balancing of the numerical side of things (HP, damage, etc.) were difficult to manage and he feels he could have done it in a more fun way. He thinks there’s better ways to do things with the system.</li><li>Battles such as Dedan are hard to beat but not very fun since it is hard because of his large amount of HP, since that’s how he saw to make it hard.</li><li>So if he could change the combat, he would.</li><li>Another thing he would change is the puzzles, he feels they are too hard. Especially in zone 1 he feels they are not fun. Reading text and remembering random information he does not think is very fun and weirdly difficult. The Calendar puzzle in Alma in particular comes to his mind when he thinks of a hard puzzle. The calendar was inspired by a Killer 7 puzzle that he liked at the time but doesn’t like it now.</li></ul>
+<p>Q: Were any of the characters inspired by real people in your life or by pets?</p>
+<ul><li>Real people no, but his friend made the voices for the characters.</li><li>The judge is inspired by a drawing he made of his roommate’s cat back in college. The cat was named Madame Le Judge.</li></ul>
+<p>Q: Have you considered other sportsmen other than batter?</p>
+<ul><li>No, Batter was made from a drawing he did of a baseball player from a book from the library and had no correlation to the game.</li></ul>
+<p>Q: Was Zacharie originally planned to be fightable?</p>
+<ul><li>There were doodles of Zacharie with angel wings and a sword, but they were just for fun and he was not intended to be a fighter in the game. But he is aware that it has made the fans question if Zacharie was intended to be a battler in the game.</li></ul>
+<p>Q: Was there anything cut or scraped from the game?</p>
+<ul><li>Not really, but in the doodle pack on his old website where he posted Off originally, there was a version of Enoch with a mask on as well as some items. And for the ballman and boxxer part he had some more enemies planned, one being a baseball with eyes. He scrapped it because it was an unimportant part of the game.</li><li>There were some really complex puzzle ideas that were cut because they would be too complex to put in. He likes reaction based games, rpg games where you have to think not so much. There is a game called MYST on pc where you travel to an island and are tons of insane puzzles which he was hypnotized by as a puzzle. He did not solve many of the puzzles but thought it was extremely cool as a kid and wanted to make a game as cool as MYST.</li></ul>
+<p>Q: Can we get the full list of magaka and artists the bats are named in reference to?</p>
+<ul><li>Harrold: Don’t remember</li><li>Masashi: Naruto creator</li><li>Emmanuel: French comic book artist, he liked at the time but no longer likes, but was a huge inspiration for Off.</li><li>Michael: Hellboy creator</li><li>Yoshihiro: Hunter x Hunter creator, which Mortis is a big fan of.</li><li>Lewis: French comic book artist.</li><li>Katsuhiro: Akira creator, “still a banger” -Mortis</li><li>Ashley: An American comic artist who did paintings.</li></ul>
+<p>Q: What went into the decisions that went into the creation of Zacharie’s masks?</p>
+<ul><li>If there was an inspiration, he doesn’t recall. He designed them that way because he thought he looked cool.</li></ul>
+<p>Q: What are the inspirations behind every character in the game?</p>
+<ul><li>Elsen: Just a business man, office man, supposed to featureless and “boring” or “normal”, some inspiration from his hatred of administration(?). He is sorry for what he puts the Elsen though.</li><li>Dedan: “I don’t know…” -Mortis, he has a military jacket.</li><li>Japhet: Fire bird, Final fantasy 6’s Valigarmanda who is a fire bird trapped in a block of ice was a big inspiration.</li><li>Enoch: Inspired Nicolas de Crécy’s comics. There is a character who is large like Enoch that he was heavily inspired by. He enjoyed the comics at the time but now sees there is some fatphobia with the character.</li><li>Vader Eloha (Queen): Generally, a mysterious, strange, princess-like lady. A beautiful lady to contrast the heaviness of the rest of the game.</li><li>Queen’s Addons: Just complex stuff.</li><li>Bad Batter: No direct inspiration, but is a scary, terrifying version of the batter.</li><li>Hugo: Child with a big ham, no direct inspiration.</li><li>Sucre: Was designed by a friend.</li><li>General aesthetics of the game: Inspired by Killer 7 for the aesthetics, backgrounds, feelings. If you like Off you would like Killer 7. It is similar to off, and is very violent. In general, Final Fantasy 6-10, Metal Gear Solid 2’s “Meta” content (THE GAME SPEAKS TO ME?!?!?!?!?!?!), Silent Hill 2 (after completing off, he played more silent hill games but SH2 was played before and was inspiration).</li><li>In the game, there are 2 maps that are a silent hill reference, in that the maps themselves spell “SH” “Silent Hill” and there are long hallways with locked doors like Silent Hill.</li></ul>
+<p>Q: What had to be the most difficult part of Off development for you?</p>
+<ul><li>There were some times he would get stuck not knowing what to do next. Alias Coldwood, who also made the soundtrack of the game, was his roommate at the time. Alias helped him code parts of the game as he was already a programmer, such as the Elsen balloon minigame in the Zone 2 amusement park.</li><li>He was stuck on the balloon game coding for 3 days and then Alias came in and fixed it in half an hour.</li><li>Zone 3 is mostly pretty straight forward and doesn’t have that much coding, except for the dropping Add-On collection minigame. He says that the way the engine is, if you want to do something other than classic RPG it becomes very hard.</li></ul>
+<p>Q: What is the overall feeling you want people to have when they play Off?</p>
+<ul><li>A bad feeling, guilt, sadness, emptiness. He says he was quite edgy at the time, he wanted the game to make you feel like you were the good guy, then gently make you feel like maybe you aren’t the good guy, and then at the end confirm that you are in fact the bad guy.</li><li>There is a short poem called 10 Little Soldiers, where the narrator is revealed to be the killer of the story, and it was shocking and unexpected. He wanted to recreate this feeling of shock in a video game setting. In the end, you end up doing what the creator of the game put before you regardless of feeling of freedom.</li></ul>
+<p>Q: How was the planning of the game?</p>
+<ul><li>Production of the game was 1 year, and there was no clear idea in his head before he started making Off. He sorta winged it as he went. He made all the characters, then went and made maps chronologically and made it up as he went.</li></ul>
+<p>Q: Who was your favorite character to design?</p>
+<ul><li>Japhet. There are 4 different forms of Japhet, and he likes the way he transforms. He wouldn’t change much about his design.</li></ul>
+<p>Q: What was your process for making the sprites?</p>
+<ul><li>They were drawn on paper, inked, scanned in, scaled down in photoshop, then the edges were cleaned up with a black border to work with the game (which took up most of the time in game production).</li></ul>
+<p>Q: What was the creative process behind the music and what did you use?</p>
+<ul><li>He did not make the music, Alias Coldwood did. He would come into Mortis’ room, check what Mortis was up to, see the areas, then go off and make music for the game. He would come back and give him the music gifts. He would ask if it was good or if anything needed to be changed but usually no changes were needed.</li></ul>
+<p>Q: Why was Over the Rainbow used for the ending of the game?</p>
+<ul><li>He loves the song, and it is a strong contrast of gentle music, reassurance, after the extremely brutal game.</li><li>It can also be interpreted that the game itself is a rainbow, with the zones being very brightly colored.</li></ul>
+<p>Q: What sorta things did you think about while making Off? What did you think it would be?</p>
+<ul><li>He didn’t think much about the game itself, he mostly thought about being done with the game and how cool it would be. He thought it would be so crazy and cool if 50 people played his game, or if his friends played his game.</li><li>It was his last year of doing comics studies at school. He had his studies which were art related, but his free time was filled with working on Off, which was fun for him.</li></ul>
+<p>Q: What role does the battle system play in the story?</p>
+<ul><li>None, other than Batter attacks everything he comes across. In most games you fight a lot, maybe it was more so that fighting is in games, so his game needs fighting. But it makes sense to look at it that you are fighting everything you come across, which is sort of evil. You can actually flee from most battles other than the bosses. But it is not easy to defeat the bosses without killing people beforehand.</li></ul>
+<p>Q: What was it like to work with Alias Coldwood?</p>
+<ul><li>It was really cool.</li></ul>
+<p>Q: Did you have a theme you wanted to follow?</p>
+<ul><li>Yes, the idea that the main character is the bad guy was the main theme. He had the ending idea in mind.</li></ul>
+<p>Q: What was the last thing you made in the game before releasing?</p>
+<ul><li>Since he did it in chronological order, he believes the last thing he did was the secret ending(space apes ending).</li></ul>
+<p>Q: Do you have any old concept art for the game/ characters?</p>
+<ul><li>He doesn’t have them on his computer, but if his website is still searchable, there should be a zip folder full of art. Website: <a href="http://gaarabis.free.fr" target="_blank" rel="noopener">http://gaarabis.free.fr</a></li></ul>
+<p>Q: Is it true that the train stations in zone 1 are based on pens?</p>
+<ul><li>Pentel: A really good brush pen he has</li><li>Sachihata: Don’t remember</li><li>Alma: An actual train station in brussels.</li><li>Damien: Don’t remember</li></ul>
+<p>Q: What were those unused soundtracks for?</p>
+<ul><li>Music for zones that already existed and he didn’t have a purpose for.</li></ul>
+<p>Q: How were the sketches for Off made, were they sketched and scanned in?</p>
+<ul><li>Yes</li></ul>
+<p>Q: Do you have any beta builds of Off?</p>
+<ul><li>No, just the one version.</li></ul>
+<p>Q: What happened to the Off Demo?</p>
+<ul><li>It disappeared, lost on the old website that died and he didn’t have a backup. It stopped at Dedan’s office in Alma, and a text would show up to say that’s the end of the demo. It was made for a french rpg forum for people to play there, and he received a price in a french rpgmaker contest. There is no additional or different content in the demo that isn’t in the main game.</li></ul>
+<p><strong>Part 2: Into Off’s big castle (Off lore)</strong></p>
+<p>Mortis notes, nothing is cannon in Off, he had things in mind when he made it but nothing is cannon, “everything is cannon” anything that comes to your head when you play is cannon, everything is cannon and nothing is cannon.</p>
+<p>Q: when the batter turns into a monster, is that a shapeshift or is it just how the judge sees the batter?</p>
+<ul><li>It’s based off Killer 7, whose final boss is an angel. It is implied though that the character is not actually an angel, but is the way it sees itself. He liked the idea that you can people can be represented differently than how they actually are, and it is up to you whether that is batters view of himself, the players view of him, or the judges view of the batter.</li></ul>
+<p>Q: What is Zacharie and Sucre’s relationship? Are they friends? A couple?</p>
+<ul><li>They like each other, but as you prefer. If you want them together then sure. But he doesn’t have any thought on it.</li></ul>
+<p>Q: is the Judge a fluffy cat or a hairless cat?</p>
+<ul><li>Madame le Judge, the inspiration cat, was a fluffy cat, so the Judge is fluffy. Though he doesn’t look fluffy in game so that is up to the player.</li></ul>
+<p>Q: Top 3 vegetables for every character.</p>
+<ul><li>Too long of a question, but for the judge: Zucchini, Eggplant, and Tomato</li></ul>
+<p>Q: Do the zone guardians get along with each other or is there a reason they all rule their own zones?</p>
+<ul><li>They do know each other based on the events in The Room, but if they’re friends is uncertain. But Japhet did save Enoch from a hole, so they are probably on good terms. In the room, they have similar ideas on what to evolve the world into and at that point they are probably closest to being friends, more so that they tolerate eachother or are more akin to coworkers. Once they are in their own zones, they have no need to talk to each other.</li></ul>
+<p>Q: Is Off a universe or world?</p>
+<ul><li>There are definitely past events to Off, the world is already in a crisis point with its dead appearance. Maybe it is our own earth.</li></ul>
+<p>Q: What do Elsen and spectres taste like?</p>
+<ul><li>Elsen would taste like a human, and spectres would taste like smoke.</li><li>Sucre is also supposed to be a human, please don’t eat her.</li></ul>
+<p>Q: How is Zacharie doing, what are his views on the world?</p>
+<ul><li>He is not well, he is quite nihilistic and sees the world is not doing well, but he doesn’t care.</li></ul>
+<p>Q: Could you go into the game’s nomenclature, specifically the names for items, guardians?</p>
+<ul><li>The reason he calls the health items tickets was because he wanted a cool, clever way to refer to them rather than health potions.</li><li>He chose flesh for SP items because it was gross and fit with the universe. He chose demon names for the flesh because he thought it was cool and edgy at the time.</li><li>The guardian’s names are from the Bible, but there is no significance to the names themselves.</li></ul>
+<p>Q: How do you imagine the voice of the Judge?</p>
+<ul><li>He’s a cat with a big head so maybe there’s some resonance.</li></ul>
+<p>Q: What’s the Judge’s favorite brand of kibble/cat food and what is his favorite fish?</p>
+<ul><li>In zone 2’s marketplace, Judge is looking at an ad for catfood. Catfood made with meat from the fountains of Alma is his favorite food.</li><li>There is no more fish in the world, Judge doesn’t know what a fish is.</li></ul>
+<p>Q: What the heck is the zone 3 secretary?</p>
+<ul><li>It was a drawing he did based on a photo from a book from a library. They are drawings of wood carved baby artifacts. He drew clothes on them for the game.</li></ul>
+<p>Q: Does the batter like men?</p>
+<ul><li>In a previous stream, he and chat decided batter is a lesbian. He also states that batter (he/she/they) doesn’t like men.</li></ul>
+<p>Q: Is there a cannon explanation for the ending?</p>
+<ul><li>It’s in the game, it is cannon.</li></ul>
+<p>Q: Did you intend Sucre to have more content, and did you plan for other secret bosses to be in the game?</p>
+<ul><li>Sucre was the only planned secret boss and no other content was planned for her.</li><li>He asked his friend to design Sucre, asking her to design a character to be a secret boss in the game without knowing anything about the game.</li><li>Sucre’s speech pattern (using emojis and speaking in small sentences) is based on a character from Killer 7 as well.</li><li>We don’t know why she’s in the zone 0 room, though it’s implied she has changed and Zacharie knows she has changed.</li></ul>
+<p>Q: Why does Sucre like ducks?</p>
+<ul><li>She doesn’t like ducks.</li></ul>
+<p>Q: Is the art depicting Zacharie with wings and a sword cannon?</p>
+<ul><li>It is cannon and it isn’t cannon.</li></ul>
+<p>Q: How far does Zacharie’s self awareness go?</p>
+<ul><li>He knows he is in a videogame, and being in the videogame Off is quite depressing.</li><li>He knows everything, he knows about batter and his powers.</li></ul>
+<p>Q: What happens when the switch turns Off?</p>
+<ul><li>Everything is gone</li></ul>
+<p>Q: Was there any reason for the Panic in Ballville section in the room?</p>
+<ul><li>Everything in the room are hints to what led to the creation of the world, but the hints are obscure and it is up to the player to figure that out.</li><li>It’s up to interpretation</li></ul>
+<p>Q: Do you think Deltarune Queen and Off Queen would be friends?</p>
+<ul><li>The Queen from Off is not very friendly, and probably wouldn’t want to be friends.</li><li>He has played Deltarune and loved it and loves Toby Fox’s work.</li></ul>
+<p>Q: Do secretaries appear because of batter’s desires?</p>
+<ul><li>Secretaries have no emotion, they are mindless monsters. They are not even humans, they aren’t even living. They just exist in an empty world, symbols of despair and emptiness.</li></ul>
+<p>Q: Did spectres appear because of the Queen’s neglect?</p>
+<ul><li>Enoch says they’re just the souls of the people, so yes they are just the dead Elsen.</li><li>He had another idea with Alias that in the past of Off, when people die their souls would go to the future. But since there is no longer a future, they pile up in the present as the ghosts we see.</li></ul>
+<p>Q: How were Elsen made?</p>
+<ul><li>They are one person, who was cloned. They are all named Elsen. There are lots of him.</li><li>Cannon and not cannon: Before the events of Off, there was a man named Elsen, and he cloned himself over and over and had many of his clones in a bunker. When he died, his clones were all released. It is ambiguous that the Elsen know this fact about themselves.</li></ul>
+<p>Q: Is it possible that there are other lands in the nothingness or across the sea?</p>
+<ul><li>The idea is that it is a post-apocalyptic place, and the Queen and Hugo have power that emanates from them that certain people are strong enough to use that power to create worlds. Judge, Dedan, Enoch, and Japhet are those who can use this power, which is why when you kill them their zone dies. Though it is possible there are other survivors out in the world that may weild the Queen and Hugo’s power to create lands.</li></ul>
+<p>Q: Is batter bald?</p>
+<ul><li>Yes?</li></ul>
+<p>Q: Does the batter have any pets?</p>
+<ul><li>No, he would not be a good pet owner.</li></ul>
+<p>Q: Do the burnt elsen have any purpose other than being enemies you can fight?</p>
+<ul><li>The black material exploding from them comes from inside of them.</li><li>Since they are office men, it makes sense they are stressed. Burning is a direct representation of burnout. The world is too horrible for them to continue existing. As the world dies, they have a physical reaction which is dying and burning.</li></ul>
+<p>Q: Has the batter ever played baseball?</p>
+<ul><li>No</li></ul>
+<p>Q: Are Zacherie’s wings in the drawing Add-ons?</p>
+<ul><li>There is no cannon for this non-canonical drawing.</li></ul>
+<p>Q: How powerful would batter be in the real world?</p>
+<ul><li>He can kill lots of people, he can heal himself, and has magical powers so he would be pretty powerful.</li><li>His power is “4000”</li></ul>
+<p>Q: What is the Judge drinking in the drawing where he’s drinking from a cup?</p>
+<ul><li>Orange juice</li></ul>
+<p>Q: The drawing with the red dots in the room, is it an illusion?</p>
+<ul><li>The drawing itself is made by Hugo in the game world.</li></ul>
+<p>Q: How tall is Enoch?</p>
+<ul><li>Maybe like 4 meters.</li></ul>
+<p>Q: We saw the story of the zone guardians but what about Zacharie, Judge, and Valerie? Did they exist before the zones?</p>
+<ul><li>Yes they did exist before the zones, and they survived the apocalypse somehow, maybe in a bunker.</li><li>Maybe because Judge and Valerie have 9 lives as cats they came back to life, and Zacharie’s 4th wall breaking power allowed him to survive.</li></ul>
+<p>Q: Is there lore behind the important people of Zone 1 or not?</p>
+<ul><li>They are all dead.</li></ul>
+<p>Q: What happens to the puppeteer/player after we finish the cannon ending of the game?</p>
+<ul><li>You get back to your life, game ends.</li></ul>
+<p>Q: Does Hugo sees him as a monster or his human form?</p>
+<ul><li>Hugo would see him as a positive form, since Hugo created the batter, and is happy to see the batter arriving. But batter kills him. And Hugo probably changes his mind as he’s killed.</li></ul>
+<p>Q: Is the anniversary of Off also batter’s birthday?</p>
+<ul><li>When you start the game it is batter’s birthday.</li></ul>
+<p>Q: What is the reason the Queen isolated herself from everyone?</p>
+<ul><li>She doesn’t like anyone. She wanted to make a new world, but was disappointed in the outcome, and isolated herself and became crazy. She may be a bit of a narcissist.</li></ul>
+<p>Q: Who would win in a fight between Omori and Batter?</p>
+<ul><li>Omori</li></ul>
+<p>Q: How come the final hallway before the switch looks like a skull and spine?</p>
+<ul><li>It was not intentional, and he was just designing a strange hallway. But agrees that it looks like that.</li></ul>
+<p>Q: Is batter truly evil or is a victim of circumstances.</p>
+<ul><li>He is spawned from hugo’s wishes, in batter’s opinion he is not evil, but he is evil.</li></ul>
+<p>Q: Is there a timeline where Valerie lives after Japhet’s fight?</p>
+<ul><li>In the main game he dies, but there is many timelines where he lives.</li></ul>
+<p>Q: What does batter think of the player? A tool, a psychic?</p>
+<ul><li>He thinks of the player as a tool.</li></ul>
+<p>Q: Do the characters have cannon ages?</p>
+<ul><li>No, never thought of it.</li></ul>
+<p>Q: What is the meaning/story behind Off?</p>
+<ul><li>Play the game.</li></ul>
+<p>Q: Why does hugo have 8 dots on his forehead?</p>
+<ul><li>He doesn’t know why, but it was somewhat inspired by Krillin from Dragon Ball.</li></ul>
+<p>Q: Tell us more about Enoch</p>
+<ul><li>He’s a guardian of the zone 3, he is very big and tall. He tries to make people’s lives easier with sugar, but it is a drug in this world. But he does genuinely want his elsen to be happy, but he’s really not a good guy and doesn’t go bout it right.</li></ul>
+<p>Q: What characters from other franchises would batter get along with?</p>
+<ul><li>Batter wouldn’t really be friends with anyone, he doesn’t really communicate, he doesn’t like to speak and he doesn’t want friends. He has a mission and he’s going to complete it.</li></ul>
+<p>Q: What’s up with the ring party members?</p>
+<ul><li>At first they were just there to add more party members, since being the only one is boring. So how do you have only 1 main character but multiple party members? The Add-ons do not have personalities but fill the party. But at the end they have meaning.</li><li>Each guardian is represented by an Add-On, and their ideas and thoughts and relationship with Hugo are represented by each Add-On. But as the world was created, the promises of their ideas were broken.</li></ul>
+<p>Q: How did the batter know what his purpose to purify the world was?</p>
+<ul><li>He just knew in his brain, in his programming.</li></ul>
+<p>Q: Was the batter the correct answer to the world’s problems?</p>
+<ul><li>It’s up to you to decide that, but there is probably a better solution than batter. Alooot of bad choices that led to batter.</li></ul>
+<p>Q: What are ghosts? Did the queen send them? Is it capitalism?</p>
+<ul><li>Mortis confirms he hates capitalism and you can see that in the game, and in a clumsy way it does speak about capitalism. But the ghost’s source is a mystery but they’re probably souls of Elsen.</li></ul>
+<p>Q: What happened to Hugo’s parents?</p>
+<ul><li>Probably dead.</li></ul>
+<p>Q: What did the batter save the elsen in zone 2 if they were all going to die anyways.</p>
+<ul><li>He didn’t care about saving the Elsen, he was just going after the spectres.</li></ul>
+<p>Q: Is each zone a planet or different universes?</p>
+<ul><li>They aren’t planets. The world is broken, and there are floating continents with light points that can be traveled to.</li></ul>
+<p>Q: Do Boxxer and Ballman have names?</p>
+<ul><li>Ballman is Casper, and Boxxer is Jeremy.</li></ul>
+<p>Q: Is it the player’s fault that batter is the way he is?</p>
+<ul><li>No</li></ul>
+<p>Q: What are the actual names of the Elsen?</p>
+<ul><li>They’re all named Elsen.</li></ul>
+<p>Q: What was the batter doing before the game started?</p>
+<ul><li>Nothing, he didn’t exist before.</li></ul>
+<p>Q: What would happen if you microwaved an elsen?</p>
+<ul><li>They would die.</li></ul>
+<p><strong>Part 3: Off, the game</strong></p>
+<p>Q: Will the game be on steam or console?</p>
+<ul><li>He already got some proposals from companies to put it on different platforms, but for now he doesn’t want to, but he isn’t against it. It’s a long process of copyrights and other things and maybe one day it’ll happen, but for now no.</li></ul>
+<p>Q: Would you ever reconsider remaking Off in another style or game engine?</p>
+<ul><li>No, he’s happy that people enjoy Off as it is, but he’s not as invested in it as he was when he made it. He won’t be making any remakes or continuations, since he has other projects and plans and stories and universes.</li></ul>
+<p>Q: Would you ever make a sequel, comic, any continuations of Off?</p>
+<ul><li>When he first made Off, he had an idea for a part 2 and even spoke to Alias about it but dropped it because it works so well as a one-shot.</li></ul>
+<p>Q: Would you ever be interested in making projects similar to Off?</p>
+<ul><li>He has another videogame in the works, and RPG he’s working on with friends called HELP.</li></ul>
+<p>Q: Do you see yourself working on something Off related in the future? Or are you done for good for this world?</p>
+<ul><li>He doesn’t close every door but probably is done with the world.</li></ul>
+<p>Q: Will you ever expand on Hugo’s lore?</p>
+<ul><li>Probably not</li></ul>
+<p>Q: Will you ever remake Off with your current style?</p>
+<ul><li>If he did something Off related now, it would be in his current style, he can’t recreate his old style.</li></ul>
+<p>Q: Have you ever considered making merch, plushies or artbooks?</p>
+<ul><li>He doesn’t have any of the original drawings anymore, he sold his sketchbook. All the files he still has are too small to be used in an artbook. For plushies, it would be fun, but it isn’t a priority right now.</li></ul>
+<p>Q: Do you regret being better known as the creator of Off rather than other things you’ve made?</p>
+<ul><li>He is a little frustrated by the fact that nothing else he’s made is as popular as Off, such as comics he’s made since Off or other work he’s done. He isn’t complaining though. Whenever he does anything Off related, people give him lots of love and he’s extremely happy and moved by it and is happy that people love the game lots. He’s happy with his life.</li></ul>
+<p>Q: What’s your favorite piece of music from Off?</p>
+<ul><li>He loves all the music, his favorite would be Fake Orchestra, Dedan’s boss music.</li></ul>
+<p>Q: Do you think there’s a good way to adapt Off into an animated series?</p>
+<ul><li>It could be fun, but he doesn’t like translating video games into other mediums other than video games.</li></ul>
+<p>Q: What’s your favorite character from Off?</p>
+<ul><li>Japhet, he is a bad guy, even though he’s egotistical now, he really tried to please his elsen. Reading his journal, we can see he is disappointed in himself, and self-reflects.</li></ul>
+<p>Q: What’s your favorite spectre design? Which one is the sexiest?</p>
+<ul><li>His favorite is the 6th spectre, the one that explodes into many little spectres.</li><li>Smash or Pass round: He passed every spectre. The sexiest is the large spectre.</li></ul>
+<p>Q: Which character/creature design is your favorite?</p>
+<ul><li>The whale is still a favorite of his.</li></ul>
+<p>Q: After 15 years, what do you honestly think of Off as its creator?</p>
+<ul><li>He is happy that so many people still like, so he feels he succeeded in making something that speaks to or is relatable to so many people. To himself however, he thinks there’s a lot he would’ve done differently if he made it now. He’s a different person now, and elements of the game don’t resonate with him anymore.</li></ul>
+<p>Q: What was your reaction after the game’s big success?</p>
+<ul><li>Before the success, there was a translation to english, and then a while after that it really exploded. He was not prepared. He felt successful from just 50 people playing it and thought that was it for Off.</li><li>After 2 years when youtubers started making let’s plays of Off and fanart was being made, and now he is used to it. But it took a long time for him to understand that the game was a huge success.</li></ul>
+<p>Q: What ending do you choose, the batter or the judge?</p>
+<ul><li>For a long time, he liked the batter ending more. But now he likes the judge ending more. It feels like a small small spark of hope. You have a choice to not destroy everything.</li></ul>
+<p>Q: Do you think Off would ever get as big as it is now?</p>
+<ul><li>No, never.</li></ul>
+<p>Q: Did you expect Off to have such a big impact on people? Were you overwhelmed by it?</p>
+<ul><li>It wasn’t overwhelming, but he didn’t understand it at first but he was really really happy.</li></ul>
+<p>Q: Had you ever made a plan in case the game becomes popular?</p>
+<ul><li>No, he only made it to be played a little and got a price from a french rpg forum and that was all he thought would come of the game.</li></ul>
+<p>Q: If you could pick 5 songs not from the soundtrack to encapsulate the game what would they be?</p>
+<ul><li>The Kid A album from Radiohead was an album he was listening to while he was making Off and encapsulated a lot of Off’s themes that you can find in the game.</li></ul>
+<p>Q: How do you feel about Papyrus looking like Dedan?</p>
+<ul><li>He is so glad that his game had an impact on Toby Fox when he made his games.</li></ul>
+<p>Q: Would Papyrus and Dedan be friends?</p>
+<ul><li>No, Dedan is really mean and Papyrus should not be around Dedan.</li></ul>
+<p>Q: Where do you consider Off in your artistic journey? Has it impacted/ influenced you?</p>
+<ul><li>It is a part of him. Even though the stuff he does now doesn’t look like Off and everything he does doesn’t relate to Off anymore it’s a big part of him.</li></ul>
+<p>Q: Are you willing to/ planning to release the music on vinyl? Limited releases?</p>
+<ul><li>It is not in his hands, that is up to Alias.</li></ul>
+<p>Q: Is there anything about Off (the game, the characters, etc.) that you like much more (or less) now?</p>
+<ul><li>He is happy about the alternate ending with the Judge.</li></ul>
+<p>Q: What’s the biggest thing you scrapped out of the game?</p>
+<ul><li>Nothing was really scrapped out of the game.</li></ul>
+<p>Q: What would you say is the concept that defines OFf as a whole?</p>
+<ul><li>It’s a really nihilistic game about destroying a game that’s already destroyed. It’s a very sad and dark story.</li></ul>
+<p>Q: Which character was your favorite to draw?</p>
+<ul><li>Zacharie was the most fun to draw, as well as Judge with his big mouth.</li></ul>
+<p>Q: What do you think of the fangames?</p>
+<ul><li>He’s really glad and happy that people like the game so much they want to make other games. But he always thinks, why? It takes so much time to make these fangames when you could be making something you want to make.</li></ul>
+<p>Q: Can you explain the philosophy in the game?</p>
+<ul><li>It’s nihilistic and depressing.</li></ul>
+<p>Q: Do you have a favorite zone?</p>
+<ul><li>Zone 2 is his favorite. It’s more like a city, and it’s more organic than the other zones. The center of the city is a bit maze-like and he likes the way you move around it, and with a library at its center.</li></ul>
+<p>Q: For the longest time, I thought the batter’s left eye was a nose. Can you point out the intricate details of his face, for clarity?</p>
+<ul><li>Mortis sees it as a nose for the first time. But his nose is actually a left eye, both of his eyes are visible. The top 2 lines are his eyebrows, the bottom lines are his eyes closed.</li></ul>
+<p>Q: Is the judge smiling or is his face just like that?</p>
+<ul><li>He is smiling.</li></ul>
+<p>Q: Is there any want for batter to get into frame makers or any fighting game?</p>
+<ul><li>No, he won’t contact any companies to get batter into any game. If someone wants to put the batter in their game, it’s alright. Though he’s not a big fan of fanservice stuff.</li></ul>
+<p><strong> Part 4: Officionados</strong></p>
+<p>Q: What is your favorite Off fangame and is it cannon to Off?</p>
+<ul><li>He doesn’t play any fangames but will in the future. He’s planning to play Home. All fangames are cannon. He’s really happy that there’s so much work around his universe.</li></ul>
+<p>Q: Why do you think people are still talking about and playing Off today?</p>
+<ul><li>Society is quite dark today, the future is not too happy, and maybe it makes sense to people nowadays. Maybe it is also because of the funny jokes.</li></ul>
+<p>Q: Have you seen the animated series by Tanblaque?</p>
+<ul><li>No, but he has seen animated content made about Off back a long time ago.</li></ul>
+<p>Q: What is your opinion about fan projects nowadays?</p>
+<ul><li>Do what you want, and he is 100% ok with it.  You can use any of his graphical assets, you have to ask Alias to use the music, and you can’t use the space monkeys since they were not made by him. He is happy if you make stuff for him, but also he would like people to make original stuff too.</li></ul>
+<p>Q: Have you ever played or seen gameplay of Home?</p>
+<ul><li>He has seen gameplay, but never played. He was in touch with Felix when he started the game, Felix would send him screenshots.</li></ul>
+<p>Q: What do you think about fandom theories?</p>
+<ul><li>It’s awesome and he loves it. What he loves the most about it is that Off is a very cryptic and vague story, and people are able to piece together things from what is presented. He thinks many of the theories are really cool. Even with the small community in the french rpg forum the game started getting really cool theories which made him really happy.</li></ul>
+<p>Q: Would you be open to someone remaking the game in a modern take?</p>
+<ul><li>He would prefer it not be done.</li></ul>
+<p>Q: Any silly fan ideas or head-cannons that you personally consider cannon?</p>
+<ul><li>He saw a lot of fan characters and fan ideas that he finds impressive, and his own personal story is not cannonic, and he doesn’t like the “trying to find cannon” way of thinking, anything is cannon. Once you play the game, the story is up to you.</li></ul>
+<p>Q: Thoughts on Zacharie being a tumblr sexyman?</p>
+<ul><li>It’s funny, there’s lots of sexy drawings of his characters and he was shocked at first, but finds it funny, but some of them are not ok. But mostly funny.</li></ul>
+<p>Q: Do you like my roblox cosplay?</p>
+<ul><li>Yes, it’s fun.</li></ul>
+<p><strong>Part 5: Off-topic</strong></p>
+<p>Q: What’s your top 3 favorite sauces?</p>
+<ul><li>Archiduc sauce, Pili-Pili sauce, Pepper sauce</li></ul>
+<p>Q: Are you working on a new game? How is it going?</p>
+<ul><li>New game is called HELP, it’s being made by a team and it’s a sci-fi rpg. It is just at the beginning of production. If you want to help make the game then you can support him on patreon.</li></ul>
+<p>Q: Have you ever thought of making another game?</p>
+<ul><li>There was a large gap between Off and HELP, because making a game is a lot of work, and HELP is in another engine.</li></ul>
+<p>Q: Can we expect any Off references in Vold Vago?</p>
+<ul><li>Vold Vago had to be pushed aside for now, he doesn’t have the tools to make it right now. Maybe it will exist in the future or be restarted. But he is more comfortable staying in rpg games for now. And maybe there will be a reference, but probably not, he doesn’t like fanservice.</li></ul>
+<p>Q: Have you heard of other popular rpgs like Yume Nikki, Undertale, or Omori?</p>
+<ul><li>Yes, He has played the others but not Omori yet.</li></ul>
+<p>Q: Would you ever consider taking art commissions?</p>
+<ul><li>He did before but he doesn’t have time to do that right now. He has a lot of work to do right now, and he doesn’t see a future where he can.</li></ul>
+<p>Q: How much weed you’ll smoke?</p>
+<ul><li>He doesn’t smoke or drink.</li></ul>
+<p>Q: Have you made other comics similar to Doctor Cataclysm?</p>
+<ul><li>Yes, he worked on Star Delivery with Marie Spénale, and is working on other comics.</li></ul>
+<p>BONUS QUESTIONS he wanted to include but not answer:</p>
+<ul><li>Why is the game called Off when you have to turn on your computer in order to play it?</li><li>Does Zacharie know I love him?</li><li>Can I hug the batter? (no)</li><li>Can Sucre be my wife? (no)</li></ul>
+<p><strong>Bye Bye!</strong></p></div></details><details class="lcard"><summary><h3>Morusque, how did you discover OFF?</h3><div class="meta">2025-02-06 · <a href="https://offtherpg.com/interviews/morusque/" target="_blank" rel="noopener">来源</a></div><ul><li>法国作曲家 Morusque（重制版新配乐作者之一）：2000 年代混迹法语 RPG Maker 圈，OFF 首发时便试玩过并记住其画面风格，直到 Mortis 告知重制计划（约两年前）才完整通关</li><li>新原声创作思路：在贴近原曲、保留标志性音色的同时适度偏离加入惊喜；为保持与整体 lo-fi 氛围一致，自制了专属采样与处理工具并反复使用</li><li>关于游戏&quot;老化&quot;：好奇新旧玩家对 OFF 的观感，认为它至今仍足够反常规、能吸引新玩家</li><li>趣答：最爱角色是战斗中的鲸鱼与叹气的小人（Elsen）；&quot;你是哪种元素&quot;答 meat</li></ul></summary><div class="body"><h3>When did you first play OFF / how did you discover OFF?</h3>
+<p>During the 2000&#x27;s I was also part of the french rpg-maker community. By the time Off was first released I had moved to other stuff and was less active in it but I knew about it and tried it a little bit, I remember that I liked the graphical style and found some dialog lines I could see on screenshots intriguing.</p>
+<p>I only fully beat it about two years ago when Mortis told me there was a remaster planned.</p>
+<h3>Who’s your favorite character?</h3>
+<p>Fav character might be the whale seen in some battle or the plain sighing guy(s) (Elsen?).</p>
+<h3>What element are you?</h3>
+<p>What element am I? Technically <a href="meat" target="_blank" rel="noopener">meat</a> I suppose.</p>
+<h3>What do you think fans of the genre would like about OFF?</h3>
+<p>I&#x27;m curious to see how former and new players think the game has &quot;aged&quot; over time. I think it&#x27;s still unconventional enough for players to get interested in it.</p>
+<h3>What did you think about composing some tracks for the new soundtrack?</h3>
+<p>It was a very interesting challenge.</p>
+<p>I remember Mortis coming to explain the situation to me some time ago. We had already worked a bit together on other projects so I knew he would allow me a lot of creative freedom. He mentioned that we could either stay very close to the original tracks or try something completely different.</p>
+<p>In the end, I think I chose a bit of both: paying respect to the original tracks and preserving some important sound features felt important, but I occasionally deviated from the path to add some surprises that also made sense to me.</p>
+<p>Since the OST has a consistent lo-fi vibe, I also wanted the new tracks to feel cohesive in their own way. I created specific samples and processing tools that I tried to use recurrently.</p>
+<p>▶</p>
+<p>![NO PRECIPITATION - OFF Original Soundtrack thumbnail](/images/thumb-ost-noprecipitation.jpg)</p>
+<p>By clicking to view this video, you agree to <a href="YouTube&#x27;s Privacy Policy" target="_blank" rel="noopener">YouTube&#x27;s Privacy Policy</a>.</p>
+<p>Additionally, I thought it would be interesting to create actual alternative variations of the tracks to replace what used to be typical rmk pitch-shifted playbacks.</p>
+<p>▶</p>
+<p>![CLOCKS WORK - OFF Original Soundtrack thumbnail](/images/thumb-ost-clockswork.jpg)</p>
+<p>By clicking to view this video, you agree to <a href="YouTube&#x27;s Privacy Policy" target="_blank" rel="noopener">YouTube&#x27;s Privacy Policy</a>.</p>
+<h3>What is the answer to the 3rd phone puzzle?</h3>
+<p>I still have the old french readme file that seems to say the third phone puzzle should be 49971640, I might be wrong. I never actually called those numbers.</p></div></details><details class="lcard"><summary><h3>Nightmargin talks about the soundtrack and RPGmaker (OFF)</h3><div class="meta">2025-04-03 · <a href="https://offtherpg.com/interviews/nightmargin/" target="_blank" rel="noopener">来源</a></div><ul><li>《OneShot》开发者 Nightmargin 谈与 OFF 的渊源：2012 年在 Tumblr 看到同人图误以为是原创角色，2013 年 1 月正式入坑</li><li>OFF 影响其最深的是&quot;几何感&quot;与世界观，她自认大眼主角的设计部分受到最喜欢的角色 The Judge 启发</li><li>通过 OFF 社区结识已故挚友 Felix（OFF 同人游戏《HOME》的作者），两人常交流游戏设计，这段友谊帮助她走过了《OneShot》开发期的低谷</li><li>为重制版配乐感想：原声带不可替代，她的新曲改编自 2016 年与 Felix 合作的钢琴样本，作为对 Felix 的致敬与纪念</li><li>趣答：最期待新玩家体验的&quot;几何&quot;；&quot;你是哪种元素&quot;答&quot;金属&quot;（敲自己机器人脑壳）</li></ul></summary><div class="body"><h3>When did you first play OFF / how did you discover OFF?</h3>
+<p>Back in 2012 (I wanna say summer 2012?) I saw fanart of some OFF characters on Tumblr from time to time, but since I followed mostly artists from the original character community, for a long time I just assumed those were people&#x27;s OCs from a webcomic concept or something (they just had that vibe!) Turns out I wasn&#x27;t that far &quot;OFF&quot; from the truth! I first played the game in January 2013 during college, back when it was probably at its peak popularity? The community was super active back then and it was so fun seeing everyone&#x27;s art!</p>
+<h3>How has it influenced your own work?</h3>
+<p>The Geometry.</p>
+<h3>What is the answer to the 3rd phone puzzle?</h3>
+<p>It&#x27;s been 4 years since I&#x27;ve last played the game and my memories of most of the puzzles in the game have been erased, just like when [spoilers] the Batter [spoilers] and [spoilers] in the [spoilers]</p>
+<h3>Who’s your favorite character?</h3>
+<p>The Judge! Come to think of it I think my decision to make a protagonist with huge cat eyes was probably partially due to me drawing The Judge so much back then... he&#x27;s so cute! If the universe ever decide to grace me with a white cat of my own I will name him Pablo and teach him to talk.</p>
+<h3>What part of the game are you most excited for new people to play?</h3>
+<p>The Geometry.</p>
+<h3>What do you think fans of your own game would like about OFF?</h3>
+<p>The love of weird little RPGmaker adventure games is embedded within one&#x27;s soul, isn&#x27;t it? Through an unfathomably vast network of 16x16 pixel grids on the metaphysical plane we are connected and we are compelled to play as many as we could. It&#x27;s a genre all in its own and I think OFF is one of my favorite examples of games like this, the worldbuilding and atmosphere just can&#x27;t be beat....it&#x27;s a classic for a reason! To be completely frank I think it&#x27;s a huge honor for anyone to consider our game to even be in the same league, it feels like The Batter himself personally gave me a gold medal and a thumbs up while being completely deadpan about it. (the medal just says &quot;Baseball)</p>
+<p>Also OFF has cute cats and a funny guy pretending to be a cat and meows at you, there&#x27;s probably some demographic overlap there.</p>
+<h3>What element are you?</h3>
+<p>(gently bonks my robotic skull with my fist and it makes a horrible clanging noise) Metal!</p>
+<h3>How did OFF influence your approach to game design?</h3>
+<p>This one is a bit of a sentimental story for me-- I met a good friend through the OFF community a decade ago who used to talk to me about game design just about everyday. His name was Felix (also known as Felixthejudge in the community) and he learned to make games through developing HOME, an OFF fangame where you can play as The Judge and have a full party with other cats. Because The Judge is my favorite character, HOME naturally caught my attention and I became friends with Felix shortly afterwards. We got into gamedev/RPGmaker dev around the same time and I was always impressed with what he was doing, be it music, puzzle design, mechanics design...you name it! We used to talk almost daily about these things, he was very supportive during my low points and I took a lot of his words and advice to heart--advice that helped me immensely during the development OneShot and for the years to come. I&#x27;m grateful that I got to meet him and I&#x27;m grateful that OFF allowed us to meet.</p>
+<h3>Thoughts about working on the soundtrack:</h3>
+<p>OFF&#x27;s original soundtrack is maybe one of my favorite game soundtracks ever, so the thought of trying to live up to even a fraction that is extremely intimidating despite my limited role. I wouldn&#x27;t dare to think of any of my songs as ever &quot;replacing&quot; the original songs, because they are so irreplaceable.</p>
+<p>Felix also greatly loved the soundtrack for OFF, he studied it for years and wrote a ton of music inspired by it (most of of which were for his fangame HOME, but he also happily contributed to many other fangames made by the community). We did a music collab back in 2016, where he asked me to write a short piano sample for him, then he took that sample and made it all ambient-like and it turned out so awesome. He wanted to make more collabs like that, or even work together on a small game (a prospect I was really excited about, so much that I bought him a copy of RPGmaker XP for him that Christmas) but he passed away a few months afterwards. My contributions to the OFF soundtrack are based on that piano sample, as a tribute to Felix. I cried a lot while writing them but the process gave me some sense of closure. It&#x27;s comforting to think of it as putting a nice memory of him into his favorite game, we all love him and miss him very much.</p>
+<p>▶</p>
+<p>![PARANOIA SHELTER - OFF Original Soundtrack thumbnail](/images/thumb-ost-paranoiashelter.jpg)</p>
+<p>By clicking to view this video, you agree to <a href="YouTube&#x27;s Privacy Policy" target="_blank" rel="noopener">YouTube&#x27;s Privacy Policy</a>.</p></div></details><details class="lcard"><summary><h3>Quinn K. talks localization and game dev! (OFF)</h3><div class="meta">2025-02-27 · <a href="https://offtherpg.com/interviews/quinn-k/" target="_blank" rel="noopener">来源</a></div><ul><li>OFF 英文版本地化负责人 Quinn K. 谈与 OFF 的缘分：2011 年还是青少年时经法国网友推荐发现 OFF，随即着手将其翻译成英文</li><li>OFF 深刻影响了她的超现实主义意象与世界观构建（她参与开发游戏《BLANKSWORD》）：事件按&quot;隐喻逻辑&quot;而非字面逻辑发生，敌人与 Boss 设计带有恐惧的放大镜</li><li>最喜欢的角色是 Zone 3 守护者 Enoch，翻译他的对话是乐事，他死前揭示真相的对白十多年难忘</li><li>最期待新玩家体验 The Library 区域（某个普通敌人的反应&quot;懂的都懂&quot;）；她的游戏设计理念是让系统选项与角色、世界直接产生叙事关联</li><li>趣答：不记得游戏里有电话谜题；&quot;你是哪种元素&quot;答&quot;烟，被肺拉扯、自大地中掘出&quot;</li></ul></summary><div class="body"><h3>How did you discover OFF?</h3>
+<p>I discovered OFF in 2011 as a teenager, via an old, long-extinguished flame from France that I was in a long-distance relationship with. She&#x27;d made fanart of the game and I was immediately intrigued by it, and soon, it was in my hands. My French wasn&#x27;t very good yet at that point, but the game had such an effect on me I moved to translate it to English to show other internet friends right away.</p>
+<h3>How has it influenced your own work?</h3>
+<p>OFF has been hugely influential on the character of surrealist imagery and worldbuilding in my stories and games alike. Things often happen not because they make literal sense, but metaphorical sense; enemy and boss designs are exaggerated with a lens of fear.</p>
+<h3>What is the answer to the 3rd phone puzzle?</h3>
+<p>I&#x27;m not (anymore?) familiar with a phone puzzle in OFF! Which is striking, because I spent more time than most in that game&#x27;s script. That&#x27;s scary. Thank you!</p>
+<h3>Who’s your favorite character?</h3>
+<p>Zone 3&#x27;s guardian, Enoch. His dialogue was a delight to translate, and the reveal he gives you as he dies has stuck with me until now, more than a decade later.</p>
+<h3>What part of the game are you most excited for new people to play?</h3>
+<p>The Library. I want to see people&#x27;s reactions to a certain regular enemy in that area (if you know, you know).</p>
+<h3>What do you think fans of OFF would like about your game?</h3>
+<p>BLANKSWORD&#x27;s surrealist sense of world, and the way it adheres to its own, warped rules; the characters, like the Angel of Fatherhood (Dad) and Horizon the Exorcist would likely appeal to OFF fans, too.</p>
+<h3>How did OFF influence your approach to game design?</h3>
+<p>I take great care to weave narrative and gameplay together very directly. The same way that OFF&#x27;s relentless and inescapable combat during boss fights hints at the nature of its protagonist, so, too, do I like making the options a system gives the player have implications on the characters and world.</p>
+<h3>What element are you?</h3>
+<p>I&#x27;m smoke, pulled around by lungs and excavated from the Earth.</p>
+<h3>How can people follow what you&#x27;re doing now?</h3>
+<p>The best way for people to find my game BLANKSWORD would be to follow <a href="its newsletter" target="_blank" rel="noopener">its newsletter</a> and <a href="socials" target="_blank" rel="noopener">socials</a>.</p></div></details><details class="lcard"><summary><h3>Toby Fox, how has OFF influenced you?</h3><div class="meta">2025-01-23 · <a href="https://offtherpg.com/interviews/tobyfox/" target="_blank" rel="noopener">来源</a></div><ul><li>Toby Fox 回忆入坑经历：在 Starmen.net（EarthBound 粉丝论坛，后发展为 Fangamer）发现 OFF，最初的英文翻译者也出自该社区</li><li>OFF 对 Undertale 的角色设计启发最大：Papyrus 的初始外观源自首个 Boss Dedan；Sans 的性格与形象部分受 Zacharie 和 The Judge 影响；Napstablook 战斗用爵士乐的想法也来自 OFF</li><li>关于重制版配乐内幕：Fangamer 与 Mortis 本欲沿用原声，试图联系 ACC 购买版权，但 ACC 对签约感到紧张后失联；ACC 已表态不介意音乐不被使用、对新原声没有意见</li><li>趣答：最爱的角色&quot;每个人都很好&quot;，尤其喜欢脖子伸出屏幕顶端的 Burnt Elsen；&quot;你是哪种元素&quot;答&quot;Meat&quot;</li></ul></summary><div class="body"><h3>When did you first play OFF / how did you discover OFF?</h3>
+<p>I first discovered it on the Starmen.net forums, an EarthBound fan website whose staff eventually created Fangamer. The initial English fan translation was done by someone who posted there.</p>
+<h3>How has it influenced your own work?</h3>
+<p>I think the character designs inspired me the most.</p>
+<p>Papyrus’s appearance was initially inspired by the first boss of OFF, Dedan.</p>
+<p>Next, Sans’s character was a bit inspired by Zacharie and the judge. Think about it. He is reliable, friendly, humorous guy that shows up throughout the adventure, and you never quite know what his deal is.  He never stops smiling, either. As for why he would have similarities to The Judge, well...</p>
+<p>By the way, the idea to use jazz music in the battle with Napstablook was also inspired by OFF...</p>
+<h3>Who’s your favorite character?</h3>
+<p>Everybody is great.</p>
+<p>Additionally, I like the Burnt Elsen with his neck going off the top of the screen.</p>
+<h3>What do you think fans of your own game would like about OFF?</h3>
+<p>The atmosphere, character designs, and bizarre story and world. The mix of humor and horror.</p>
+<p>If they haven’t heard the first version of the soundtrack, they might like my songs...</p>
+<p>But, I  would also recommend they check out the soundtrack for the original freeware version. (It’s free.)</p>
+<h3>What element are you?</h3>
+<p>Meat</p>
+<h3>What did you think about composing some tracks for the new soundtrack?</h3>
+<p>Well, it&#x27;s a complicated feeling.</p>
+<p>Let me clarify.</p>
+<p>Obviously, Fangamer and Mortis wanted to use the original soundtrack. They tried to reach out to the composer, ACC, to get the rights to use it... but ultimately, he felt nervous about signing anything and disappeared. However, he has stated that he doesn&#x27;t mind that his music isn&#x27;t being used, and he has no problem with the new soundtrack. So, it&#x27;s a bit weird, but everything is chill.</p>
+<p>That being said, OFF is a very atmospheric and memorable game, and the soundtrack contributed a lot to that. It&#x27;s an integral part of the memories that people have built of this game. Trying to replace those songs feels like breaking into somebody&#x27;s house and pasting your face into their family photo album.</p>
+<p>But, Mortis asked me if I was interested, and, given that his game really inspired me, and he&#x27;s a super nice guy... I decided I would try my best to help. To ensure that new players, even if they didn&#x27;t get the exact same experience, would get a pretty cool one.</p>
+<p>I ended up handling a lot of boss tracks. I attempted to match the game&#x27;s &quot;style&quot; by aiming for idiosyncrasy and atmosphere over everything else. I think the results are pretty cool.</p>
+<p>I also was assigned... the normal battle theme. I&#x27;m gonna be honest, just feels like I got assigned to take a bullet in the back for everybody else. I looked up almost every jazz song from the 1920s, I commissioned Carlos to make an entire fake jazz song for me so I could cut it up into samples, I tried making like 6 entirely different songs, but nothing I could come up with on my own felt quite right.</p>
+<p>In the end, I summoned Camellia to help me out by re-remixing my first track into multiple versions, and so ultimately I think it will feel pretty cool as you go through the game. (But, I&#x27;ll be the first to say that I can&#x27;t replace your memories...)</p>
+<p>▶</p>
+<p>![WHITE MEAT (ZONE 1) - OFF Original Soundtrack thumbnail](/images/thumb-ost-whitemeat1.jpg)</p>
+<p>By clicking to view this video, you agree to <a href="YouTube&#x27;s Privacy Policy" target="_blank" rel="noopener">YouTube&#x27;s Privacy Policy</a>.</p>
+<p>Oh, right. The song you heard in the trailer might appear in the game. I&#x27;m actually quite proud of that one, I think it&#x27;s the best track I made. Apparently no one realized it was me, so I feel pretty good</p>
+<p>▶</p>
+<p>![TRAILER - OFF Original Soundtrack thumbnail](/images/thumb-ost-trailer.jpg)</p>
+<p>By clicking to view this video, you agree to <a href="YouTube&#x27;s Privacy Policy" target="_blank" rel="noopener">YouTube&#x27;s Privacy Policy</a>.</p>
+<p>By the way, I did the music for free, and I&#x27;ll upload my tracks for free after the game comes out. Personally, I don&#x27;t think the original music is replaceable, so I want to treat what I made like &quot;fanmusic&quot;, made just out of love and respect for the original. Alright, see ya.</p></div></details></div></section>
+</main>
+
+<footer>
+<p>《OFF》© Mortis Ghost / Unproductive Fun Time · 音乐：Alias Conrad Coldwood · 实体版：Fangamer</p>
+<p>本站仅供个人研究收藏，图片与文字版权归原作者所有，禁止商用与二次发布。</p>
+<p>资料源：<a href="https://offtherpg.com">offtherpg.com</a> · <a href="https://www.fangamer.com/collections/off">Fangamer</a> ·
+<a href="https://mortisghost.tumblr.com">Mortis Ghost</a> · <a href="https://off.fandom.com">OFF Wiki</a></p>
+</footer>
+
+
+</body>
+</html>
