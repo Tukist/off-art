@@ -80,8 +80,9 @@ footer code { background:var(--line); padding:1px 6px; }
 .player { position:fixed; right:16px; bottom:16vh; z-index:80; }
 #player-toggle { width:48px; height:66px; border:1px solid var(--line); background:#0d0d0f;
   color:var(--ink); cursor:pointer; font-size:1.1rem; letter-spacing:.1em;
-  transition:background .25s, color .25s, border-color .25s; }
+  transition:background .25s, color .25s, border-color .25s, transform .38s cubic-bezier(.22,1,.36,1); }
 #player-toggle:hover { background:var(--ink); color:var(--bg); border-color:var(--ink); }
+.player.open #player-toggle { border-color:var(--ink); color:var(--dim); transform:rotate(180deg); }
 #player-toggle.playing { animation:eq 1.2s ease-in-out infinite; }
 @keyframes eq { 0%,100%{ opacity:1 } 50%{ opacity:.45 } }
 #player-panel { position:absolute; right:56px; bottom:0; width:322px; max-width:86vw;
@@ -272,6 +273,11 @@ var player = document.getElementById('player');
 function setOpen(o){ player.classList.toggle('open', o); localStorage.setItem('off_open', o?'1':'0'); }
 el('player-toggle').addEventListener('click', function(){ setOpen(!player.classList.contains('open')); });
 el('player-close').addEventListener('click', function(){ setOpen(false); });
+// 点击面板以外区域收起 + ESC 收起
+document.addEventListener('click', function(e){
+  if(player.classList.contains('open') && !player.contains(e.target)) setOpen(false);
+});
+document.addEventListener('keydown', function(e){ if(e.key === 'Escape') setOpen(false); });
 if(localStorage.getItem('off_open') === '1') player.classList.add('open');
 function save(){
   try { localStorage.setItem('off_music', JSON.stringify({idx:idx, time:audio.currentTime||0})); } catch(e){}
