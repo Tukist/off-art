@@ -766,57 +766,66 @@ def build_index():
 (function(){
 var lb=document.getElementById('lightbox'),stage=document.getElementById('lb-stage'),img=document.getElementById('lb-img'),
     capEl=document.getElementById('lb-cap'),countEl=document.getElementById('lb-count'),zi=document.getElementById('lb-zoomind');
-var cards=[].slice.call(document.querySelectorAll('.card-img')), idx=0, scale=1, tx=0, ty=0,
-    dragging=false, sx=0, sy=0, stx=0, sty=0;
+var cards=[].slice.call(document.querySelectorAll('.card-img')), curGroup=[], gi=0,
+    scale=1, tx=0, ty=0, dragging=false, sx=0, sy=0, stx=0, sty=0;
 function setTransform(){
   img.style.transform='translate(-50%,-50%) translate('+tx+'px,'+ty+'px) scale('+scale+')';
   img.classList.toggle('zoom', scale>1);
   img.classList.toggle('drag', dragging);
   zi.textContent=Math.round(scale*100)+'%';
 }
-function show(i){
-  i=(i+cards.length)%cards.length; idx=i; var a=cards[i];
+function render(a){
   img.src=a.href; scale=1; tx=0; ty=0; setTransform();
   var html='';
   if(a.dataset.name) html+='<div class="t">'+a.dataset.name+'</div>';
   if(a.dataset.cap) html+='<div class="d">'+a.dataset.cap+'</div>';
   html+='<div class="hint">滚轮缩放 · 拖拽平移 · ← → 切换 · Esc 关闭</div>';
   capEl.innerHTML=html;
-  var g=cards.filter(function(c){return c.dataset.g===a.dataset.g;});
-  countEl.textContent=(g.indexOf(a)+1)+' / '+g.length;
+  countEl.textContent=(gi+1)+' / '+curGroup.length;
   lb.style.display='flex';
 }
+function openFromCard(a){
+  curGroup=cards.filter(function(c){return c.dataset.g===a.dataset.g;});
+  gi=curGroup.indexOf(a); render(a);
+}
+function step(d){
+  if(!curGroup.length)return;
+  gi=(gi+d+curGroup.length)%curGroup.length;
+  render(curGroup[gi]);
+}
 function zoomAt(ns,px,py){
+  if(ns<=1){ scale=1; tx=0; ty=0; setTransform(); return; }
   var r=stage.getBoundingClientRect(),cx=r.width/2,cy=r.height/2,os=scale;
   ns=Math.max(1,Math.min(8,ns));
   var dx=px-(r.left+cx+tx), dy=py-(r.top+cy+ty);
   tx+=dx*(1-ns/os); ty+=dy*(1-ns/os); scale=ns; setTransform();
 }
-cards.forEach(function(a,i){a.addEventListener('click',function(e){e.preventDefault();show(i);});});
+cards.forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();openFromCard(a);});});
 stage.addEventListener('wheel',function(e){
   e.preventDefault();
   zoomAt(scale*(e.deltaY<0?1.18:1/1.18),e.clientX,e.clientY);
 },{passive:false});
 stage.addEventListener('pointerdown',function(e){
   if(scale<=1)return; dragging=true; sx=e.clientX; sy=e.clientY; stx=tx; sty=ty;
-  stage.setPointerCapture(e.pointerId); setTransform();
+  try{stage.setPointerCapture(e.pointerId);}catch(err){}
+  setTransform();
 });
 stage.addEventListener('pointermove',function(e){
   if(!dragging)return; tx=stx+(e.clientX-sx); ty=sty+(e.clientY-sy); setTransform();
 });
 stage.addEventListener('pointerup',function(){dragging=false; setTransform();});
 stage.addEventListener('pointercancel',function(){dragging=false; setTransform();});
-document.getElementById('lb-prev').addEventListener('click',function(e){e.stopPropagation();show(idx-1);});
-document.getElementById('lb-next').addEventListener('click',function(e){e.stopPropagation();show(idx+1);});
+document.getElementById('lb-prev').addEventListener('click',function(e){e.stopPropagation();step(-1);});
+document.getElementById('lb-next').addEventListener('click',function(e){e.stopPropagation();step(1);});
 document.getElementById('lb-zoomin').addEventListener('click',function(e){e.stopPropagation();zoomAt(scale*1.25,window.innerWidth/2,window.innerHeight/2);});
 document.getElementById('lb-zoomout').addEventListener('click',function(e){e.stopPropagation();zoomAt(scale/1.25,window.innerWidth/2,window.innerHeight/2);});
 document.getElementById('lb-reset').addEventListener('click',function(e){e.stopPropagation();zoomAt(1,window.innerWidth/2,window.innerHeight/2);});
 lb.addEventListener('click',function(e){if(e.target===lb)lb.style.display='none';});
 document.addEventListener('keydown',function(e){
   if(lb.style.display==='none')return;
-  if(e.key==='Escape')lb.style.display='none';
-  else if(e.key==='ArrowRight')show(idx+1);
-  else if(e.key==='ArrowLeft')show(idx-1);
+  if(e.key==='Escape'){lb.style.display='none';}
+  else if(e.key==='ArrowRight'){e.preventDefault();step(1);}
+  else if(e.key==='ArrowLeft'){e.preventDefault();step(-1);}
   else if(e.key==='+'||e.key==='=')zoomAt(scale*1.25,window.innerWidth/2,window.innerHeight/2);
   else if(e.key==='-')zoomAt(scale/1.25,window.innerWidth/2,window.innerHeight/2);
 });
