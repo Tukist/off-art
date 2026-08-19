@@ -14,6 +14,14 @@ import shutil
 import random
 from html import escape
 
+from opencc import OpenCC
+_CC = OpenCC("s2t")
+
+
+def _trad(s):
+    """简体中文 → 繁体中文"""
+    return _CC.convert(s)
+
 from PIL import Image
 
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -31,7 +39,7 @@ CSS = """
 * { margin:0; padding:0; box-sizing:border-box; }
 html { scroll-behavior:smooth; }
 :root { --ink:#e8e6e1; --bg:#0d0d0f; --dim:#9a978e; --line:#2a2a30; --card:#151519; --accent:#f2f2f2; }
-body { background:var(--bg); color:var(--ink); font-family:'Courier New',monospace; line-height:1.7; }
+body { background:var(--bg); color:var(--ink); font-family:'PMingLiU','MingLiU','新細明體','細明體',serif; line-height:1.7; }
 a { color:var(--ink); }
 .topbar { position:sticky; top:0; z-index:50; background:rgba(13,13,15,.92); backdrop-filter:blur(6px);
   border-bottom:1px solid var(--line); }
@@ -364,8 +372,8 @@ def topbar(brand_link="index.html", extra_links=None, prefix=""):
 
 
 def page(hero, main_html, brand_link="index.html", extra_links=None, prefix=""):
-    return f"""<!DOCTYPE html>
-<html lang="zh-CN">
+    html = f"""<!DOCTYPE html>
+<html lang="zh-Hant">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -383,6 +391,7 @@ def page(hero, main_html, brand_link="index.html", extra_links=None, prefix=""):
 {hero["script"] or ""}
 </body>
 </html>"""
+    return _trad(html)
 
 
 # ---------------- 图片处理 ----------------
