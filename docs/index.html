@@ -73,7 +73,9 @@ footer code { background:var(--line); padding:1px 6px; }
 #lightbox { position:fixed; inset:0; background:rgba(0,0,0,.94); display:none; z-index:99; }
 #lb-stage { position:absolute; inset:0; overflow:hidden; cursor:zoom-in; }
 #lb-img { position:absolute; left:50%; top:50%; max-width:92vw; max-height:82vh;
-  transform:translate(-50%,-50%); transition:transform .12s ease-out; user-select:none; -webkit-user-drag:none; }
+  transform:translate(-50%,-50%); transition:transform .12s ease-out, opacity .15s ease;
+  user-select:none; -webkit-user-drag:none; }
+#lb-img.loading { opacity:.35; }
 #lb-img.zoom { max-width:none; max-height:none; cursor:grab; }
 #lb-img.drag { cursor:grabbing; transition:none; }
 #lb-bar { position:fixed; bottom:58px; left:50%; transform:translateX(-50%); display:flex;
@@ -336,7 +338,15 @@ if(st && st.idx>=0 && st.idx<TRACKS.length){
 var lb=document.getElementById('lightbox'),stage=document.getElementById('lb-stage'),img=document.getElementById('lb-img'),
     capEl=document.getElementById('lb-cap'),countEl=document.getElementById('lb-count'),zi=document.getElementById('lb-zoomind');
 var cards=[].slice.call(document.querySelectorAll('.card-img')), curGroup=[], gi=0,
-    scale=1, tx=0, ty=0, dragging=false, sx=0, sy=0, stx=0, sty=0;
+    scale=1, tx=0, ty=0, dragging=false, sx=0, sy=0, stx=0, sty=0, preloaded={};
+function preloadNear(a){
+  var i=curGroup.indexOf(a), urls=[];
+  [-2,-1,1,2].forEach(function(d){
+    var k=(i+d+curGroup.length)%curGroup.length, u=curGroup[k].href;
+    if(!preloaded[u]){ var im=new Image(); im.src=u; preloaded[u]=true; urls.push(u.slice(-24)); }
+  });
+  return urls;
+}
 function setTransform(){
   img.style.transform='translate(-50%,-50%) translate('+tx+'px,'+ty+'px) scale('+scale+')';
   img.classList.toggle('zoom', scale>1);
@@ -344,7 +354,9 @@ function setTransform(){
   zi.textContent=Math.round(scale*100)+'%';
 }
 function render(a){
+  img.classList.add('loading');
   img.src=a.href; scale=1; tx=0; ty=0; setTransform();
+  preloadNear(a);
   var html='';
   if(a.dataset.name) html+='<div class="t">'+a.dataset.name+'</div>';
   if(a.dataset.cap) html+='<div class="d">'+a.dataset.cap+'</div>';
@@ -353,6 +365,7 @@ function render(a){
   countEl.textContent=(gi+1)+' / '+curGroup.length;
   lb.style.display='flex';
 }
+img.addEventListener('load', function(){ img.classList.remove('loading'); });
 function openFromCard(a){
   curGroup=cards.filter(function(c){return c.dataset.g===a.dataset.g;});
   gi=curGroup.indexOf(a); render(a);
