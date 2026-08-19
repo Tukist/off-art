@@ -497,13 +497,14 @@ function play(i, autostart){
   Array.prototype.forEach.call(list.children, function(li,j){ li.className = (j===idx) ? 'playing' : ''; });
   save();
 }
-el('p-list').innerHTML = TRACKS.map(function(t,i){
+el('p-list').innerHTML = '';
+TRACKS.forEach(function(t,i){
   var li = document.createElement('li');
   li.textContent = (i<9?'0':'')+(i+1) + '. ' + t.title;
   li.title = t.title + ' — ' + t.artist;
   li.addEventListener('click', function(){ play(i); });
-  return li.outerHTML;
-}).join('');
+  el('p-list').appendChild(li);
+});
 audio.addEventListener('timeupdate', function(){
   var d = audio.duration || TRACKS[idx].dur;
   el('p-cur').textContent = fmt(audio.currentTime);
