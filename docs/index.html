@@ -317,6 +317,20 @@ if(st && st.idx>=0 && st.idx<TRACKS.length){
 })();
 </script>
 
+<div id="lightbox" role="dialog" aria-label="图片查看器">
+  <div id="lb-stage"><img id="lb-img" alt=""></div>
+  <div id="lb-zoomind">100%</div>
+  <div id="lb-bar">
+    <button id="lb-prev" title="上一张 (←)">‹</button>
+    <span id="lb-count"></span>
+    <button id="lb-next" title="下一张 (→)">›</button>
+    <span class="sep"></span>
+    <button id="lb-zoomin" title="放大 (+)">+</button>
+    <button id="lb-zoomout" title="缩小 (−)">−</button>
+    <button id="lb-reset" title="重置 1:1">1:1</button>
+  </div>
+  <div id="lb-cap"></div>
+</div>
 <script>
 (function(){
 var lb=document.getElementById('lightbox'),stage=document.getElementById('lb-stage'),img=document.getElementById('lb-img'),
@@ -377,20 +391,6 @@ document.addEventListener('keydown',function(e){
 });
 })();
 </script>
-<div id="lightbox" role="dialog" aria-label="图片查看器">
-  <div id="lb-stage"><img id="lb-img" alt=""></div>
-  <div id="lb-zoomind">100%</div>
-  <div id="lb-bar">
-    <button id="lb-prev" title="上一张 (←)">‹</button>
-    <span id="lb-count"></span>
-    <button id="lb-next" title="下一张 (→)">›</button>
-    <span class="sep"></span>
-    <button id="lb-zoomin" title="放大 (+)">+</button>
-    <button id="lb-zoomout" title="缩小 (−)">−</button>
-    <button id="lb-reset" title="重置 1:1">1:1</button>
-  </div>
-  <div id="lb-cap"></div>
-</div>
 
 </body>
 </html>

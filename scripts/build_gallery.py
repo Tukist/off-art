@@ -748,6 +748,20 @@ def build_index():
                      '<p class="tagline">《OFF》(2008) · Mortis Ghost 美术设定画廊<br>'
                      'The Batter 净化之旅的设定图、概念草稿、官方美术与周边档案</p></header>'),
             "script": """
+<div id="lightbox" role="dialog" aria-label="图片查看器">
+  <div id="lb-stage"><img id="lb-img" alt=""></div>
+  <div id="lb-zoomind">100%</div>
+  <div id="lb-bar">
+    <button id="lb-prev" title="上一张 (←)">‹</button>
+    <span id="lb-count"></span>
+    <button id="lb-next" title="下一张 (→)">›</button>
+    <span class="sep"></span>
+    <button id="lb-zoomin" title="放大 (+)">+</button>
+    <button id="lb-zoomout" title="缩小 (−)">−</button>
+    <button id="lb-reset" title="重置 1:1">1:1</button>
+  </div>
+  <div id="lb-cap"></div>
+</div>
 <script>
 (function(){
 var lb=document.getElementById('lightbox'),stage=document.getElementById('lb-stage'),img=document.getElementById('lb-img'),
@@ -808,20 +822,6 @@ document.addEventListener('keydown',function(e){
 });
 })();
 </script>
-<div id="lightbox" role="dialog" aria-label="图片查看器">
-  <div id="lb-stage"><img id="lb-img" alt=""></div>
-  <div id="lb-zoomind">100%</div>
-  <div id="lb-bar">
-    <button id="lb-prev" title="上一张 (←)">‹</button>
-    <span id="lb-count"></span>
-    <button id="lb-next" title="下一张 (→)">›</button>
-    <span class="sep"></span>
-    <button id="lb-zoomin" title="放大 (+)">+</button>
-    <button id="lb-zoomout" title="缩小 (−)">−</button>
-    <button id="lb-reset" title="重置 1:1">1:1</button>
-  </div>
-  <div id="lb-cap"></div>
-</div>
 """}
     return page(hero, main, brand_link="index.html")
 
